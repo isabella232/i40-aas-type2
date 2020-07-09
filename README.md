@@ -12,7 +12,6 @@
   - [Prerequisites](#prerequisites)
   - [Instructions](#instructions)
     - [Getting Started](#getting-started)
-    - [Cleanup](#cleanup)
   - [Configuration](#configuration)
   - [Known Issues](#known-issues)
   - [Get Support](#get-support)
@@ -53,38 +52,10 @@ Optionally, you can download and install [Postman](https://www.getpostman.com) t
 
 Service interactions can be deployed, tested and developed locally using Docker Compose as described below. For further instructions & information about **i40-aas-type2** check [the documentation](docs/README.md)
 
-Run **i40-aas-type2** locally using any of these options:
-
-- Pull and run prebuilt images from our [Docker Hub repository](https://hub.docker.com/orgs/sapi40/repositories). Pulling can last several minutes depending on your internet connection.
-
-```bash
-## 'up' (start) the composed setup
-$ make install
-```
-
-- Build the **i40-aas-type2** images from source first, then pull external dependencies and continue to run everything. Builds are executed in parallel, thus build logs can appear cluttered. Building all **i40-aas-type2** images can last several minutes.
-
-```bash
-## build i40-aas-type2 images
-$ make
-
-## 'up' (start) the composed setup
-$ make install
-```
-
-### Cleanup
-
-Once done, one can stop & clean up locally by executing:
-
-```bash
-$ make clean
-```
 
 ## Configuration
 
 The local setup uses the default configurations specified in the `.env` file.
-
-See [here](docs/markdown/join-containers.md) how to join other service containers locally.
 
 ## Known Issues
 
