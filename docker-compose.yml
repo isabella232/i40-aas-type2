@@ -1,0 +1,71 @@
+version: '3.7'
+services:
+  ########################################################
+  i40-aas-data-manager:
+    image: sapi40/i40-aas-data-manager
+    ports:
+      - "${CORE_DATA_MANAGER_PORT}:${CORE_DATA_MANAGER_PORT}"
+    environment:
+      ## logging
+      - LOGGING_LOGLEVEL=${LOGGING_LOGLEVEL}
+      - LOGGING_LOGOUTPUT=${LOGGING_LOGOUTPUT}
+      ## adapter-registry
+      - CORE_REGISTRIES_ADAPTERS_HOST=i40-aas-adapter-registry
+      - CORE_REGISTRIES_ADAPTERS_PORT=${CORE_REGISTRIES_ADAPTERS_PORT}
+      - CORE_REGISTRIES_ADAPTERS_URL_SUFFIX=${CORE_REGISTRIES_ADAPTERS_URL_SUFFIX}
+      - CORE_REGISTRIES_ADAPTERS_USER=${CORE_REGISTRIES_ADAPTERS_USER}
+      - CORE_REGISTRIES_ADAPTERS_PASSWORD=${CORE_REGISTRIES_ADAPTERS_PASSWORD}
+      ## data-manager
+      - CORE_DATA_MANAGER_PORT=${CORE_DATA_MANAGER_PORT}
+      - CORE_DATA_MANAGER_USER=${CORE_DATA_MANAGER_USER}
+      - CORE_DATA_MANAGER_PASSWORD=${CORE_DATA_MANAGER_PASSWORD}
+      ## TLS
+      - TLS_ENABLED=${TLS_ENABLED}
+      - TLS_KEYFILE=${TLS_KEYFILE}
+      - TLS_CERTFILE=${TLS_CERTFILE}
+    volumes:
+      - ./src/compose/volumes/certs/:/etc/ssl/certs/
+  ##########################################
+  i40-aas-adapter-registry:
+    image: sapi40/i40-aas-adapter-registry
+    ports:
+      - "${CORE_REGISTRIES_ADAPTERS_PORT}:${CORE_REGISTRIES_ADAPTERS_PORT}"
+    environment:
+      ## logging
+      - LOGGING_LOGLEVEL=${LOGGING_LOGLEVEL}
+      - LOGGING_LOGOUTPUT=${LOGGING_LOGOUTPUT}
+      ## adapter-registry
+      - CORE_REGISTRIES_ADAPTERS_USER=${CORE_REGISTRIES_ADAPTERS_USER}
+      - CORE_REGISTRIES_ADAPTERS_PASSWORD=${CORE_REGISTRIES_ADAPTERS_PASSWORD}
+      - CORE_REGISTRIES_ADAPTERS_PORT=${CORE_REGISTRIES_ADAPTERS_PORT}
+      ## TLS
+      - TLS_ENABLED=${TLS_ENABLED}
+      - TLS_KEYFILE=${TLS_KEYFILE}
+      - TLS_CERTFILE=${TLS_CERTFILE}
+    volumes:
+      - ./src/compose/volumes/certs/:/etc/ssl/certs/
+  ##########################################
+  i40-aas-storage-adapter-mongodb:
+    image: sapi40/i40-aas-storage-adapter-mongodb
+    ports:
+      - "${APPLICATION_ADAPTERS_MONGODB_PORT}:${APPLICATION_ADAPTERS_MONGODB_PORT}"
+    environment:
+      ## logging
+      - LOGGING_LOGLEVEL=${LOGGING_LOGLEVEL}
+      - LOGGING_LOGOUTPUT=${LOGGING_LOGOUTPUT}
+      ## mongodb
+      - APPLICATION_ADAPTERS_MONGODB_DATABASE_HOST=mongodb
+      - APPLICATION_ADAPTERS_MONGODB_DATABASE_PORT=${SKILLS_ONBOARDING_DATABASE_PORT}
+      - APPLICATION_ADAPTERS_MONGODB_DATABASE_USER=${SKILLS_ONBOARDING_DATABASE_USER}
+      - APPLICATION_ADAPTERS_MONGODB_DATABASE_PASSWORD=${SKILLS_ONBOARDING_DATABASE_PASSWORD}
+      - APPLICATION_ADAPTERS_MONGODB_DATABASE_NAME=${SKILLS_ONBOARDING_DATABASE_NAME}
+      ## storage-adapter-mongodb
+      - APPLICATION_ADAPTERS_MONGODB_SUBMODELS_COLLECTION=${APPLICATION_ADAPTERS_MONGODB_SUBMODELS_COLLECTION}
+      - APPLICATION_ADAPTERS_MONGODB_PORT=${APPLICATION_ADAPTERS_MONGODB_PORT}
+      ## TLS
+      - TLS_ENABLED=${TLS_ENABLED}
+      - TLS_KEYFILE=${TLS_KEYFILE}
+      - TLS_CERTFILE=${TLS_CERTFILE}
+    volumes:
+      - ./src/compose/volumes/certs/:/etc/ssl/certs/
+  ##########################################
