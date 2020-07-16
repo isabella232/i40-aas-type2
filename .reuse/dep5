@@ -1,5 +1,5 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: SAP/i40-aas-type2
+Upstream-Name: i40-aas-type2
 Upstream-Contact: nemrude.verzano@sap.com
 Source: https://github.com/SAP/i40-aas-type2
 Disclaimer: The code in this project may include calls to APIs (“API Calls”) of
@@ -25,5 +25,5 @@ Disclaimer: The code in this project may include calls to APIs (“API Calls”)
  parties the right to use of access any SAP External Product, through API Calls.
 
 Files: *
-Copyright: SAP SE or an SAP affiliate company and contributors
+Copyright: SAP SE or an SAP affiliate company and i40-aas-type2 contributors
 License: Apache-2.0

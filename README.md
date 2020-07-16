@@ -85,6 +85,6 @@ This project follows the specification ["Details of the AssetAdministrationShell
 
 ## License
 
-Copyright (c) SAP SE or an SAP affiliate company and contributors. All rights reserved. This repository is licensed as noted in [LICENSES](LICENSES).
+Copyright (c) SAP SE or an SAP affiliate company and *i40-aas-type2* contributors. All rights reserved. This repository is licensed as noted in [LICENSES](LICENSES).
 
 Please note that Docker images can contain other software which may be licensed under different licenses. This License file is also included in the Docker image. For any usage of built Docker images please make sure to check the licenses of the artifacts contained in the images.
