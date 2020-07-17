@@ -1,8 +1,25 @@
-# i40-aas-type2
+<h1 align="center">
+  i40-aas-type2
+</h1>
 
-**i40-aas-type2** welcomes [contributions](#contributing). Please read about [known issues](#known-issues) and [upcoming changes](#upcoming-changes).
+<div align="center">
+    <img alt="REUSE status" src="https://api.reuse.software/badge/github.com/SAP/i40-aas-type2" />
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/SAP/i40-aas-type2" />
+    <img alt="Repository Size" src="https://img.shields.io/github/repo-size/SAP/i40-aas-type2" />
+    <img alt="License" src="https://img.shields.io/badge/License-Apache%202.0-green.svg" />
+</div>
 
+<div align="center">
 
+  ### ⚠️ **i40-aas-type2** is **alpha** ⚠️
+
+</div>
+
+<div align="center">
+
+  **i40-aas-type2** welcomes [contributions](#contributing). Please read about [known issues](#known-issues) and [upcoming changes](#upcoming-changes).
+
+</div>
 
 ## Contents
 
