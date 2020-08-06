@@ -1,6 +1,11 @@
 # i40-aas-data-manager-spring
 An implementation of the data-manager based on spring
+# data-manager
 
+The data manager acts as a forwards requests to the responsible application connector services.
+
+After running the service the API-Docs can be found at:
+`http://localhost:2001/swagger-ui.html#/`
 
 Prerequisite: [Install Maven](https://maven.apache.org/install.html)
 
@@ -12,3 +17,5 @@ Build docker container:
 
 Run container
 `docker run -p 8080:8080 i40aas/data-manager`
+
+Application properties can be found under /src/main/resources
