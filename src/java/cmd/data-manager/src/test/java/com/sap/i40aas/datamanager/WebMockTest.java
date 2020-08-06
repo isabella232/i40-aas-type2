@@ -24,6 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+//using @WebMvcTest will tell Spring Boot to instantiate only the web layer and not the entire context.
 @WebMvcTest(SubmodelController.class)
 public class WebMockTest {
 
@@ -33,6 +34,7 @@ public class WebMockTest {
   @MockBean
   private SubmodelsObjectsService submodelService;
 
+  //activate exception handler
   @Before
   public void setup() {
     this.mockMvc = MockMvcBuilders.standaloneSetup(submodelService)
@@ -40,6 +42,7 @@ public class WebMockTest {
       .build();
   }
 
+  @WithMockUser //for basic auth
   @Test
   public void getSumodelListShouldReturnListFromService() throws Exception {
     List<Submodel> submodels = new ArrayList<>(Arrays.asList(
@@ -56,6 +59,7 @@ public class WebMockTest {
       .andExpect(content().json(sapleSerialized));
   }
 
+  @WithMockUser
   @Test
   public void getSumodelByIDShouldReturnASubmodelWithIdFromService() throws Exception {
     List<Submodel> submodels = new ArrayList<>(Arrays.asList(

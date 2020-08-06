@@ -10,11 +10,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(classes = DataManagerApplication.class)
 public class SmokeTest {
 
-    @Autowired
-    private SubmodelController smController;
+  @Autowired
+  private SubmodelController smController;
 
-    @Test
-    public void contexLoads() throws Exception {
-        assertThat(smController).isNotNull();
-    }
+
+  @Test
+  public void contexLoads() throws Exception {
+    assertThat(smController).isNotNull();
+  }
 }

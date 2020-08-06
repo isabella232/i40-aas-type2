@@ -15,36 +15,34 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Value("${user.name}")
-    private String username;
-    @Value("${user.password}")
-    private String userpass;
+  @Value("${user.name}")
+  private String username;
+  @Value("${user.password}")
+  private String userpass;
 
-    @Autowired
-    private DMBasicAuthenticationEntryPoint authenticationEntryPoint;
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser(username).password(passwordEncoder().encode(userpass))
-                .authorities("ROLE_USER");
-    }
+  @Autowired
+  public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    auth.inMemoryAuthentication()
+      .withUser(username).password(passwordEncoder().encode(userpass))
+      .authorities("ROLE_USER");
+  }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/securityNone").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .httpBasic()
-                .authenticationEntryPoint(authenticationEntryPoint);
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    http.authorizeRequests()
+      .antMatchers("/securityNone").permitAll()
+      .anyRequest().authenticated()
+      .and()
+      .httpBasic();
+
 
 //        http.addFilterAfter(new CustomFilter(),
 //                BasicAuthenticationFilter.class);
-    }
+  }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 }
