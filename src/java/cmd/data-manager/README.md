@@ -16,6 +16,6 @@ Build docker container:
 `docker build -t i40aas/data-manager .`
 
 Run container
-`docker run -p 8080:8080 i40aas/data-manager`
+`docker run -p 2001:2001 i40aas/data-manager`
 
 Application properties can be found under /src/main/resources
