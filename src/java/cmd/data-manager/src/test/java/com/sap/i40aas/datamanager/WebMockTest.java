@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -26,67 +27,68 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(SubmodelController.class)
 public class WebMockTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+  @Autowired
+  private MockMvc mockMvc;
 
-    @MockBean
-    private SubmodelsObjectsService submodelService;
+  @MockBean
+  private SubmodelsObjectsService submodelService;
 
-    @Before
-    public void setup() {
-        this.mockMvc = MockMvcBuilders.standaloneSetup(submodelService)
-                .setControllerAdvice(new RestResponseEntityExceptionHandler())
-                .build();
-    }
+  @Before
+  public void setup() {
+    this.mockMvc = MockMvcBuilders.standaloneSetup(submodelService)
+      .setControllerAdvice(new RestResponseEntityExceptionHandler())
+      .build();
+  }
 
-    @Test
-    public void getSumodelListShouldReturnListFromService() throws Exception {
-        List<Submodel> submodels = new ArrayList<>(Arrays.asList(
-                SampleSubmodelFactory.Companion.getSampleSubmodel("sampleSb_1"),
-                SampleSubmodelFactory.Companion.getSampleSubmodel("sampleSb_2")
-        ));
+  @Test
+  public void getSumodelListShouldReturnListFromService() throws Exception {
+    List<Submodel> submodels = new ArrayList<>(Arrays.asList(
+      SampleSubmodelFactory.Companion.getSampleSubmodel("sampleSb_1"),
+      SampleSubmodelFactory.Companion.getSampleSubmodel("sampleSb_2")
+    ));
 
-        String sapleSerialized = AASObjectsDeserializer.Companion.serializeSubmodelList(submodels);
+    String sapleSerialized = AASObjectsDeserializer.Companion.serializeSubmodelList(submodels);
 
-        when(submodelService.getAllSubmodels()).thenReturn(submodels);
+    when(submodelService.getAllSubmodels()).thenReturn(submodels);
 
-        //expect as response a serialized list of submodelsd
-        this.mockMvc.perform(get("/submodels")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().json(sapleSerialized));
-    }
+    //expect as response a serialized list of submodelsd
+    this.mockMvc.perform(get("/submodels")).andDo(print()).andExpect(status().isOk())
+      .andExpect(content().json(sapleSerialized));
+  }
 
-    @Test
-    public void getSumodelByIDShouldReturnASubmodelWithIdFromService() throws Exception {
-        List<Submodel> submodels = new ArrayList<>(Arrays.asList(
-                SampleSubmodelFactory.Companion.getSampleSubmodel("sampleSb_1"),
-                SampleSubmodelFactory.Companion.getSampleSubmodel("sampleSb_2"),
-                SampleSubmodelFactory.Companion.getSampleSubmodel("TestIdShort")
-        ));
+  @Test
+  public void getSumodelByIDShouldReturnASubmodelWithIdFromService() throws Exception {
+    List<Submodel> submodels = new ArrayList<>(Arrays.asList(
+      SampleSubmodelFactory.Companion.getSampleSubmodel("sampleSb_1"),
+      SampleSubmodelFactory.Companion.getSampleSubmodel("sampleSb_2"),
+      SampleSubmodelFactory.Companion.getSampleSubmodel("TestIdShort")
+    ));
 
-        String sampleShortId = "Test-IdShort";
-        String sampleSerialized = AASObjectsDeserializer.Companion.serializeSubmodel(submodels.get(2));
+    String sampleShortId = "Test-IdShort";
+    String sampleSerialized = AASObjectsDeserializer.Companion.serializeSubmodel(submodels.get(2));
 
-        when(submodelService.getSubmodel(sampleShortId)).thenReturn(submodels.get(2));
+    when(submodelService.getSubmodel(sampleShortId)).thenReturn(submodels.get(2));
 
-        //expect as response a serialized list of submodelsd
-        this.mockMvc.perform(get("/submodels/" + sampleShortId)).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().json(sampleSerialized));
-    }
+    //expect as response a serialized list of submodelsd
+    this.mockMvc.perform(get("/submodels/" + sampleShortId)).andDo(print()).andExpect(status().isOk())
+      .andExpect(content().json(sampleSerialized));
+  }
 
-    @Test
-    public void getSumodelByIDShouldReturn400ErrorIfSubmodelNotFound() throws Exception {
-        List<Submodel> submodels = new ArrayList<>(Arrays.asList(
-                SampleSubmodelFactory.Companion.getSampleSubmodel("sampleSb_1"),
-                SampleSubmodelFactory.Companion.getSampleSubmodel("sampleSb_2"),
-                SampleSubmodelFactory.Companion.getSampleSubmodel("TestIdShort")
-        ));
+  @Test
+  @WithMockUser
+  public void getSumodelByIDShouldReturn400ErrorIfSubmodelNotFound() throws Exception {
+    List<Submodel> submodels = new ArrayList<>(Arrays.asList(
+      SampleSubmodelFactory.Companion.getSampleSubmodel("sampleSb_1"),
+      SampleSubmodelFactory.Companion.getSampleSubmodel("sampleSb_2"),
+      SampleSubmodelFactory.Companion.getSampleSubmodel("TestIdShort")
+    ));
 
-        String wrongId = "WrongId";
-        //String sampleSerialized = AASDeserializer.Companion.serializeSubmodel(submodels.get(2));
+    String wrongId = "WrongId";
+    //String sampleSerialized = AASDeserializer.Companion.serializeSubmodel(submodels.get(2));
 
-        when(submodelService.getSubmodel(wrongId)).thenThrow(java.util.NoSuchElementException.class);
+    when(submodelService.getSubmodel(wrongId)).thenThrow(java.util.NoSuchElementException.class);
 
 //        expect to return a 404 Error
-        this.mockMvc.perform(get("/submodels/" + wrongId)).andDo(print()).andExpect(status().is4xxClientError());
-    }
+    this.mockMvc.perform(get("/submodels/" + wrongId)).andDo(print()).andExpect(status().is4xxClientError());
+  }
 }
