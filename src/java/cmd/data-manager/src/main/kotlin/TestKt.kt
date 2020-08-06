@@ -4,6 +4,7 @@ package com.sap.i40aas.datamanager
 import JsonConfig
 import identifiables.AssetAdministrationShellEnv
 import identifiables.Submodel
+import identifiables.Asset
 import org.springframework.boot.runApplication
 import java.io.File
 
@@ -15,25 +16,25 @@ fun readFileDirectlyAsText(fileName: String): String = File(fileName).readText(C
 
 
 fun main(args: Array<String>) {
-    runApplication<BlogApplication>(*args)
+  runApplication<BlogApplication>(*args)
 
-    val json = JsonConfig.json
+  val json = JsonConfig.json
 
-    val sampleJson = readFileDirectlyAsText("src/main/resources/submodel-sample.json")
+  val sampleJson = readFileDirectlyAsText("src/main/resources/submodel-sample.json")
 
-    val submodelObj = json.parse(Submodel.serializer(),
-            sampleJson)
+  val submodelObj = json.parse(Submodel.serializer(),
+    sampleJson)
 
-    println(submodelObj.idShort)
+  println(submodelObj.idShort)
 
-    val sampleAASEnvJson = readFileDirectlyAsText("src/main/resources/testAASEnv.json")
+  val sampleAASEnvJson = readFileDirectlyAsText("src/main/resources/testAASEnv.json")
 
-    val aasEnvObj = json.parse(AssetAdministrationShellEnv.serializer(),
-            sampleAASEnvJson)
+  val aasEnvObj = json.parse(AssetAdministrationShellEnv.serializer(),
+    sampleAASEnvJson)
 
 
 
-    println(aasEnvObj.assets?.get(0)?.idShort?.toString())
+  println(aasEnvObj.assets?.get(0)?.idShort?.toString())
 
 }
 

@@ -16,8 +16,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class DataManagerApplicationTests {
 
-    @Autowired
-    private MockMvc mockMvc;
+  @Autowired
+  private MockMvc mockMvc;
 
     /*
     The @SpringBootTest annotation tells Spring Boot to look for a main configuration class
@@ -26,15 +26,14 @@ class DataManagerApplicationTests {
       and it should pass.
      */
 
+  @Test
+  public void shouldReturnDefaultMessage() throws Exception {
+    this.mockMvc.perform(get("/health")).andDo(print()).andExpect(status().isOk())
+      .andExpect(content().string(containsString("Server UP!")));
+  }
 
-    @Test
-    public void shouldReturnDefaultMessage() throws Exception {
-        this.mockMvc.perform(get("/health")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().string(containsString("Server UP!")));
-    }
-
-    @Test
-    void contextLoads() {
-    }
+  @Test
+  void contextLoads() {
+  }
 
 }

@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -23,6 +22,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+//import org.springframework.security.test.context.support.WithMockUser;
+
+//import org.springframework.security.test.context.support.WithMockUser;
 
 //using @WebMvcTest will tell Spring Boot to instantiate only the web layer and not the entire context.
 @WebMvcTest(SubmodelController.class)
@@ -42,7 +45,7 @@ public class WebMockTest {
       .build();
   }
 
-  @WithMockUser //for basic auth
+  //  @WithMockUser //for basic auth
   @Test
   public void getSumodelListShouldReturnListFromService() throws Exception {
     List<Submodel> submodels = new ArrayList<>(Arrays.asList(
@@ -59,7 +62,7 @@ public class WebMockTest {
       .andExpect(content().json(sapleSerialized));
   }
 
-  @WithMockUser
+  //  @WithMockUser
   @Test
   public void getSumodelByIDShouldReturnASubmodelWithIdFromService() throws Exception {
     List<Submodel> submodels = new ArrayList<>(Arrays.asList(
@@ -79,7 +82,7 @@ public class WebMockTest {
   }
 
   @Test
-  @WithMockUser
+//  @WithMockUser
   public void getSumodelByIDShouldReturn400ErrorIfSubmodelNotFound() throws Exception {
     List<Submodel> submodels = new ArrayList<>(Arrays.asList(
       SampleSubmodelFactory.Companion.getSampleSubmodel("sampleSb_1"),
