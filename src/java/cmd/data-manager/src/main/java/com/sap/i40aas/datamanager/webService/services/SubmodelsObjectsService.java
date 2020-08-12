@@ -1,8 +1,8 @@
 package com.sap.i40aas.datamanager.webService.services;
 
-import com.sap.i40aas.datamanager.webService.SampleSubmodelFactory;
 import identifiables.Submodel;
 import org.springframework.stereotype.Service;
+import utils.SampleSubmodelFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;

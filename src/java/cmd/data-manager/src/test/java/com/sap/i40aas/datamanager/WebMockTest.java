@@ -1,6 +1,5 @@
 package com.sap.i40aas.datamanager;
 
-import com.sap.i40aas.datamanager.webService.SampleSubmodelFactory;
 import com.sap.i40aas.datamanager.webService.controllers.RestResponseEntityExceptionHandler;
 import com.sap.i40aas.datamanager.webService.controllers.SubmodelController;
 import com.sap.i40aas.datamanager.webService.services.SubmodelsObjectsService;
@@ -13,6 +12,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import utils.AASObjectsDeserializer;
+import utils.SampleSubmodelFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
