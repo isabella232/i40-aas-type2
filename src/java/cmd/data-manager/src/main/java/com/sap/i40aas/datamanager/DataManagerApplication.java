@@ -4,6 +4,7 @@ import identifiables.AssetAdministrationShellEnv;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.core.io.ClassPathResource;
+import utils.AASObjectsDeserializer;
 
 import java.io.File;
 import java.io.IOException;

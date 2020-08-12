@@ -1,12 +1,12 @@
 package com.sap.i40aas.datamanager.webService.controllers;
 
-import com.sap.i40aas.datamanager.AASObjectsDeserializer;
 import com.sap.i40aas.datamanager.webService.services.AASEnvObjectsService;
 import identifiables.AssetAdministrationShellEnv;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import utils.AASObjectsDeserializer;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -26,7 +26,6 @@ public class AASEnvController {
 
   @RequestMapping(value = "/env", method = POST)
   public String addAASEnv(@RequestBody String body) {
-
 
     //NOTE: we give String in @Requestbody otherwise it will be deserialized with Jackson
     AssetAdministrationShellEnv env = AASObjectsDeserializer.Companion.deserializeAASEnv(body);

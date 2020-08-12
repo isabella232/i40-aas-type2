@@ -22,8 +22,8 @@ public class SubmodelsObjectsService {
 
 
   public Submodel getSubmodel(String idShort) {
-
-    return submodels.stream().filter(submodel -> submodel.getIdShort().equals(idShort)).findFirst().get();
+//TODO: replace idshort with the following
+    return submodels.stream().filter(submodel -> submodel.getIdentification().getId().equals(idShort)).findFirst().get();
   }
 
 
