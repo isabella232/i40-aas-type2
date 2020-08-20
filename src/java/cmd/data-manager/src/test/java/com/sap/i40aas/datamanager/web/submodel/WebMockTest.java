@@ -1,4 +1,4 @@
-package com.sap.i40aas.datamanager;
+package com.sap.i40aas.datamanager.web.submodel;
 
 import com.sap.i40aas.datamanager.webService.controllers.RestResponseEntityExceptionHandler;
 import com.sap.i40aas.datamanager.webService.controllers.SubmodelController;
@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import utils.AASObjectsDeserializer;
@@ -46,7 +47,7 @@ public class WebMockTest {
       .build();
   }
 
-  //  @WithMockUser //for basic auth
+  @WithMockUser //for basic auth
   @Test
   public void getSumodelListShouldReturnListFromService() throws Exception {
     List<Submodel> submodels = new ArrayList<>(Arrays.asList(
@@ -63,7 +64,7 @@ public class WebMockTest {
       .andExpect(content().json(sapleSerialized));
   }
 
-  //  @WithMockUser
+  @WithMockUser
   @Test
   public void getSumodelByIDShouldReturnASubmodelWithIdFromService() throws Exception {
     List<Submodel> submodels = new ArrayList<>(Arrays.asList(
@@ -83,7 +84,7 @@ public class WebMockTest {
   }
 
   @Test
-//  @WithMockUser
+  @WithMockUser
   public void getSumodelByIDShouldReturn400ErrorIfSubmodelNotFound() throws Exception {
     List<Submodel> submodels = new ArrayList<>(Arrays.asList(
       SampleSubmodelFactory.Companion.getSampleSubmodel("sampleSb_1"),

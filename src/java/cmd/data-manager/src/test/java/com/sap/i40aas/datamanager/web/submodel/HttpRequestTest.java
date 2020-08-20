@@ -1,5 +1,6 @@
-package com.sap.i40aas.datamanager;
+package com.sap.i40aas.datamanager.web.submodel;
 
+import com.sap.i40aas.datamanager.DataManagerApplication;
 import identifiables.Submodel;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,9 @@ public class HttpRequestTest {
   @Autowired
   private TestRestTemplate restTemplate;
 
-  @Value("${user.name}")
+  @Value("${basic.name}")
   private String username;
-  @Value("${user.password}")
+  @Value("${basic.password}")
   private String pass;
 
 

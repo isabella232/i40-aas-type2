@@ -21,9 +21,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   private String userpass;
 
   @Autowired
-  private DMBasicAuthenticationEntryPoint authenticationEntryPoint;
-
-  @Autowired
   public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
     auth.inMemoryAuthentication()
       .withUser(username).password(passwordEncoder().encode(userpass))
@@ -36,8 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .antMatchers("/securityNone").permitAll()
       .anyRequest().authenticated()
       .and()
-      .httpBasic()
-      .authenticationEntryPoint(authenticationEntryPoint);
+      .httpBasic();
 
     http.csrf().disable(); //default enables csrf support, you must disable it in order to prevent 403 errors.
 

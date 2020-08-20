@@ -21,21 +21,21 @@ public class SubmodelController {
   }
 
 
-  @RequestMapping("/submodels")
+  @RequestMapping(value = "/submodels", method = RequestMethod.GET)
   public List<Submodel> submodels() {
+
     return submodelService.getAllSubmodels();
   }
 
 
-  @RequestMapping("/submodels/{id}")
-  public Submodel getSubmodel(@PathVariable String id) {
+  @GetMapping("/submodels")
+  public Submodel getSubmodel(@RequestParam("id") String id) {
+
     return submodelService.getSubmodel(id);
   }
 
-
-  @PutMapping("/submodels/{id}")
-  public void updateSubmodel(@RequestBody String body, @PathVariable String id) {
-
+  @PutMapping("/submodels")
+  public void updateSubmodel(@RequestBody String body, @RequestParam("id") String id) {
 
     //NOTE: we give String in @Requestbody otherwise it will be deserialized with Jackson. TODO: see if there are alternatives to this
     Submodel sb = AASObjectsDeserializer.Companion.deserializeSubmodel(body);
@@ -43,18 +43,8 @@ public class SubmodelController {
   }
 
 
-  @RequestMapping(method = RequestMethod.DELETE, value = "/submodels/{id}")
-  public void deleteTopic(@PathVariable String id) {
+  @DeleteMapping("/submodels")
+  public void deleteSubmodel(@RequestParam("id") String id) {
     submodelService.deleteSubmodel(id);
   }
-
-  //Example if we wanted query params
-    /*
-    @RequestMapping(method = RequestMethod.DELETE, value = "/submodels/{idShort}")
-     public void deleteTopic(@PathVariable String id) {
-        submodelObjectService.deleteTopic(id);
-        }
-     */
-
-
 }

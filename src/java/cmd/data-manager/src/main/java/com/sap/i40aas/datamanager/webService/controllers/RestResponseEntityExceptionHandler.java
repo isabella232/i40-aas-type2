@@ -10,14 +10,18 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler
-        extends ResponseEntityExceptionHandler {
+  extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(value
-            = {java.util.NoSuchElementException.class, IllegalStateException.class})
-    protected ResponseEntity<Object> handleNoResourceFound(
-            RuntimeException ex, WebRequest request) {
-        String bodyOfResponse = "Requested resource not found";
-        return handleExceptionInternal(ex, bodyOfResponse,
-                new HttpHeaders(), HttpStatus.NOT_FOUND, request);
-    }
+// works at the @Controller level –
+// define a method to handle exceptions, and annotate that with
+// @ExceptionHandler:
+
+  @ExceptionHandler(value
+    = {java.util.NoSuchElementException.class, IllegalStateException.class})
+  protected ResponseEntity<Object> handleNoResourceFound(
+    RuntimeException ex, WebRequest request) {
+    String bodyOfResponse = "Requested resource not found";
+    return handleExceptionInternal(ex, bodyOfResponse,
+      new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+  }
 }
