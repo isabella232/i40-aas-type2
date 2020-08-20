@@ -2,6 +2,7 @@ package com.sap.i40aas.datamanager.webService.controllers;
 
 import com.sap.i40aas.datamanager.webService.services.SubmodelsObjectsService;
 import identifiables.Submodel;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import utils.AASObjectsDeserializer;
@@ -9,6 +10,8 @@ import utils.AASObjectsDeserializer;
 import java.util.List;
 
 @RestController
+@Slf4j
+
 public class SubmodelController {
 
 
@@ -21,15 +24,18 @@ public class SubmodelController {
   }
 
 
-  @RequestMapping(value = "/submodels", method = RequestMethod.GET)
-  public List<Submodel> submodels() {
+  @GetMapping(value = "/submodels")
+  public List<Submodel> getSubmodels() {
 
+    log.info("List Submodels request");
     return submodelService.getAllSubmodels();
+
+
   }
 
-
-  @GetMapping("/submodels")
-  public Submodel getSubmodel(@RequestParam("id") String id) {
+  //use the params to filter by HTTP parameters
+  @GetMapping(value = "/submodels", params = "id")
+  public Submodel getSubmodels(@RequestParam(name = "id", required = false) String id) {
 
     return submodelService.getSubmodel(id);
   }
