@@ -45,7 +45,6 @@ public class AssetController {
 
     //NOTE: we give String in @Requestbody otherwise it will be deserialized with Jackson. TODO: see if there are alternatives to this
     Asset asset = AASObjectsDeserializer.Companion.deserializeAsset(body);
-
     assetsService.updateAsset(id, asset);
   }
 
