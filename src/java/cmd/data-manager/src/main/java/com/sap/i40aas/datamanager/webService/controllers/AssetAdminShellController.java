@@ -25,7 +25,7 @@ public class AssetAdminShellController {
 
 
   @GetMapping(value = "/shells")
-  public List<AssetAdministrationShell> getShellList() {
+  public List<AssetAdministrationShell> getShellsList() {
 
     log.info("List AAS request");
     return aasService.getAllAASs();

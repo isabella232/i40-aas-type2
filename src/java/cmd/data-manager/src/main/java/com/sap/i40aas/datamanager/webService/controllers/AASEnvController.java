@@ -27,7 +27,7 @@ public class AASEnvController {
 
 
   @RequestMapping(value = "/env", method = POST)
-  public AssetAdministrationShellEnv addAASEnv(@RequestBody String body) {
+  public AssetAdministrationShellEnv createAASEnv(@RequestBody String body) {
 
     //NOTE: we give String in @Requestbody otherwise it will be deserialized with Jackson
     AssetAdministrationShellEnv env = AASObjectsDeserializer.Companion.deserializeAASEnv(body);

@@ -1,7 +1,11 @@
 package com.sap.i40aas.datamanager.webService.services;
 
+import com.sap.i40aas.datamanager.persistence.entities.SubmodelEntity;
+import com.sap.i40aas.datamanager.persistence.repositories.SubmodelRepository;
 import identifiables.Submodel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import utils.AASObjectsDeserializer;
 import utils.SampleSubmodelFactory;
 
 import java.util.ArrayList;
@@ -13,6 +17,9 @@ import java.util.List;
 public class SubmodelsObjectsService {
 
   private SubmodelsObjectsService aasObjectService;
+
+  @Autowired
+  private SubmodelRepository submodelRepo;
 
 
   private final List<Submodel> submodels = new ArrayList<>(Arrays.asList(
@@ -30,7 +37,11 @@ public class SubmodelsObjectsService {
 
 
   public List<Submodel> getAllSubmodels() {
-    return submodels;
+    List<Submodel> submodelsList = new ArrayList<>();
+    submodelRepo.findAll().forEach(submodelEntity -> {
+      submodelsList.add(AASObjectsDeserializer.Companion.deserializeSubmodel(submodelEntity.getSubmodelObj()));
+    });
+    return submodelsList;
   }
 
   public void updateSubmodel(String idShort, Submodel submodel) {
@@ -41,7 +52,12 @@ public class SubmodelsObjectsService {
   }
 
   public void addSubmodel(Submodel submodel) {
-    submodels.add(submodel);
+
+    SubmodelEntity sbE = new SubmodelEntity(submodel.getIdentification().getId(), AASObjectsDeserializer.Companion.serializeSubmodel(submodel));
+//    SubmodelEntity sbE = new SubmodelEntity(submodel.getIdentification().getId(), "test");
+
+    submodelRepo.save(sbE);
+
   }
 
   public void deleteSubmodel(String idShort) {

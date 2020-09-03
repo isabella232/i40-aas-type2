@@ -25,7 +25,7 @@ public class SubmodelController {
 
 
   @GetMapping(value = "/submodels")
-  public List<Submodel> getSubmodels() {
+  public List<Submodel> getSubmodelsList() {
 
     log.info("List Submodels request");
     return submodelService.getAllSubmodels();
@@ -46,6 +46,14 @@ public class SubmodelController {
     //NOTE: we give String in @Requestbody otherwise it will be deserialized with Jackson. TODO: see if there are alternatives to this
     Submodel sb = AASObjectsDeserializer.Companion.deserializeSubmodel(body);
     submodelService.updateSubmodel(id, sb);
+  }
+
+  @PostMapping("/submodels")
+  public void updateSubmodel(@RequestBody String body) {
+
+    //NOTE: we give String in @Requestbody otherwise it will be deserialized with Jackson. TODO: see if there are alternatives to this
+    Submodel sb = AASObjectsDeserializer.Companion.deserializeSubmodel(body);
+    submodelService.addSubmodel(sb);
   }
 
 
