@@ -14,9 +14,9 @@ import java.util.List;
 
 
 @Service
-public class SubmodelsObjectsService {
+public class SubmodelObjectsService {
 
-  private SubmodelsObjectsService aasObjectService;
+  private SubmodelObjectsService aasObjectService;
 
   @Autowired
   private SubmodelRepository submodelRepo;
@@ -31,7 +31,10 @@ public class SubmodelsObjectsService {
   public Submodel getSubmodel(String submodelId) {
 //TODO: replace idshort with the following
 
-    Submodel sbFound = submodels.stream().filter(submodel -> submodel.getIdentification().getId().equals(submodelId)).findFirst().get();
+    //Submodel sbFound = submodels.stream().filter(submodel -> submodel.getIdentification().getId().equals(submodelId)).findFirst().get();
+    SubmodelEntity submodelEntityFound = submodelRepo.findById(submodelId).get();
+    Submodel sbFound = AASObjectsDeserializer.Companion.deserializeSubmodel(submodelEntityFound.getSubmodelObj());
+
     return sbFound;
   }
 
@@ -44,23 +47,27 @@ public class SubmodelsObjectsService {
     return submodelsList;
   }
 
-  public void updateSubmodel(String idShort, Submodel submodel) {
-    if (submodels.stream().anyMatch(submodel1 -> submodel.getIdShort().equals(idShort))) {
-      submodels.set(submodels.indexOf(submodels.stream().filter(submodel1 -> submodel.getIdShort().equals(idShort)).findFirst().get()), submodel);
+  public void updateSubmodel(String submodel_id, Submodel submodel) {
+
+    if (submodelRepo.findById(submodel_id).isPresent()) {
+      SubmodelEntity sbE = new SubmodelEntity(submodel_id, AASObjectsDeserializer.Companion.serializeSubmodel(submodel));
+      submodelRepo.save(sbE);
     } else
-      submodels.add(submodel);
+      throw new java.util.NoSuchElementException();
   }
 
   public void addSubmodel(Submodel submodel) {
 
     SubmodelEntity sbE = new SubmodelEntity(submodel.getIdentification().getId(), AASObjectsDeserializer.Companion.serializeSubmodel(submodel));
-//    SubmodelEntity sbE = new SubmodelEntity(submodel.getIdentification().getId(), "test");
-
     submodelRepo.save(sbE);
 
   }
 
-  public void deleteSubmodel(String idShort) {
-    submodels.removeIf(t -> t.getIdShort().equals(idShort));
+  public void deleteSubmodel(String submodel_id) {
+    if (submodelRepo.findById(submodel_id).isPresent()) {
+      submodelRepo.deleteById(submodel_id);
+    } else
+      throw new java.util.NoSuchElementException();
   }
+
 }

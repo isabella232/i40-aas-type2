@@ -1,6 +1,6 @@
 package com.sap.i40aas.datamanager.webService.controllers;
 
-import com.sap.i40aas.datamanager.webService.services.SubmodelsObjectsService;
+import com.sap.i40aas.datamanager.webService.services.SubmodelObjectsService;
 import identifiables.Submodel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +16,10 @@ public class SubmodelController {
 
 
   @Autowired
-  private final SubmodelsObjectsService submodelService;
+  private final SubmodelObjectsService submodelService;
 
   //need for mock testing
-  public SubmodelController(SubmodelsObjectsService submodelService) {
+  public SubmodelController(SubmodelObjectsService submodelService) {
     this.submodelService = submodelService;
   }
 

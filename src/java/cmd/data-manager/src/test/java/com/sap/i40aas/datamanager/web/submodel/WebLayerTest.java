@@ -2,7 +2,7 @@ package com.sap.i40aas.datamanager.web.submodel;
 
 import com.sap.i40aas.datamanager.webService.controllers.RestResponseEntityExceptionHandler;
 import com.sap.i40aas.datamanager.webService.controllers.SubmodelController;
-import com.sap.i40aas.datamanager.webService.services.SubmodelsObjectsService;
+import com.sap.i40aas.datamanager.webService.services.SubmodelObjectsService;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class WebLayerTest {
   private MockMvc mockMvc;
 
   @MockBean
-  private SubmodelsObjectsService submodelService;
+  private SubmodelObjectsService submodelService;
 
 
   //activate exception handler
