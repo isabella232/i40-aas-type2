@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -36,6 +37,8 @@ public class WebMockTest {
   @Autowired
   private MockMvc mockMvc;
 
+
+  // mock the Service layer code for our unit tests
   @MockBean
   private SubmodelObjectsService submodelService;
 
@@ -55,12 +58,14 @@ public class WebMockTest {
       SampleSubmodelFactory.Companion.getSampleSubmodel("sampleSb_2")
     ));
 
+    //deserialized list of submodels that should be returned as response
     String sapleSerialized = AASObjectsDeserializer.Companion.serializeSubmodelList(submodels);
 
     when(submodelService.getAllSubmodels()).thenReturn(submodels);
 
     //expect as response a serialized list of submodelsd
-    this.mockMvc.perform(get("/submodels")).andDo(print()).andExpect(status().isOk())
+    this.mockMvc.perform(get("/submodels"))
+      .andDo(print()).andExpect(status().isOk())
       .andExpect(content().json(sapleSerialized));
   }
 
@@ -79,13 +84,15 @@ public class WebMockTest {
     when(submodelService.getSubmodel(sampleShortId)).thenReturn(submodels.get(2));
 
     //expect as response a serialized list of submodelsd
-    this.mockMvc.perform(get("/submodels/" + sampleShortId)).andDo(print()).andExpect(status().isOk())
+    this.mockMvc.perform(get("/submodels")
+      .param("id", sampleShortId))
+      .andDo(print()).andExpect(status().isOk())
       .andExpect(content().json(sampleSerialized));
   }
 
   @Test
   @WithMockUser
-  public void getSumodelByIDShouldReturn400ErrorIfSubmodelNotFound() throws Exception {
+  public void getSumodelByIDShouldReturn404ErrorIfSubmodelNotFound() throws Exception {
     List<Submodel> submodels = new ArrayList<>(Arrays.asList(
       SampleSubmodelFactory.Companion.getSampleSubmodel("sampleSb_1"),
       SampleSubmodelFactory.Companion.getSampleSubmodel("sampleSb_2"),
@@ -98,6 +105,12 @@ public class WebMockTest {
     when(submodelService.getSubmodel(wrongId)).thenThrow(java.util.NoSuchElementException.class);
 
 //        expect to return a 404 Error
-    this.mockMvc.perform(get("/submodels/" + wrongId)).andDo(print()).andExpect(status().is4xxClientError());
+    this.mockMvc.perform(get("/submodels")
+      .param("id", wrongId))
+      .andDo(print()).andExpect(status().is4xxClientError())
+      .andExpect(content().string(containsString("Requested resource not found")));
+
   }
+
+
 }
