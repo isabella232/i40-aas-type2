@@ -4,7 +4,6 @@ package com.sap.i40aas.datamanager.integration.submodels;
 import com.sap.i40aas.datamanager.persistence.entities.SubmodelEntity;
 import com.sap.i40aas.datamanager.persistence.repositories.SubmodelRepository;
 import com.sap.i40aas.datamanager.webService.services.SubmodelObjectsService;
-import com.sap.i40aas.datamanager.webService.services.SubmodelServiceImpl;
 import identifiables.Submodel;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,7 +33,7 @@ public class SubmodelServiceImplIntegrationTest {
     //    To check the Service class, we need to have an instance of the Service class created and available as a @Bean so that we can @Autowire it in our test class
     @Bean
     public SubmodelObjectsService submodelService() {
-      return new SubmodelServiceImpl();
+      return new SubmodelObjectsService();
     }
   }
 

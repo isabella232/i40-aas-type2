@@ -2,6 +2,7 @@ package com.sap.i40aas.datamanager.webService.services;
 
 import com.sap.i40aas.datamanager.persistence.entities.SubmodelEntity;
 import com.sap.i40aas.datamanager.persistence.repositories.SubmodelRepository;
+import com.sap.i40aas.datamanager.webService.controllers.DuplicateResourceException;
 import identifiables.Submodel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,6 +50,10 @@ public class SubmodelObjectsService {
 
   public void updateSubmodel(String submodel_id, Submodel submodel) {
 
+    if (submodel_id == null)
+      throw new java.util.NoSuchElementException();
+
+
     if (submodelRepo.findById(submodel_id).isPresent()) {
       SubmodelEntity sbE = new SubmodelEntity(submodel_id, AASObjectsDeserializer.Companion.serializeSubmodel(submodel));
       submodelRepo.save(sbE);
@@ -60,6 +65,16 @@ public class SubmodelObjectsService {
 
     SubmodelEntity sbE = new SubmodelEntity(submodel.getIdentification().getId(), AASObjectsDeserializer.Companion.serializeSubmodel(submodel));
     submodelRepo.save(sbE);
+
+  }
+
+  public void createSubmodel(String submodel_id, Submodel submodel) throws DuplicateResourceException {
+// if Id not present create else if already there throw error
+    if (submodelRepo.findById(submodel_id).isPresent() == false) {
+      SubmodelEntity sbE = new SubmodelEntity(submodel_id, AASObjectsDeserializer.Companion.serializeSubmodel(submodel));
+      submodelRepo.save(sbE);
+    } else
+      throw new DuplicateResourceException();
 
   }
 

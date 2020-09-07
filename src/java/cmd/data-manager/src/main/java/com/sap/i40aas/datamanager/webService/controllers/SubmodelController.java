@@ -4,6 +4,7 @@ import com.sap.i40aas.datamanager.webService.services.SubmodelObjectsService;
 import identifiables.Submodel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
 import utils.AASObjectsDeserializer;
 
@@ -41,7 +42,16 @@ public class SubmodelController {
   }
 
   @PutMapping("/submodels")
-  public void updateSubmodel(@RequestBody String body, @RequestParam("id") String id) {
+  public void createSubmodel(@RequestBody String body, @RequestParam("id") String id) throws DuplicateResourceException {
+
+    //NOTE: we give String in @Requestbody otherwise it will be deserialized with Jackson. TODO: see if there are alternatives to this
+    Submodel sb = AASObjectsDeserializer.Companion.deserializeSubmodel(body);
+    submodelService.createSubmodel(id, sb);
+  }
+
+  @PatchMapping("/submodels")
+  public void updateSubmodel(@RequestBody String body, @RequestParam("id") String id) throws MissingServletRequestParameterException {
+
 
     //NOTE: we give String in @Requestbody otherwise it will be deserialized with Jackson. TODO: see if there are alternatives to this
     Submodel sb = AASObjectsDeserializer.Companion.deserializeSubmodel(body);

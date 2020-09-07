@@ -41,9 +41,8 @@ public class SubmodelRepositoryIntegrationTest {
 
   // write test cases here
   @Test
-  public void whenFindByName_thenReturnEmployee() throws IOException {
+  public void whenFindById_thenReturnSubmodel() throws IOException {
     // given
-
     //read an Submodel.json
     File resource = new ClassPathResource(
       "/submodel-sample.json").getFile();
@@ -62,11 +61,38 @@ public class SubmodelRepositoryIntegrationTest {
     Optional<SubmodelEntity> found = submodelRepository.findById(submode_id);
 
     log.info("Id " + found.get().getId());
-
     // then
     assertThat(found.get().getId()).isEqualTo(sampleSubmodelEntity.getId());
+  }
 
+  @Test
+  public void whenDeleteSubmodelThenCannotBeFound() throws IOException {
+    // given
+    //read an Submodel.json
+    File resource = new ClassPathResource(
+      "/submodel-sample.json").getFile();
+    String sampleSb = new String(
+      Files.readAllBytes(resource.toPath()));
 
+    String submodel_id = "http://acplt.org/Submodels/Assets/TestAsset/Identification";
+    SubmodelEntity sampleSubmodelEntity = new SubmodelEntity(submodel_id, sampleSb);
+
+    //depends on the DB integration, will fail if DB not connected
+    entityManager.persist(sampleSubmodelEntity);
+    entityManager.flush();
+
+    // when
+    Optional<SubmodelEntity> found = submodelRepository.findById(submodel_id);
+    assertThat(found.get().getId()).isEqualTo(sampleSubmodelEntity.getId());
+
+    log.info("Id " + found.get().getId());
+    // then
+
+    entityManager.remove(sampleSubmodelEntity);
+    Optional<SubmodelEntity> nothingToFind = submodelRepository.findById(submodel_id);
+
+//    check that the record was correctly deleted
+    assertThat(nothingToFind.isPresent()).isFalse();
   }
 
 }
