@@ -1,7 +1,7 @@
 package com.sap.i40aas.datamanager.webService.controllers;
 
 
-public class DuplicateResourceException extends Exception {
+public class DuplicateResourceException extends RuntimeException {
 
   private static final long serialVersionUID = 1997753363232807009L;
 

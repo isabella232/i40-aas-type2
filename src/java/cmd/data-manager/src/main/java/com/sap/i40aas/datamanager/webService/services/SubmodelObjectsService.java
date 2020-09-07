@@ -29,13 +29,12 @@ public class SubmodelObjectsService {
   ));
 
 
-  public Submodel getSubmodel(String submodelId) {
+  public Submodel getSubmodel(String id) {
 //TODO: replace idshort with the following
 
     //Submodel sbFound = submodels.stream().filter(submodel -> submodel.getIdentification().getId().equals(submodelId)).findFirst().get();
-    SubmodelEntity submodelEntityFound = submodelRepo.findById(submodelId).get();
+    SubmodelEntity submodelEntityFound = submodelRepo.findById(id).get();
     Submodel sbFound = AASObjectsDeserializer.Companion.deserializeSubmodel(submodelEntityFound.getSubmodelObj());
-
     return sbFound;
   }
 
@@ -48,14 +47,10 @@ public class SubmodelObjectsService {
     return submodelsList;
   }
 
-  public void updateSubmodel(String submodel_id, Submodel submodel) {
+  public void updateSubmodel(String id, Submodel submodel) {
 
-    if (submodel_id == null)
-      throw new java.util.NoSuchElementException();
-
-
-    if (submodelRepo.findById(submodel_id).isPresent()) {
-      SubmodelEntity sbE = new SubmodelEntity(submodel_id, AASObjectsDeserializer.Companion.serializeSubmodel(submodel));
+    if (submodelRepo.findById(id).isPresent()) {
+      SubmodelEntity sbE = new SubmodelEntity(id, AASObjectsDeserializer.Companion.serializeSubmodel(submodel));
       submodelRepo.save(sbE);
     } else
       throw new java.util.NoSuchElementException();
@@ -68,19 +63,19 @@ public class SubmodelObjectsService {
 
   }
 
-  public void createSubmodel(String submodel_id, Submodel submodel) throws DuplicateResourceException {
+  public void createSubmodel(String id, Submodel submodel) throws DuplicateResourceException {
 // if Id not present create else if already there throw error
-    if (submodelRepo.findById(submodel_id).isPresent() == false) {
-      SubmodelEntity sbE = new SubmodelEntity(submodel_id, AASObjectsDeserializer.Companion.serializeSubmodel(submodel));
+    if (submodelRepo.findById(id).isPresent() == false) {
+      SubmodelEntity sbE = new SubmodelEntity(id, AASObjectsDeserializer.Companion.serializeSubmodel(submodel));
       submodelRepo.save(sbE);
     } else
       throw new DuplicateResourceException();
 
   }
 
-  public void deleteSubmodel(String submodel_id) {
-    if (submodelRepo.findById(submodel_id).isPresent()) {
-      submodelRepo.deleteById(submodel_id);
+  public void deleteSubmodel(String id) {
+    if (submodelRepo.findById(id).isPresent()) {
+      submodelRepo.deleteById(id);
     } else
       throw new java.util.NoSuchElementException();
   }
