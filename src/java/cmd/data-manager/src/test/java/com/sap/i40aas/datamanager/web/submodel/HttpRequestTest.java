@@ -9,9 +9,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.*;
+import org.springframework.web.util.UriComponentsBuilder;
 import utils.AASObjectsDeserializer;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -49,6 +53,38 @@ public class HttpRequestTest {
     if (sbList.size() > 0)
       assertThat(sbList.get(0)).isInstanceOf(Submodel.class);
 
+  }
+
+  @Test
+  public void putSubmodelsWithInvalidContentShouldReturnAn4xxError() throws Exception {
+
+    String url = "http://localhost:" + port + "/submodels";
+    Map<String, String> params = new HashMap<String, String>();
+    params.put("id", "sample-submodelID");
+    String requestBody = "{\"foo\":\"bar\"}";
+    HttpHeaders headers = new HttpHeaders();
+    headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+
+    UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
+      .queryParam("id", "sample-submodelID");
+
+    HttpEntity<?> entity = new HttpEntity<>(requestBody, headers);
+
+    ResponseEntity<String> response = this.restTemplate.withBasicAuth(username, pass).exchange(
+      builder.toUriString(),
+      HttpMethod.PUT,
+      entity,
+      String.class);
+
+
+// check the response, e.g. Location header,  Status, and body
+    response.getHeaders().getLocation();
+    response.getStatusCode();
+
+    String responseBody = response.getBody();
+
+    System.out.println("status " + response.getStatusCode());
+    assertThat(response.getStatusCode().is4xxClientError()).isTrue();
 
   }
   //check that a list was returned

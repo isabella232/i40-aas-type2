@@ -9,12 +9,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import utils.AASObjectsDeserializer;
 import utils.SampleSubmodelFactory;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,6 +24,7 @@ import java.util.List;
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -33,6 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 //using @WebMvcTest will tell Spring Boot to instantiate only the web layer and not the entire context.
 @WebMvcTest(SubmodelController.class)
 public class WebMockTest {
+  public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(MediaType.APPLICATION_JSON.getType(), MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
 
   @Autowired
   private MockMvc mockMvc;
@@ -109,6 +113,27 @@ public class WebMockTest {
       .param("id", wrongId))
       .andDo(print()).andExpect(status().is4xxClientError())
       .andExpect(content().string(containsString("Requested resource not found")));
+
+  }
+
+  @Test
+  @WithMockUser
+  public void putSumodelShouldReturnOKAndTheSubmodelObject() throws Exception {
+
+    String id = "sampleId";
+    Submodel sampleSubmodel = SampleSubmodelFactory.Companion.getSampleSubmodel(id);
+    //String sampleSerialized = AASDeserializer.Companion.serializeSubmodel(submodels.get(2));
+    String serializedSubmodel = AASObjectsDeserializer.Companion.serializeSubmodel(sampleSubmodel);
+
+    when(submodelService.createSubmodel(id, sampleSubmodel)).thenReturn(sampleSubmodel);
+
+//        expect to return a 202 OK with the submodel as content
+    this.mockMvc.perform(put("/submodels")
+      .contentType(APPLICATION_JSON_UTF8)
+      .content(serializedSubmodel)
+      .param("id", id))
+      .andDo(print())
+      .andExpect(status().is2xxSuccessful());
 
   }
 
