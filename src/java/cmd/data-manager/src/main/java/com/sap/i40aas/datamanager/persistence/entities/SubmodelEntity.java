@@ -1,18 +1,24 @@
 package com.sap.i40aas.datamanager.persistence.entities;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Table;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.URL;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "SUBMODEL")
 public class SubmodelEntity {
 
   @Id
+  @URL
   private String id;
+
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private long sessionId;
+
   @Lob
+  @NotBlank(message = "Name is mandatory")
   String submodelObj;
 
   public void setId(String id) {

@@ -1,4 +1,4 @@
-package com.sap.i40aas.datamanager.webService.controllers;
+package com.sap.i40aas.datamanager.errorHandling;
 
 
 public class DuplicateResourceException extends RuntimeException {

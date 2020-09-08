@@ -1,4 +1,4 @@
-package com.sap.i40aas.datamanager.webService.controllers;
+package com.sap.i40aas.datamanager.errorHandling;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -26,6 +26,16 @@ public class RestResponseEntityExceptionHandler
     String bodyOfResponse = "Requested resource not found";
     return handleExceptionInternal(ex, bodyOfResponse,
       new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+  }
+
+
+  @ExceptionHandler(value
+    = {javax.validation.ConstraintViolationException.class})
+  protected ResponseEntity<Object> handleResourceParameterConstraintViolation(
+    RuntimeException ex, WebRequest request) {
+    String bodyOfResponse = "Input parameter not valid";
+    return handleExceptionInternal(ex, bodyOfResponse,
+      new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
   }
 
   //Override to return an error to the caller that the query param is missing

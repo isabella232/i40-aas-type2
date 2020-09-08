@@ -1,11 +1,14 @@
 package com.sap.i40aas.datamanager.webService.controllers;
 
+import com.sap.i40aas.datamanager.errorHandling.DuplicateResourceException;
+import com.sap.i40aas.datamanager.validation.IdURLConstraint;
 import com.sap.i40aas.datamanager.webService.services.SubmodelObjectsService;
 import identifiables.Submodel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
 import utils.AASObjectsDeserializer;
@@ -13,13 +16,16 @@ import utils.AASObjectsDeserializer;
 import java.util.List;
 
 @RestController
+@Validated
 @Slf4j
 
 public class SubmodelController {
 
-
   @Autowired
   private final SubmodelObjectsService submodelService;
+
+  @IdURLConstraint
+  private String id;
 
   //need for mock testing
   public SubmodelController(SubmodelObjectsService submodelService) {
@@ -38,13 +44,13 @@ public class SubmodelController {
 
   //use the params to filter by HTTP parameters
   @GetMapping(value = "/submodels", params = "id")
-  public Submodel getSubmodels(@RequestParam(name = "id", required = false) String id) {
+  public Submodel getSubmodels(@RequestParam(name = "id", required = false) @IdURLConstraint String id) {
 
     return submodelService.getSubmodel(id);
   }
 
   @PutMapping("/submodels")
-  public ResponseEntity createSubmodel(@RequestBody String body, @RequestParam("id") String id) throws DuplicateResourceException {
+  public ResponseEntity createSubmodel(@RequestBody String body, @RequestParam("id") @IdURLConstraint String id) throws DuplicateResourceException {
 
     log.debug("Received PUT /submodels with id " + id);
 
@@ -56,7 +62,7 @@ public class SubmodelController {
   }
 
   @PatchMapping("/submodels")
-  public ResponseEntity updateSubmodel(@RequestBody String body, @RequestParam("id") String id) throws MissingServletRequestParameterException {
+  public ResponseEntity updateSubmodel(@RequestBody String body, @RequestParam("id") @IdURLConstraint String id) throws MissingServletRequestParameterException {
 
 
     //NOTE: we give String in @Requestbody otherwise it will be deserialized with Jackson. TODO: see if there are alternatives to this
@@ -64,7 +70,6 @@ public class SubmodelController {
     submodelService.updateSubmodel(id, sb);
 
     return new ResponseEntity<>(submodelService.createSubmodel(id, sb), HttpStatus.CREATED);
-
   }
 
   @PostMapping("/submodels")

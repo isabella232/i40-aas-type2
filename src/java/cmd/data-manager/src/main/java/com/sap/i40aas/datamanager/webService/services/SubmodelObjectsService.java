@@ -1,8 +1,8 @@
 package com.sap.i40aas.datamanager.webService.services;
 
+import com.sap.i40aas.datamanager.errorHandling.DuplicateResourceException;
 import com.sap.i40aas.datamanager.persistence.entities.SubmodelEntity;
 import com.sap.i40aas.datamanager.persistence.repositories.SubmodelRepository;
-import com.sap.i40aas.datamanager.webService.controllers.DuplicateResourceException;
 import identifiables.Submodel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

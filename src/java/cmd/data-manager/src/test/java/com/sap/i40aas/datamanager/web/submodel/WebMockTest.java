@@ -1,6 +1,6 @@
 package com.sap.i40aas.datamanager.web.submodel;
 
-import com.sap.i40aas.datamanager.webService.controllers.RestResponseEntityExceptionHandler;
+import com.sap.i40aas.datamanager.errorHandling.RestResponseEntityExceptionHandler;
 import com.sap.i40aas.datamanager.webService.controllers.SubmodelController;
 import com.sap.i40aas.datamanager.webService.services.SubmodelObjectsService;
 import identifiables.Submodel;
