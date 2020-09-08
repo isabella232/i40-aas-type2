@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.validation.ConstraintViolationException;
 import java.text.MessageFormat;
 
 @ControllerAdvice
@@ -32,11 +33,13 @@ public class RestResponseEntityExceptionHandler
   @ExceptionHandler(value
     = {javax.validation.ConstraintViolationException.class})
   protected ResponseEntity<Object> handleResourceParameterConstraintViolation(
-    RuntimeException ex, WebRequest request) {
-    String bodyOfResponse = "Input parameter not valid";
+    ConstraintViolationException ex, WebRequest request) {
+    String bodyOfResponse = ex.getMessage();
+
     return handleExceptionInternal(ex, bodyOfResponse,
       new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
   }
+
 
   //Override to return an error to the caller that the query param is missing
   @Override

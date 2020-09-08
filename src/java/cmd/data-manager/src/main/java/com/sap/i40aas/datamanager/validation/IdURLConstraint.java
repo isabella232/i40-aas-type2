@@ -9,7 +9,7 @@ import java.lang.annotation.*;
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface IdURLConstraint {
-  String message() default "Invalid AAS-Object";
+  String message() default "Invalid URL as Identification";
 
   Class<?>[] groups() default {};
 

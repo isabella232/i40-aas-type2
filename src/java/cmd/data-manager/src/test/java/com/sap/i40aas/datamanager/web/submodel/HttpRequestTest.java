@@ -95,6 +95,7 @@ public class HttpRequestTest {
     String responseBody = response.getBody();
 
     System.out.println("status " + response.getStatusCode());
+    System.out.println("status " + response.getBody());
     assertThat(response.getStatusCode().is4xxClientError()).isTrue();
 
   }
@@ -127,9 +128,8 @@ public class HttpRequestTest {
     response.getHeaders().getLocation();
     response.getStatusCode();
 
-    String responseBody = response.getBody();
-
     System.out.println("status " + response.getStatusCode());
+    System.out.println("response body " + response.getBody());
     assertThat(response.getStatusCode().is4xxClientError()).isTrue();
 
   }
