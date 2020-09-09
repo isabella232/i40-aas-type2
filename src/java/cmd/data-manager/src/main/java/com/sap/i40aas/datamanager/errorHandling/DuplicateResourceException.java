@@ -3,7 +3,6 @@ package com.sap.i40aas.datamanager.errorHandling;
 
 public class DuplicateResourceException extends RuntimeException {
 
-  private static final long serialVersionUID = 1997753363232807009L;
 
   public DuplicateResourceException() {
   }

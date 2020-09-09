@@ -106,14 +106,17 @@ public class HttpRequestTest {
   public void putSubmodelsWithInvalidContentShouldReturnAn4xxError() throws Exception {
 
     String url = "http://localhost:" + port + "/submodels";
+
+    String submodel_id = "http://acplt.org/Submodels/Assets/TestAsset/Identification";
+
     Map<String, String> params = new HashMap<String, String>();
-    params.put("id", "sample-submodelID");
+    params.put("id", submodel_id);
     String requestBody = "{\"foo\":\"bar\"}";
     HttpHeaders headers = new HttpHeaders();
     headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
 
     UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
-      .queryParam("id", "sample-submodelID");
+      .queryParam("id", submodel_id);
 
     HttpEntity<?> entity = new HttpEntity<>(requestBody, headers);
 
@@ -133,7 +136,4 @@ public class HttpRequestTest {
     assertThat(response.getStatusCode().is4xxClientError()).isTrue();
 
   }
-  //check that a list was returned
-
-
 }

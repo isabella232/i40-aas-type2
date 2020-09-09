@@ -1,5 +1,6 @@
 package com.sap.i40aas.datamanager.webService.controllers;
 
+import com.sap.i40aas.datamanager.errorHandling.AASObjectValidationException;
 import com.sap.i40aas.datamanager.errorHandling.DuplicateResourceException;
 import com.sap.i40aas.datamanager.validation.IdURLConstraint;
 import com.sap.i40aas.datamanager.webService.services.SubmodelObjectsService;
@@ -38,8 +39,6 @@ public class SubmodelController {
 
     log.info("List Submodels request");
     return submodelService.getAllSubmodels();
-
-
   }
 
   //use the params to filter by HTTP parameters
@@ -55,7 +54,13 @@ public class SubmodelController {
     log.debug("Received PUT /submodels with id " + id);
 
     //NOTE: we give String in @Requestbody otherwise it will be deserialized with Jackson. TODO: see if there are alternatives to this
-    Submodel sb = AASObjectsDeserializer.Companion.deserializeSubmodel(body);
+    Submodel sb;
+    try {
+      sb = AASObjectsDeserializer.Companion.deserializeSubmodel(body);
+    } catch (Exception ex) {
+      throw new AASObjectValidationException(ex.getMessage());
+    }
+
     Submodel createdSubmodel = submodelService.createSubmodel(id, sb);
 
     return new ResponseEntity<>(createdSubmodel, HttpStatus.CREATED);
@@ -64,9 +69,12 @@ public class SubmodelController {
   @PatchMapping("/submodels")
   public ResponseEntity updateSubmodel(@RequestBody String body, @RequestParam("id") @IdURLConstraint String id) throws MissingServletRequestParameterException {
 
-
-    //NOTE: we give String in @Requestbody otherwise it will be deserialized with Jackson. TODO: see if there are alternatives to this
-    Submodel sb = AASObjectsDeserializer.Companion.deserializeSubmodel(body);
+    Submodel sb;
+    try {
+      sb = AASObjectsDeserializer.Companion.deserializeSubmodel(body);
+    } catch (Exception ex) {
+      throw new AASObjectValidationException(ex.getMessage());
+    }
     submodelService.updateSubmodel(id, sb);
 
     return new ResponseEntity<>(submodelService.createSubmodel(id, sb), HttpStatus.CREATED);
@@ -74,9 +82,12 @@ public class SubmodelController {
 
   @PostMapping("/submodels")
   public void updateSubmodel(@RequestBody String body) {
-
-    //NOTE: we give String in @Requestbody otherwise it will be deserialized with Jackson. TODO: see if there are alternatives to this
-    Submodel sb = AASObjectsDeserializer.Companion.deserializeSubmodel(body);
+    Submodel sb;
+    try {
+      sb = AASObjectsDeserializer.Companion.deserializeSubmodel(body);
+    } catch (Exception ex) {
+      throw new AASObjectValidationException(ex.getMessage());
+    }
     submodelService.addSubmodel(sb);
   }
 

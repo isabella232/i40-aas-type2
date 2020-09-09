@@ -35,6 +35,19 @@ public class RestResponseEntityExceptionHandler
   protected ResponseEntity<Object> handleResourceParameterConstraintViolation(
     ConstraintViolationException ex, WebRequest request) {
     String bodyOfResponse = ex.getMessage();
+    //  String errorMsg = ex.getConstraintViolations().iterator().next().getMessage();
+
+    return handleExceptionInternal(ex, bodyOfResponse,
+      new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+  }
+
+
+  @ExceptionHandler(value
+    = {com.sap.i40aas.datamanager.errorHandling.AASObjectValidationException.class})
+  protected ResponseEntity<Object> handleAASObjectBodyInvalid(
+    AASObjectValidationException ex, WebRequest request) {
+    String bodyOfResponse = ex.getMessage();
+    //  String errorMsg = ex.getConstraintViolations().iterator().next().getMessage();
 
     return handleExceptionInternal(ex, bodyOfResponse,
       new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
