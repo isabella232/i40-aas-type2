@@ -95,5 +95,6 @@ public class SubmodelController {
   @DeleteMapping("/submodels")
   public void deleteSubmodel(@RequestParam("id") String id) {
     submodelService.deleteSubmodel(id);
+
   }
 }

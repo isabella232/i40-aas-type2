@@ -58,8 +58,8 @@ public class WebMockTest {
   @Test
   public void getSumodelListShouldReturnListFromService() throws Exception {
     List<Submodel> submodels = new ArrayList<>(Arrays.asList(
-      SampleSubmodelFactory.Companion.getSampleSubmodel("sampleSb_1"),
-      SampleSubmodelFactory.Companion.getSampleSubmodel("sampleSb_2")
+      SampleSubmodelFactory.Companion.getSampleSubmodel("http://acplt.org/Submodels/Assets/TestAsset/Identification_1"),
+      SampleSubmodelFactory.Companion.getSampleSubmodel("http://acplt.org/Submodels/Assets/TestAsset/Identification_2")
     ));
 
     //deserialized list of submodels that should be returned as response
@@ -79,10 +79,10 @@ public class WebMockTest {
     List<Submodel> submodels = new ArrayList<>(Arrays.asList(
       SampleSubmodelFactory.Companion.getSampleSubmodel("sampleSb_1"),
       SampleSubmodelFactory.Companion.getSampleSubmodel("sampleSb_2"),
-      SampleSubmodelFactory.Companion.getSampleSubmodel("TestIdShort")
+      SampleSubmodelFactory.Companion.getSampleSubmodel("http://acplt.org/Submodels/Assets/TestAsset/Identification")
     ));
 
-    String sampleShortId = "Test-IdShort";
+    String sampleShortId = "http://acplt.org/Submodels/Assets/TestAsset/Identification";
     String sampleSerialized = AASObjectsDeserializer.Companion.serializeSubmodel(submodels.get(2));
 
     when(submodelService.getSubmodel(sampleShortId)).thenReturn(submodels.get(2));
@@ -100,10 +100,10 @@ public class WebMockTest {
     List<Submodel> submodels = new ArrayList<>(Arrays.asList(
       SampleSubmodelFactory.Companion.getSampleSubmodel("sampleSb_1"),
       SampleSubmodelFactory.Companion.getSampleSubmodel("sampleSb_2"),
-      SampleSubmodelFactory.Companion.getSampleSubmodel("TestIdShort")
+      SampleSubmodelFactory.Companion.getSampleSubmodel("http://acplt.org/Submodels/Assets/TestAsset/Identification")
     ));
 
-    String wrongId = "WrongId";
+    String wrongId = "http://acplt.org/Submodels/Assets/TestAsset/Identification_NaM";
     //String sampleSerialized = AASDeserializer.Companion.serializeSubmodel(submodels.get(2));
 
     when(submodelService.getSubmodel(wrongId)).thenThrow(java.util.NoSuchElementException.class);
@@ -120,7 +120,7 @@ public class WebMockTest {
   @WithMockUser
   public void putSumodelShouldReturnOKAndTheSubmodelObject() throws Exception {
 
-    String id = "sampleId";
+    String id = "http://acplt.org/Submodels/Assets/TestAsset/Identification";
     Submodel sampleSubmodel = SampleSubmodelFactory.Companion.getSampleSubmodel(id);
     //String sampleSerialized = AASDeserializer.Companion.serializeSubmodel(submodels.get(2));
     String serializedSubmodel = AASObjectsDeserializer.Companion.serializeSubmodel(sampleSubmodel);

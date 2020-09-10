@@ -4,7 +4,6 @@ import identifiables.Submodel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -21,7 +20,7 @@ import utils.SampleSubmodelFactory;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-@SpringBootApplication
+//@SpringBootApplication
 public class KafkaApplication {
 
   public static void main(String[] args) throws Exception {
