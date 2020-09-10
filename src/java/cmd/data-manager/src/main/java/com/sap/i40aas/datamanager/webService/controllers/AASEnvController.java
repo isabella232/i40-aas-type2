@@ -2,6 +2,7 @@ package com.sap.i40aas.datamanager.webService.controllers;
 
 import com.sap.i40aas.datamanager.webService.services.AASEnvObjectsService;
 import identifiables.AssetAdministrationShellEnv;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,7 @@ import utils.AASObjectsDeserializer;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
+@Slf4j
 public class AASEnvController {
 
 
@@ -25,13 +27,15 @@ public class AASEnvController {
 
 
   @RequestMapping(value = "/env", method = POST)
-  public String addAASEnv(@RequestBody String body) {
+  public AssetAdministrationShellEnv createAASEnv(@RequestBody String body) {
 
     //NOTE: we give String in @Requestbody otherwise it will be deserialized with Jackson
     AssetAdministrationShellEnv env = AASObjectsDeserializer.Companion.deserializeAASEnv(body);
     aasEnvService.addAASEnv(env);
 
-    return env.getSubmodels().get(0).getIdShort();
+    log.debug("AASEnv received");
+
+    return env;
   }
 
 

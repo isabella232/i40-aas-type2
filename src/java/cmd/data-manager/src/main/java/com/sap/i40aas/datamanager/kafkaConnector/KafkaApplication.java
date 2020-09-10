@@ -160,43 +160,43 @@ public class KafkaApplication {
 
     private final CountDownLatch submodelLatch = new CountDownLatch(1);
 
-    @KafkaListener(topics = "${message.topic.name}", groupId = "foo", containerFactory = "fooKafkaListenerContainerFactory")
+    @KafkaListener(topics = "${message.topic.name}", groupId = "foo", containerFactory = "fooKafkaListenerContainerFactory", autoStartup = "${listen.auto.start:false}")
     public void listenGroupFoo(String message) {
       System.out.println("Received Messasge in group 'foo': " + message);
       latch.countDown();
     }
 
-    @KafkaListener(topics = "${message.topic.name}", groupId = "bar", containerFactory = "barKafkaListenerContainerFactory")
+    @KafkaListener(topics = "${message.topic.name}", groupId = "bar", containerFactory = "barKafkaListenerContainerFactory", autoStartup = "${listen.auto.start:false}")
     public void listenGroupBar(String message) {
       System.out.println("Received Messasge in group 'bar': " + message);
       latch.countDown();
     }
 
-    @KafkaListener(topics = "${message.topic.name}", containerFactory = "headersKafkaListenerContainerFactory")
+    @KafkaListener(topics = "${message.topic.name}", containerFactory = "headersKafkaListenerContainerFactory", autoStartup = "${listen.auto.start:false}")
     public void listenWithHeaders(@Payload String message, @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition) {
       System.out.println("Received Messasge: " + message + " from partition: " + partition);
       latch.countDown();
     }
 
-    @KafkaListener(topicPartitions = @TopicPartition(topic = "${partitioned.topic.name}", partitions = {"0", "3"}))
+    @KafkaListener(topicPartitions = @TopicPartition(topic = "${partitioned.topic.name}", partitions = {"0", "3"}), autoStartup = "${listen.auto.start:false}")
     public void listenToParition(@Payload String message, @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition) {
       System.out.println("Received Message: " + message + " from partition: " + partition);
       this.partitionLatch.countDown();
     }
 
-    @KafkaListener(topics = "${filtered.topic.name}", containerFactory = "filterKafkaListenerContainerFactory")
+    @KafkaListener(topics = "${filtered.topic.name}", containerFactory = "filterKafkaListenerContainerFactory", autoStartup = "${listen.auto.start:false}")
     public void listenWithFilter(String message) {
       System.out.println("Recieved Message in filtered listener: " + message);
       this.filterLatch.countDown();
     }
 
-    @KafkaListener(topics = "${greeting.topic.name}", containerFactory = "greetingKafkaListenerContainerFactory")
+    @KafkaListener(topics = "${greeting.topic.name}", containerFactory = "greetingKafkaListenerContainerFactory", autoStartup = "${listen.auto.start:false}")
     public void greetingListener(com.sap.i40aas.datamanager.kafkaConnector.Greeting greeting) {
       System.out.println("Recieved greeting message: " + greeting);
       this.greetingLatch.countDown();
     }
 
-    @KafkaListener(topics = "${submodel.topic.name}", containerFactory = "submodelKafkaListenerContainerFactory")
+    @KafkaListener(topics = "${submodel.topic.name}", containerFactory = "submodelKafkaListenerContainerFactory", autoStartup = "${listen.auto.start:false}")
     public void submodelListener(Submodel submodel) {
       System.out.println("Recieved submodel message: " + submodel.getIdShort());
       this.submodelLatch.countDown();

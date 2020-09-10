@@ -13,7 +13,7 @@ import java.util.Arrays;
 public class AASEnvObjectsService {
 
   @Autowired
-  private SubmodelsObjectsService submodelService;
+  private SubmodelObjectsService submodelService;
 
   public ArrayList<String> addAASEnv(AssetAdministrationShellEnv env) {
 
