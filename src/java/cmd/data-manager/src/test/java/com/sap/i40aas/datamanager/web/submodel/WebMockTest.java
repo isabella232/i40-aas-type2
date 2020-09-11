@@ -44,12 +44,12 @@ public class WebMockTest {
 
   // mock the Service layer code for our unit tests
   @MockBean
-  private SubmodelObjectsService submodelService;
+  private SubmodelObjectsService submodelObjectsService;
 
   //activate exception handler
   @Before
   public void setup() {
-    this.mockMvc = MockMvcBuilders.standaloneSetup(submodelService)
+    this.mockMvc = MockMvcBuilders.standaloneSetup(submodelObjectsService)
       .setControllerAdvice(new RestResponseEntityExceptionHandler())
       .build();
   }
@@ -65,7 +65,7 @@ public class WebMockTest {
     //deserialized list of submodels that should be returned as response
     String sapleSerialized = AASObjectsDeserializer.Companion.serializeSubmodelList(submodels);
 
-    when(submodelService.getAllSubmodels()).thenReturn(submodels);
+    when(submodelObjectsService.getAllSubmodels()).thenReturn(submodels);
 
     //expect as response a serialized list of submodelsd
     this.mockMvc.perform(get("/submodels"))
@@ -85,7 +85,7 @@ public class WebMockTest {
     String sampleShortId = "http://acplt.org/Submodels/Assets/TestAsset/Identification";
     String sampleSerialized = AASObjectsDeserializer.Companion.serializeSubmodel(submodels.get(2));
 
-    when(submodelService.getSubmodel(sampleShortId)).thenReturn(submodels.get(2));
+    when(submodelObjectsService.getSubmodel(sampleShortId)).thenReturn(submodels.get(2));
 
     //expect as response a serialized list of submodelsd
     this.mockMvc.perform(get("/submodels")
@@ -106,7 +106,7 @@ public class WebMockTest {
     String wrongId = "http://acplt.org/Submodels/Assets/TestAsset/Identification_NaM";
     //String sampleSerialized = AASDeserializer.Companion.serializeSubmodel(submodels.get(2));
 
-    when(submodelService.getSubmodel(wrongId)).thenThrow(java.util.NoSuchElementException.class);
+    when(submodelObjectsService.getSubmodel(wrongId)).thenThrow(java.util.NoSuchElementException.class);
 
 //        expect to return a 404 Error
     this.mockMvc.perform(get("/submodels")
@@ -125,7 +125,7 @@ public class WebMockTest {
     //String sampleSerialized = AASDeserializer.Companion.serializeSubmodel(submodels.get(2));
     String serializedSubmodel = AASObjectsDeserializer.Companion.serializeSubmodel(sampleSubmodel);
 
-    when(submodelService.createSubmodel(id, sampleSubmodel)).thenReturn(sampleSubmodel);
+    when(submodelObjectsService.createSubmodel(id, sampleSubmodel)).thenReturn(sampleSubmodel);
 
 //        expect to return a 202 OK with the submodel as content
     this.mockMvc.perform(put("/submodels")

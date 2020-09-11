@@ -7,10 +7,8 @@ import identifiables.Submodel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import utils.AASObjectsDeserializer;
-import utils.SampleSubmodelFactory;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -21,12 +19,6 @@ public class SubmodelObjectsService {
 
   @Autowired
   private SubmodelRepository submodelRepo;
-
-
-  private final List<Submodel> submodels = new ArrayList<>(Arrays.asList(
-    SampleSubmodelFactory.Companion.getSampleSubmodel("sampleSb_1"),
-    SampleSubmodelFactory.Companion.getSampleSubmodel("sampleSb_2")
-  ));
 
 
   public Submodel getSubmodel(String id) {
