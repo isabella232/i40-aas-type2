@@ -75,9 +75,9 @@ public class SubmodelController {
     } catch (Exception ex) {
       throw new AASObjectValidationException(ex.getMessage());
     }
-    submodelService.updateSubmodel(id, sb);
+    Submodel updatedSb = submodelService.updateSubmodel(id, sb);
 
-    return new ResponseEntity<>(submodelService.createSubmodel(id, sb), HttpStatus.CREATED);
+    return new ResponseEntity<>(updatedSb, HttpStatus.OK);
   }
 
   @PostMapping("/submodels")

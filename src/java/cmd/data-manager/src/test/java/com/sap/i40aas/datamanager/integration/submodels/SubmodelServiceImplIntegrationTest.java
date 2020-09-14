@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -26,6 +27,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class SubmodelServiceImplIntegrationTest {
+
+  @TestConfiguration
+  static class EmployeeServiceImplTestContextConfiguration {
+
+//    @Bean
+//    public SubmodelObjectsService employeeService() {
+//      return new EmployeeServiceImpl();
+//    }
+  }
 
 
   @Autowired

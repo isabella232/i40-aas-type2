@@ -4,14 +4,17 @@ import com.sap.i40aas.datamanager.errorHandling.RestResponseEntityExceptionHandl
 import com.sap.i40aas.datamanager.webService.controllers.SubmodelController;
 import com.sap.i40aas.datamanager.webService.services.SubmodelObjectsService;
 import identifiables.Submodel;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import utils.AASObjectsDeserializer;
 import utils.SampleSubmodelFactory;
@@ -22,16 +25,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-//import org.springframework.security.test.context.support.WithMockUser;
-
-//import org.springframework.security.test.context.support.WithMockUser;
 
 //using @WebMvcTest will tell Spring Boot to instantiate only the web layer and not the entire context.
 @WebMvcTest(SubmodelController.class)
@@ -46,12 +47,19 @@ public class WebMockTest {
   @MockBean
   private SubmodelObjectsService submodelObjectsService;
 
+  //private SubmodelObjectsService submodelObjectsServiceMock = Mockito.mock(SubmodelObjectsService.class);
+
   //activate exception handler
   @Before
   public void setup() {
     this.mockMvc = MockMvcBuilders.standaloneSetup(submodelObjectsService)
       .setControllerAdvice(new RestResponseEntityExceptionHandler())
       .build();
+  }
+
+  @After
+  public void reset_mocks() {
+    Mockito.reset(submodelObjectsService);
   }
 
   @WithMockUser //for basic auth
@@ -122,8 +130,10 @@ public class WebMockTest {
 
     String id = "http://acplt.org/Submodels/Assets/TestAsset/Identification";
     Submodel sampleSubmodel = SampleSubmodelFactory.Companion.getSampleSubmodel(id);
+
     //String sampleSerialized = AASDeserializer.Companion.serializeSubmodel(submodels.get(2));
     String serializedSubmodel = AASObjectsDeserializer.Companion.serializeSubmodel(sampleSubmodel);
+
 
     when(submodelObjectsService.createSubmodel(id, sampleSubmodel)).thenReturn(sampleSubmodel);
 
@@ -134,6 +144,79 @@ public class WebMockTest {
       .param("id", id))
       .andDo(print())
       .andExpect(status().is2xxSuccessful());
+
+  }
+
+  @Test
+  @WithMockUser
+  public void patchSumodelShouldReturnOKAndTheSubmodelObject() throws Exception {
+
+    String id = "http://acplt.org/Submodels/Assets/TestAsset/Identification";
+    Submodel sampleSubmodel = SampleSubmodelFactory.Companion.getSampleSubmodel(id);
+    //String sampleSerialized = AASDeserializer.Companion.serializeSubmodel(submodels.get(2));
+    String serializedSubmodel = AASObjectsDeserializer.Companion.serializeSubmodel(sampleSubmodel);
+
+    when(submodelObjectsService.updateSubmodel(anyString(), any(Submodel.class))).thenReturn(sampleSubmodel);
+
+    System.out.println("response is " + submodelObjectsService.updateSubmodel(id, sampleSubmodel));
+
+//        expect to return a 202 OK with the submodel as content
+    MvcResult result = this.mockMvc.perform(patch("/submodels")
+      .contentType(APPLICATION_JSON_UTF8)
+      .content(serializedSubmodel)
+      .param("id", id))
+      .andDo(print())
+      .andExpect(status().is2xxSuccessful())
+      .andExpect(content().string(serializedSubmodel))
+      .andReturn();
+
+//    TODO: check why the content of the response is empty
+    String contentResponse = result.getResponse().getContentAsString();
+//    org.assertj.core.api.Assertions.assertThat(contentResponse).isEqualTo(serializedSubmodel);
+  }
+
+
+  @Test
+  @WithMockUser
+  public void patchSumodelShouldReturn404ErrorWhenIdNotFound() throws Exception {
+
+    String id = "http://acplt.org/Submodels/Assets/TestAsset/Identification";
+    Submodel sampleSubmodel = SampleSubmodelFactory.Companion.getSampleSubmodel(id);
+    //String sampleSerialized = AASDeserializer.Companion.serializeSubmodel(submodels.get(2));
+    String serializedSubmodel = AASObjectsDeserializer.Companion.serializeSubmodel(sampleSubmodel);
+
+    //throw Exception as if Element was not found
+    when(submodelObjectsService.updateSubmodel(anyString(), any(Submodel.class))).thenThrow(new java.util.NoSuchElementException());
+
+    MvcResult result = this.mockMvc.perform(patch("/submodels")
+      .contentType(APPLICATION_JSON_UTF8)
+      .content(serializedSubmodel)
+      .param("id", id))
+      .andExpect(status().is4xxClientError())
+      .andExpect(content().string("Requested resource not found"))
+      .andReturn();
+  }
+
+
+  @Test
+  @WithMockUser
+  public void deleteSumodelShouldReturnOKWhenSuccessful() throws Exception {
+
+    String id = "http://acplt.org/Submodels/Assets/TestAsset/Identification";
+    Submodel sampleSubmodel = SampleSubmodelFactory.Companion.getSampleSubmodel(id);
+    //String sampleSerialized = AASDeserializer.Companion.serializeSubmodel(submodels.get(2));
+    String serializedSubmodel = AASObjectsDeserializer.Companion.serializeSubmodel(sampleSubmodel);
+
+    when(submodelObjectsService.deleteSubmodel(id)).thenReturn(sampleSubmodel);
+
+    System.out.println("response is " + submodelObjectsService.updateSubmodel(id, sampleSubmodel));
+
+//        expect to return a 202 OK with the submodel as content
+    MvcResult result = this.mockMvc.perform(delete("/submodels")
+      .param("id", id))
+      .andDo(print())
+      .andExpect(status().is2xxSuccessful())
+      .andReturn();
 
   }
 
