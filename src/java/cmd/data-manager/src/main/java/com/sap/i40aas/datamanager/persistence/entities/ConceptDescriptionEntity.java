@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.URL;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "SUBMODEL")
+@Table(name = "CONCEPTDESCRIPTION")
 public class ConceptDescriptionEntity {
 
   @Id

@@ -52,21 +52,6 @@ public class AssetController {
     return assetsService.getAsset(id);
   }
 
-  @PutMapping("/assets")
-  public ResponseEntity updateAsset(@RequestBody String body, @RequestParam("id") @IdURLConstraint String id) {
-
-    //NOTE: we give String in @Requestbody otherwise it will be deserialized with Jackson. TODO: see if there are alternatives to this
-    Asset asset;
-    try {
-      asset = AASObjectsDeserializer.Companion.deserializeAsset(body);
-    } catch (Exception ex) {
-      throw new AASObjectValidationException(ex.getMessage());
-    }
-    Asset createdAsset = assetsService.createAsset(id, asset);
-
-    return new ResponseEntity<>(createdAsset, HttpStatus.CREATED);
-
-  }
 
   @PatchMapping("/assets")
   public ResponseEntity updateSubmodel(@RequestBody String body, @RequestParam("id") @IdURLConstraint String id) throws MissingServletRequestParameterException {

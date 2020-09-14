@@ -60,7 +60,10 @@ public class SubmodelObjectsService {
   public Submodel createSubmodel(String id, Submodel submodel) throws DuplicateResourceException {
 // if Id not present create else if already there throw error
     if (submodelRepo.findById(id).isPresent() == false) {
-      SubmodelEntity sbE = new SubmodelEntity(id, AASObjectsDeserializer.Companion.serializeSubmodel(submodel));
+
+      String sbSer = AASObjectsDeserializer.Companion.serializeSubmodel(submodel);
+
+      SubmodelEntity sbE = new SubmodelEntity(id, sbSer);
       submodelRepo.save(sbE);
       return submodel;
     } else

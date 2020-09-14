@@ -21,7 +21,6 @@ public class AssetsObjectsService {
   private AssetRepository assetRepo;
 
   public Asset getAsset(String id) {
-//TODO: replace idshort with the following
 
     AssetEntity assetEntityFound = assetRepo.findById(id).get();
     Asset assetFound = AASObjectsDeserializer.Companion.deserializeAsset(assetEntityFound.getAssetObj());
