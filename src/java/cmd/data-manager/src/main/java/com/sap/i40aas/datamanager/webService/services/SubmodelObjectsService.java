@@ -7,10 +7,8 @@ import identifiables.Submodel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import utils.AASObjectsDeserializer;
-import utils.SampleSubmodelFactory;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -21,12 +19,6 @@ public class SubmodelObjectsService {
 
   @Autowired
   private SubmodelRepository submodelRepo;
-
-
-  private final List<Submodel> submodels = new ArrayList<>(Arrays.asList(
-    SampleSubmodelFactory.Companion.getSampleSubmodel("sampleSb_1"),
-    SampleSubmodelFactory.Companion.getSampleSubmodel("sampleSb_2")
-  ));
 
 
   public Submodel getSubmodel(String id) {
@@ -47,11 +39,12 @@ public class SubmodelObjectsService {
     return submodelsList;
   }
 
-  public void updateSubmodel(String id, Submodel submodel) {
+  public Submodel updateSubmodel(String id, Submodel submodel) {
 
     if (submodelRepo.findById(id).isPresent()) {
       SubmodelEntity sbE = new SubmodelEntity(id, AASObjectsDeserializer.Companion.serializeSubmodel(submodel));
       submodelRepo.save(sbE);
+      return submodel;
     } else
       throw new java.util.NoSuchElementException();
   }
@@ -74,9 +67,14 @@ public class SubmodelObjectsService {
 
   }
 
-  public void deleteSubmodel(String id) {
+  public Submodel deleteSubmodel(String id) {
     if (submodelRepo.findById(id).isPresent()) {
+      //find the Submodel so that it gets returned
+      SubmodelEntity submodelEntityFound = submodelRepo.findById(id).get();
+      Submodel sbFound = AASObjectsDeserializer.Companion.deserializeSubmodel(submodelEntityFound.getSubmodelObj());
+
       submodelRepo.deleteById(id);
+      return sbFound;
     } else
       throw new java.util.NoSuchElementException();
   }

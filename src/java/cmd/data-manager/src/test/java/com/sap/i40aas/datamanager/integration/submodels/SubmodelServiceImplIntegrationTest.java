@@ -12,7 +12,6 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -28,17 +27,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class SubmodelServiceImplIntegrationTest {
+
   @TestConfiguration
   static class EmployeeServiceImplTestContextConfiguration {
-    //    To check the Service class, we need to have an instance of the Service class created and available as a @Bean so that we can @Autowire it in our test class
-    @Bean
-    public SubmodelObjectsService submodelService() {
-      return new SubmodelObjectsService();
-    }
+
+//    @Bean
+//    public SubmodelObjectsService employeeService() {
+//      return new EmployeeServiceImpl();
+//    }
   }
 
+
   @Autowired
-  private SubmodelObjectsService submodelService;
+  private SubmodelObjectsService submodelObjectsService;
 
   @MockBean
   private SubmodelRepository submodelRepository;
@@ -64,7 +65,7 @@ public class SubmodelServiceImplIntegrationTest {
   @Test
   public void whenValidName_thenEmployeeShouldBeFound() {
     String submode_id = "http://acplt.org/Submodels/Assets/TestAsset/Identification";
-    Submodel found = submodelService.getSubmodel(submode_id);
+    Submodel found = submodelObjectsService.getSubmodel(submode_id);
 
     assertThat(found.getIdentification().getId())
       .isEqualTo(submode_id);
