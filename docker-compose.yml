@@ -2,7 +2,7 @@ version: '3.7'
 services:
   ########################################################
   i40-aas-data-manager:
-    image: sapi40/i40-aas-data-manager
+    image: sapi40/i40-aas-data-manager-type2
     ports:
       - "${DATA_MANAGER_PORT}:${DATA_MANAGER_PORT}"
     environment:
@@ -54,6 +54,7 @@ services:
       - "${ZOOKEEPER_PORT}:${ZOOKEEPER_PORT}"
   ##########################################
   kafka:
+    image: wurstmeister/kafka
     ports:
       - "${KAFKA_PORT}:${KAFKA_PORT}"
     expose:
@@ -66,3 +67,8 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:${ZOOKEEPER_PORT}"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+  ##########################################
+
+
+volumes:
+  postgres-data:

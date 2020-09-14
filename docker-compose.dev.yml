@@ -4,19 +4,7 @@ services:
   #### Provide build instructions for all i40-aas images
   ##########################################
   i40-aas-data-manager:
-    image: sapi40/i40-aas-data-manager:${BUILD_TAG}
+    image: sapi40/i40-aas-data-manager-type2:${BUILD_TAG}
     build:
-      context: src/ts
+      context: src/java
       dockerfile: ../docker/data-manager/Dockerfile
-  ##########################################
-  i40-aas-adapter-registry:
-    image: sapi40/i40-aas-adapter-registry:${BUILD_TAG}
-    build:
-      context: src/ts
-      dockerfile: ../docker/adapter-registry/Dockerfile
-  ##########################################
-  i40-aas-storage-adapter-mongodb:
-    image: sapi40/i40-aas-storage-adapter-mongodb:${BUILD_TAG}
-    build:
-      context: src/ts
-      dockerfile: ../docker/storage-adapter-mongodb/Dockerfile
