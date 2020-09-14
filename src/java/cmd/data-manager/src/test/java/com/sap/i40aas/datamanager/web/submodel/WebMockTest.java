@@ -134,8 +134,7 @@ public class WebMockTest {
     //String sampleSerialized = AASDeserializer.Companion.serializeSubmodel(submodels.get(2));
     String serializedSubmodel = AASObjectsDeserializer.Companion.serializeSubmodel(sampleSubmodel);
 
-
-    when(submodelObjectsService.createSubmodel(id, sampleSubmodel)).thenReturn(sampleSubmodel);
+    when(submodelObjectsService.createSubmodel(anyString(), any(Submodel.class))).thenReturn(sampleSubmodel);
 
 //        expect to return a 202 OK with the submodel as content
     this.mockMvc.perform(put("/submodels")
@@ -143,7 +142,8 @@ public class WebMockTest {
       .content(serializedSubmodel)
       .param("id", id))
       .andDo(print())
-      .andExpect(status().is2xxSuccessful());
+      .andExpect(status().is2xxSuccessful())
+      .andExpect(content().json(serializedSubmodel));
 
   }
 
