@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
 import utils.AASObjectsDeserializer;
 
@@ -67,7 +66,7 @@ public class SubmodelController {
   }
 
   @PatchMapping("/submodels")
-  public ResponseEntity updateSubmodel(@RequestBody String body, @RequestParam("id") @IdURLConstraint String id) throws MissingServletRequestParameterException {
+  public ResponseEntity updateSubmodel(@RequestBody String body, @RequestParam("id") @IdURLConstraint String id) {
 
     Submodel sb;
     try {
@@ -81,19 +80,20 @@ public class SubmodelController {
   }
 
   @PostMapping("/submodels")
-  public void updateSubmodel(@RequestBody String body) {
+  public ResponseEntity updateSubmodel(@RequestBody String body) {
     Submodel sb;
     try {
       sb = AASObjectsDeserializer.Companion.deserializeSubmodel(body);
     } catch (Exception ex) {
       throw new AASObjectValidationException(ex.getMessage());
     }
-    submodelService.addSubmodel(sb);
+    Submodel addedSubmodel = submodelService.addSubmodel(sb);
+    return new ResponseEntity<>(addedSubmodel, HttpStatus.OK);
   }
 
 
   @DeleteMapping("/submodels")
-  public void deleteSubmodel(@RequestParam("id") String id) {
+  public void deleteSubmodel(@RequestParam("id") @IdURLConstraint String id) {
     submodelService.deleteSubmodel(id);
 
   }

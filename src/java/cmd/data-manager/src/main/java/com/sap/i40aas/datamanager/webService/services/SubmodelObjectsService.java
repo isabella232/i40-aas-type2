@@ -49,10 +49,11 @@ public class SubmodelObjectsService {
       throw new java.util.NoSuchElementException();
   }
 
-  public void addSubmodel(Submodel submodel) {
+  public Submodel addSubmodel(Submodel submodel) {
 
     SubmodelEntity sbE = new SubmodelEntity(submodel.getIdentification().getId(), AASObjectsDeserializer.Companion.serializeSubmodel(submodel));
     submodelRepo.save(sbE);
+    return submodel;
 
   }
 

@@ -1,11 +1,14 @@
 package com.sap.i40aas.datamanager.webService.services;
 
+import com.sap.i40aas.datamanager.errorHandling.DuplicateResourceException;
+import com.sap.i40aas.datamanager.persistence.entities.AssetEntity;
+import com.sap.i40aas.datamanager.persistence.repositories.AssetRepository;
 import identifiables.Asset;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import utils.SampleAssetFactory;
+import utils.AASObjectsDeserializer;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -14,37 +17,63 @@ public class AssetsObjectsService {
 
   private AssetsObjectsService assetObjectService;
 
+  @Autowired
+  private AssetRepository assetRepo;
 
-  private final List<Asset> assetsList = new ArrayList<>(Arrays.asList(
-    SampleAssetFactory.Companion.getSampleAsset("sampleAsset_1"),
-    SampleAssetFactory.Companion.getSampleAsset("sampleAsset_2")
-  ));
-
-
-  public Asset getAsset(String assetId) {
+  public Asset getAsset(String id) {
 //TODO: replace idshort with the following
 
-    Asset assetFound = assetsList.stream().filter(asset -> asset.getIdentification().getId().equals(assetId)).findFirst().get();
+    AssetEntity assetEntityFound = assetRepo.findById(id).get();
+    Asset assetFound = AASObjectsDeserializer.Companion.deserializeAsset(assetEntityFound.getAssetObj());
     return assetFound;
   }
 
 
   public List<Asset> getAllAssets() {
+    List<Asset> assetsList = new ArrayList<>();
+    assetRepo.findAll().forEach(assetEntity -> {
+      assetsList.add(AASObjectsDeserializer.Companion.deserializeAsset(assetEntity.getAssetObj()));
+    });
     return assetsList;
   }
 
-  public void updateAsset(String assetId, Asset asset) {
-    if (assetsList.stream().anyMatch(asset1 -> asset.getIdentification().getId().equals(assetId))) {
-      assetsList.set(assetsList.indexOf(assetsList.stream().filter(asset1 -> asset.getIdentification().getId().equals(assetId)).findFirst().get()), asset);
+  public Asset updateAsset(String id, Asset asset) {
+
+    if (assetRepo.findById(id).isPresent()) {
+      AssetEntity ast = new AssetEntity(id, AASObjectsDeserializer.Companion.serializeAsset(asset));
+      assetRepo.save(ast);
+      return asset;
     } else
-      assetsList.add(asset);
+      throw new java.util.NoSuchElementException();
   }
 
-  public void addAsset(Asset asset) {
-    assetsList.add(asset);
+  public Asset addAsset(Asset asset) {
+    AssetEntity asE = new AssetEntity(asset.getIdentification().getId(), AASObjectsDeserializer.Companion.serializeAsset(asset));
+    assetRepo.save(asE);
+    return asset;
   }
 
-  public void deleteAsset(String assetId) {
-    assetsList.removeIf(t -> t.getIdentification().getId().equals(assetId));
+  public Asset createAsset(String id, Asset asset) throws DuplicateResourceException {
+// if Id not present create else if already there throw error
+    if (assetRepo.findById(id).isPresent() == false) {
+      AssetEntity asE = new AssetEntity(id, AASObjectsDeserializer.Companion.serializeAsset(asset));
+      assetRepo.save(asE);
+      return asset;
+    } else
+      throw new DuplicateResourceException();
+
+  }
+
+
+  public Asset deleteAsset(String id) {
+    if (assetRepo.findById(id).isPresent()) {
+      //find the Submodel so that it gets returned
+      AssetEntity assetEntityFound = assetRepo.findById(id).get();
+      Asset assetFounnd = AASObjectsDeserializer.Companion.deserializeAsset(assetEntityFound.getAssetObj());
+
+      assetRepo.deleteById(id);
+      return assetFounnd;
+    } else
+      throw new java.util.NoSuchElementException();
   }
 }
