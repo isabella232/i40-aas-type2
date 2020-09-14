@@ -167,7 +167,7 @@ public class WebMockTest {
       .param("id", id))
       .andDo(print())
       .andExpect(status().is2xxSuccessful())
-      .andExpect(content().string(serializedSubmodel))
+      .andExpect(content().json(serializedSubmodel, false))
       .andReturn();
 
 //    TODO: check why the content of the response is empty
