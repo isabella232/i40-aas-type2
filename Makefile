@@ -48,7 +48,7 @@ dev:
 ## build and tag a single service image
 .PHONY: build-%
 build-%:
-	BUILD_TAG=$(BUILD_TAG) docker-compose -f docker-compose.dev.yml build $*
+	DOCKER_BUILDKIT=1 BUILD_TAG=$(BUILD_TAG) docker-compose -f docker-compose.dev.yml build $*
 	BUILD_TAG=$(BUILD_TAG) docker tag sapi40/$*:$(BUILD_TAG) $(REGISTRY)/$*:latest
 	BUILD_TAG=$(BUILD_TAG) docker tag sapi40/$*:$(BUILD_TAG) $(REGISTRY)/$*:$(BUILD_TAG)
 
