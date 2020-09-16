@@ -25,7 +25,6 @@ public class AASEnvController {
     this.aasEnvService = aasEnvService;
   }
 
-
   @RequestMapping(value = "/env", method = POST)
   public AssetAdministrationShellEnv createAASEnv(@RequestBody String body) {
 
@@ -33,7 +32,7 @@ public class AASEnvController {
     AssetAdministrationShellEnv env = AASObjectsDeserializer.Companion.deserializeAASEnv(body);
     aasEnvService.addAASEnv(env);
 
-    log.debug("AASEnv received");
+    //log.debug("AASEnv   received");
 
     return env;
   }

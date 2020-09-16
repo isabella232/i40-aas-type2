@@ -21,11 +21,6 @@
   </properties>
 
   <repositories>
-    <repository>
-      <id>kotlinx1</id>
-      <name>custom repo</name>
-      <url>https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-serialization-runtime</url>
-    </repository>
 
     <!--AAS-Objects Library-->
 
@@ -48,8 +43,8 @@
       <groupId>i40.aas</groupId>
       <artifactId>objects-jvm</artifactId>
       <version>0.0.1-master-SNAPSHOT</version>
-      <scope>system</scope>
-      <systemPath>${project.basedir}/src/main/resources/i40-aas-objects-kotlin-jvm-1.0-SNAPSHOT.jar</systemPath>
+      <!--          <scope>system</scope>-->
+      <!--          <systemPath>${project.basedir}/src/main/resources/i40-aas-objects-kotlin-jvm-1.0-SNAPSHOT.jar</systemPath>-->
     </dependency>
 
     <!--  ==============-->
@@ -63,7 +58,7 @@
       <artifactId>spring-boot-starter-data-jpa</artifactId>
     </dependency>
 
-
+    <!--SWAGGER-->
     <dependency>
       <groupId>io.springfox</groupId>
       <artifactId>springfox-swagger2</artifactId>
@@ -202,55 +197,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
-      <plugin>
-        <groupId>org.jetbrains.kotlin</groupId>
-        <artifactId>kotlin-maven-plugin</artifactId>
-        <version>${kotlin.version}</version>
-        <executions>
-          <execution>
-            <id>compile</id>
-            <phase>compile</phase>
-            <goals>
-              <goal>compile</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>test-compile</id>
-            <phase>test-compile</phase>
-            <goals>
-              <goal>test-compile</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <compilerPlugins>
-            <plugin>kotlinx-serialization</plugin>
-          </compilerPlugins>
-          <jvmTarget>1.8</jvmTarget>
-        </configuration>
-        <dependencies>
-          <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-maven-serialization</artifactId>
-            <version>${kotlin.version}</version>
-          </dependency>
-        </dependencies>
-      </plugin>
-      <!--            <plugin>-->
-      <!--                <groupId>org.jetbrains.kotlin</groupId>-->
-      <!--                <artifactId>kotlin-maven-plugin</artifactId>-->
-      <!--                <configuration>-->
-      <!--                    <compilerPlugins>-->
-      <!--                        <plugin>jpa</plugin>-->
-      <!--                        <plugin>spring</plugin>-->
-      <!--                    </compilerPlugins>-->
-      <!--                    <args>-->
-      <!--                        <arg>-Xjsr305=strict</arg>-->
-      <!--                    </args>-->
-      <!--                </configuration>-->
-      <!--                <dependencies>-->
-      <!--                </dependencies>-->
-      <!--            </plugin>-->
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>

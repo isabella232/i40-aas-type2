@@ -1,0 +1,767 @@
+{
+	"info": {
+		"_postman_id": "21bf1bf9-db63-41f8-bbab-731298d061f5",
+		"name": "AAS-Type2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "submodel",
+			"item": [
+				{
+					"name": "GET /submodels",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "dMAdminPwd",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "dmAdmin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:2001/submodels?id=http://acplt.org/Submodels/Assets/TestAsset/Identification",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2001",
+							"path": [
+								"submodels"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "http://acplt.org/Submodels/Assets/TestAsset/Identification"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /submodels",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "dMAdminPwd",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "dmAdmin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:2001/submodels?id=http://acplt.org/Submodels/Assets/TestAsset/Identification",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2001",
+							"path": [
+								"submodels"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "http://acplt.org/Submodels/Assets/TestAsset/Identification"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH /submodels",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "dMAdminPwd",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "dmAdmin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idShort\": \"sampleSb_3\",\n  \"description\": [\n    {\n      \"language\": \"en-us\",\n      \"text\": \"Updated Text after PATCH\"\n    },\n    {\n      \"language\": \"de\",\n      \"text\": \"Ein Beispiel-Identifikations-Submodel f\\u00fcr eine Test-Anwendung\"\n    }\n  ],\n  \"modelType\": {\n    \"name\": \"Submodel\"\n  },\n  \"identification\": {\n    \"id\": \"http://acplt.org/Submodels/Assets/TestAsset/Identification/sampleSb_3\",\n    \"idType\": \"IRI\"\n  },\n  \"administration\": {\n    \"version\": \"0.9\",\n    \"revision\": \"0\"\n  },\n  \"semanticId\": {\n    \"keys\": [\n      {\n        \"type\": \"Submodel\",\n        \"idType\": \"IRDI\",\n        \"value\": \"http://acplt.org/SubmodelTemplates/AssetIdentification\",\n        \"local\": false\n      }\n    ]\n  },\n  \"submodelElements\": [\n    {\n      \"idShort\": \"ManufacturerName\",\n      \"description\": [\n        {\n          \"language\": \"en-us\",\n          \"text\": \"Legally valid designation of the natural or judicial person which is directly responsible for the design, production, packaging and labeling of a product in respect to its being brought into circulation.\"\n        },\n        {\n          \"language\": \"de\",\n          \"text\": \"Bezeichnung f\\u00fcr eine nat\\u00fcrliche oder juristische Person, die f\\u00fcr die Auslegung, Herstellung und Verpackung sowie die Etikettierung eines Produkts im Hinblick auf das 'Inverkehrbringen' im eigenen Namen verantwortlich ist\"\n        }\n      ],\n      \"modelType\": {\n        \"name\": \"Property\"\n      },\n      \"semanticId\": {\n        \"keys\": [\n          {\n            \"type\": \"GlobalReference\",\n            \"idType\": \"IRDI\",\n            \"value\": \"0173-1#02-AAO677#002\",\n            \"local\": false\n          }\n        ]\n      },\n      \"qualifiers\": [\n        {\n          \"modelType\": {\n            \"name\": \"Qualifier\"\n          },\n          \"value\": \"100\",\n          \"valueId\": {\n            \"keys\": [\n              {\n                \"type\": \"GlobalReference\",\n                \"idType\": \"IRDI\",\n                \"value\": \"http://acplt.org/ValueId/ExampleValueId\",\n                \"local\": false\n              }\n            ]\n          },\n          \"valueType\": \"string\",\n          \"type\": \"http://acplt.org/Qualifier/ExampleQualifier\"\n        },\n        {\n          \"modelType\": {\n            \"name\": \"Qualifier\"\n          },\n          \"value\": \"50\",\n          \"valueId\": {\n            \"keys\": [\n              {\n                \"type\": \"GlobalReference\",\n                \"idType\": \"IRDI\",\n                \"value\": \"http://acplt.org/ValueId/ExampleValueId\",\n                \"local\": false\n              }\n            ]\n          },\n          \"valueType\": \"string\",\n          \"type\": \"http://acplt.org/Qualifier/ExampleQualifier2\"\n        }\n      ],\n      \"value\": \"ACPLT\",\n      \"valueId\": {\n        \"keys\": [\n          {\n            \"type\": \"GlobalReference\",\n            \"idType\": \"IRDI\",\n            \"value\": \"http://acplt.org/ValueId/ExampleValueId\",\n            \"local\": false\n          }\n        ]\n      },\n      \"valueType\": \"string\"\n    },\n    {\n      \"idShort\": \"InstanceId\",\n      \"description\": [\n        {\n          \"language\": \"en-us\",\n          \"text\": \"Legally valid designation of the natural or judicial person which is directly responsible for the design, production, packaging and labeling of a product in respect to its being brought into circulation.\"\n        },\n        {\n          \"language\": \"de\",\n          \"text\": \"Bezeichnung f\\u00fcr eine nat\\u00fcrliche oder juristische Person, die f\\u00fcr die Auslegung, Herstellung und Verpackung sowie die Etikettierung eines Produkts im Hinblick auf das 'Inverkehrbringen' im eigenen Namen verantwortlich ist\"\n        }\n      ],\n      \"modelType\": {\n        \"name\": \"Property\"\n      },\n      \"semanticId\": {\n        \"keys\": [\n          {\n            \"type\": \"GlobalReference\",\n            \"idType\": \"IRI\",\n            \"value\": \"http://opcfoundation.org/UA/DI/1.1/DeviceType/Serialnumber\",\n            \"local\": false\n          }\n        ]\n      },\n      \"qualifiers\": [\n        {\n          \"modelType\": {\n            \"name\": \"Formula\"\n          },\n          \"dependsOn\": [\n            {\n              \"keys\": [\n                {\n                  \"type\": \"GlobalReference\",\n                  \"idType\": \"IRDI\",\n                  \"value\": \"http://acplt.org/Formula/ExampleFormula\",\n                  \"local\": false\n                }\n              ]\n            }\n          ]\n        }\n      ],\n      \"value\": \"978-8234-234-342\",\n      \"valueId\": {\n        \"keys\": [\n          {\n            \"type\": \"GlobalReference\",\n            \"idType\": \"IRDI\",\n            \"value\": \"http://acplt.org/ValueId/ExampleValueId\",\n            \"local\": false\n          }\n        ]\n      },\n      \"valueType\": \"string\"\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2001/submodels?id=http://acplt.org/Submodels/Assets/TestAsset/Identification",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2001",
+							"path": [
+								"submodels"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "http://acplt.org/Submodels/Assets/TestAsset/Identification"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT /submodels",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "dMAdminPwd",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "dmAdmin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idShort\": \"sampleSb_3\",\n  \"description\": [\n    {\n      \"language\": \"en-us\",\n      \"text\": \"An example asset identification submodel for the test application\"\n    },\n    {\n      \"language\": \"de\",\n      \"text\": \"Ein Beispiel-Identifikations-Submodel f\\u00fcr eine Test-Anwendung\"\n    }\n  ],\n  \"modelType\": {\n    \"name\": \"Submodel\"\n  },\n  \"identification\": {\n    \"id\": \"http://acplt.org/Submodels/Assets/TestAsset/Identification/sampleSb_3\",\n    \"idType\": \"IRI\"\n  },\n  \"administration\": {\n    \"version\": \"0.9\",\n    \"revision\": \"0\"\n  },\n  \"semanticId\": {\n    \"keys\": [\n      {\n        \"type\": \"Submodel\",\n        \"idType\": \"IRDI\",\n        \"value\": \"http://acplt.org/SubmodelTemplates/AssetIdentification\",\n        \"local\": false\n      }\n    ]\n  },\n  \"submodelElements\": [\n    {\n      \"idShort\": \"ManufacturerName\",\n      \"description\": [\n        {\n          \"language\": \"en-us\",\n          \"text\": \"Legally valid designation of the natural or judicial person which is directly responsible for the design, production, packaging and labeling of a product in respect to its being brought into circulation.\"\n        },\n        {\n          \"language\": \"de\",\n          \"text\": \"Bezeichnung f\\u00fcr eine nat\\u00fcrliche oder juristische Person, die f\\u00fcr die Auslegung, Herstellung und Verpackung sowie die Etikettierung eines Produkts im Hinblick auf das 'Inverkehrbringen' im eigenen Namen verantwortlich ist\"\n        }\n      ],\n      \"modelType\": {\n        \"name\": \"Property\"\n      },\n      \"semanticId\": {\n        \"keys\": [\n          {\n            \"type\": \"GlobalReference\",\n            \"idType\": \"IRDI\",\n            \"value\": \"0173-1#02-AAO677#002\",\n            \"local\": false\n          }\n        ]\n      },\n      \"qualifiers\": [\n        {\n          \"modelType\": {\n            \"name\": \"Qualifier\"\n          },\n          \"value\": \"100\",\n          \"valueId\": {\n            \"keys\": [\n              {\n                \"type\": \"GlobalReference\",\n                \"idType\": \"IRDI\",\n                \"value\": \"http://acplt.org/ValueId/ExampleValueId\",\n                \"local\": false\n              }\n            ]\n          },\n          \"valueType\": \"string\",\n          \"type\": \"http://acplt.org/Qualifier/ExampleQualifier\"\n        },\n        {\n          \"modelType\": {\n            \"name\": \"Qualifier\"\n          },\n          \"value\": \"50\",\n          \"valueId\": {\n            \"keys\": [\n              {\n                \"type\": \"GlobalReference\",\n                \"idType\": \"IRDI\",\n                \"value\": \"http://acplt.org/ValueId/ExampleValueId\",\n                \"local\": false\n              }\n            ]\n          },\n          \"valueType\": \"string\",\n          \"type\": \"http://acplt.org/Qualifier/ExampleQualifier2\"\n        }\n      ],\n      \"value\": \"ACPLT\",\n      \"valueId\": {\n        \"keys\": [\n          {\n            \"type\": \"GlobalReference\",\n            \"idType\": \"IRDI\",\n            \"value\": \"http://acplt.org/ValueId/ExampleValueId\",\n            \"local\": false\n          }\n        ]\n      },\n      \"valueType\": \"string\"\n    },\n    {\n      \"idShort\": \"InstanceId\",\n      \"description\": [\n        {\n          \"language\": \"en-us\",\n          \"text\": \"Legally valid designation of the natural or judicial person which is directly responsible for the design, production, packaging and labeling of a product in respect to its being brought into circulation.\"\n        },\n        {\n          \"language\": \"de\",\n          \"text\": \"Bezeichnung f\\u00fcr eine nat\\u00fcrliche oder juristische Person, die f\\u00fcr die Auslegung, Herstellung und Verpackung sowie die Etikettierung eines Produkts im Hinblick auf das 'Inverkehrbringen' im eigenen Namen verantwortlich ist\"\n        }\n      ],\n      \"modelType\": {\n        \"name\": \"Property\"\n      },\n      \"semanticId\": {\n        \"keys\": [\n          {\n            \"type\": \"GlobalReference\",\n            \"idType\": \"IRI\",\n            \"value\": \"http://opcfoundation.org/UA/DI/1.1/DeviceType/Serialnumber\",\n            \"local\": false\n          }\n        ]\n      },\n      \"qualifiers\": [\n        {\n          \"modelType\": {\n            \"name\": \"Formula\"\n          },\n          \"dependsOn\": [\n            {\n              \"keys\": [\n                {\n                  \"type\": \"GlobalReference\",\n                  \"idType\": \"IRDI\",\n                  \"value\": \"http://acplt.org/Formula/ExampleFormula\",\n                  \"local\": false\n                }\n              ]\n            }\n          ]\n        }\n      ],\n      \"value\": \"978-8234-234-342\",\n      \"valueId\": {\n        \"keys\": [\n          {\n            \"type\": \"GlobalReference\",\n            \"idType\": \"IRDI\",\n            \"value\": \"http://acplt.org/ValueId/ExampleValueId\",\n            \"local\": false\n          }\n        ]\n      },\n      \"valueType\": \"string\"\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2001/submodels?id=http://acplt.org/Submodels/Assets/TestAsset/Identification?ad=b%26g=x",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2001",
+							"path": [
+								"submodels"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "http://acplt.org/Submodels/Assets/TestAsset/Identification?ad=b&g=x"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "shells",
+			"item": [
+				{
+					"name": "GET /shells",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "dMAdminPwd",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "dmAdmin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:2001/shells",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2001",
+							"path": [
+								"shells"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "https://acplt.org/Test_AssetAdministrationShell",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /shells",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "dMAdminPwd",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "dmAdmin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:2001/shells?id=https://acplt.org/Test_AssetAdministrationShell",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2001",
+							"path": [
+								"shells"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "https://acplt.org/Test_AssetAdministrationShell"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH /shells",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "dMAdminPwd",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "dmAdmin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n      \"idShort\": \"TestAssetAdministrationShell\",\n      \"description\": [\n        {\n          \"language\": \"en-us\",\n          \"text\": \"An Example Asset Administration Shell for the test application\"\n        },\n        {\n          \"language\": \"de\",\n          \"text\": \"Ein Beispiel-Verwaltungsschale f\\u00fcr eine Test-Anwendung\"\n        }\n      ],\n      \"modelType\": {\n        \"name\": \"AssetAdministrationShell\"\n      },\n      \"identification\": {\n        \"id\": \"https://acplt.org/Test_AssetAdministrationShell\",\n        \"idType\": \"IRI\"\n      },\n      \"administration\": {\n        \"version\": \"0.9\",\n        \"revision\": \"0\"\n      },\n      \"derivedFrom\": {\n        \"keys\": [\n          {\n            \"type\": \"AssetAdministrationShell\",\n            \"idType\": \"IRDI\",\n            \"value\": \"https://acplt.org/TestAssetAdministrationShell2\",\n            \"local\": false\n          }\n        ]\n      },\n      \"asset\": {\n        \"keys\": [\n          {\n            \"type\": \"Asset\",\n            \"idType\": \"IRDI\",\n            \"value\": \"https://acplt.org/Test_Asset\",\n            \"local\": false\n          }\n        ]\n      },\n      \"submodels\": [\n        {\n          \"keys\": [\n            {\n              \"type\": \"Submodel\",\n              \"idType\": \"IRDI\",\n              \"value\": \"https://acplt.org/Test_Submodel\",\n              \"local\": false\n            }\n          ]\n        }\n      ],\n      \"conceptDictionaries\": [\n        {\n          \"idShort\": \"TestConceptDictionary\",\n          \"description\": [\n            {\n              \"language\": \"en-us\",\n              \"text\": \"An example concept dictionary for the test application\"\n            },\n            {\n              \"language\": \"de\",\n              \"text\": \"Ein Beispiel-ConceptDictionary f\\u00fcr eine Test-Anwendung\"\n            }\n          ],\n          \"modelType\": {\n            \"name\": \"ConceptDictionary\"\n          },\n          \"conceptDescriptions\": [\n            {\n              \"keys\": [\n                {\n                  \"type\": \"ConceptDescription\",\n                  \"idType\": \"IRDI\",\n                  \"value\": \"https://acplt.org/Test_ConceptDescription\",\n                  \"local\": false\n                }\n              ]\n            }\n          ]\n        }\n      ]\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2001/shells?id=https://acplt.org/Test_AssetAdministrationShell",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2001",
+							"path": [
+								"shells"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "https://acplt.org/Test_AssetAdministrationShell"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT /shells",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "dMAdminPwd",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "dmAdmin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n      \"idShort\": \"TestAssetAdministrationShell\",\n      \"description\": [\n        {\n          \"language\": \"en-us\",\n          \"text\": \"An Example Asset Administration Shell for the test application\"\n        },\n        {\n          \"language\": \"de\",\n          \"text\": \"Ein Beispiel-Verwaltungsschale f\\u00fcr eine Test-Anwendung\"\n        }\n      ],\n      \"modelType\": {\n        \"name\": \"AssetAdministrationShell\"\n      },\n      \"identification\": {\n        \"id\": \"https://acplt.org/Test_AssetAdministrationShell\",\n        \"idType\": \"IRI\"\n      },\n      \"administration\": {\n        \"version\": \"0.9\",\n        \"revision\": \"0\"\n      },\n      \"derivedFrom\": {\n        \"keys\": [\n          {\n            \"type\": \"AssetAdministrationShell\",\n            \"idType\": \"IRDI\",\n            \"value\": \"https://acplt.org/TestAssetAdministrationShell2\",\n            \"local\": false\n          }\n        ]\n      },\n      \"asset\": {\n        \"keys\": [\n          {\n            \"type\": \"Asset\",\n            \"idType\": \"IRDI\",\n            \"value\": \"https://acplt.org/Test_Asset\",\n            \"local\": false\n          }\n        ]\n      },\n      \"submodels\": [\n        {\n          \"keys\": [\n            {\n              \"type\": \"Submodel\",\n              \"idType\": \"IRDI\",\n              \"value\": \"https://acplt.org/Test_Submodel\",\n              \"local\": false\n            }\n          ]\n        }\n      ],\n      \"conceptDictionaries\": [\n        {\n          \"idShort\": \"TestConceptDictionary\",\n          \"description\": [\n            {\n              \"language\": \"en-us\",\n              \"text\": \"An example concept dictionary for the test application\"\n            },\n            {\n              \"language\": \"de\",\n              \"text\": \"Ein Beispiel-ConceptDictionary f\\u00fcr eine Test-Anwendung\"\n            }\n          ],\n          \"modelType\": {\n            \"name\": \"ConceptDictionary\"\n          },\n          \"conceptDescriptions\": [\n            {\n              \"keys\": [\n                {\n                  \"type\": \"ConceptDescription\",\n                  \"idType\": \"IRDI\",\n                  \"value\": \"https://acplt.org/Test_ConceptDescription\",\n                  \"local\": false\n                }\n              ]\n            }\n          ]\n        }\n      ]\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2001/shells?id=https://acplt.org/Test_AssetAdministrationShell",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2001",
+							"path": [
+								"shells"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "https://acplt.org/Test_AssetAdministrationShell"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "asset",
+			"item": [
+				{
+					"name": "GET /assets",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "dMAdminPwd",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "dmAdmin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:2001/assets?id=https://acplt.org/Test_Asset",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2001",
+							"path": [
+								"assets"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "https://acplt.org/Test_Asset"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /assets",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "dMAdminPwd",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "dmAdmin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:2001/assets?id=http://acplt.org/Submodels/Assets/TestAsset/Identification",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2001",
+							"path": [
+								"assets"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "http://acplt.org/Submodels/Assets/TestAsset/Identification"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH /assets",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "dMAdminPwd",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "dmAdmin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n      \"idShort\": \"Test_Asset\",\n      \"description\": [\n        {\n          \"language\": \"en-us\",\n          \"text\": \"An example asset for the test application\"\n        },\n        {\n          \"language\": \"de\",\n          \"text\": \"Ein Beispiel-Asset f\\u00fcr eine Test-Anwendung\"\n        }\n      ],\n      \"modelType\": {\n        \"name\": \"Asset\"\n      },\n      \"identification\": {\n        \"id\": \"https://acplt.org/Test_Asset\",\n        \"idType\": \"IRI\"\n      },\n      \"administration\": {\n        \"version\": \"0.9\",\n        \"revision\": \"0\"\n      },\n      \"kind\": \"Instance\",\n      \"assetIdentificationModel\": {\n        \"keys\": [\n          {\n            \"type\": \"Submodel\",\n            \"idType\": \"IRDI\",\n            \"value\": \"http://acplt.org/Submodels/Assets/TestAsset/Identification\",\n            \"local\": false\n          }\n        ]\n      },\n      \"billOfMaterial\": {\n        \"keys\": [\n          {\n            \"type\": \"Submodel\",\n            \"idType\": \"IRDI\",\n            \"value\": \"http://acplt.org/Submodels/Assets/TestAsset/BillOfMaterial\",\n            \"local\": false\n          }\n        ]\n      }\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2001/assets?id=https://acplt.org/Test_Asset",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2001",
+							"path": [
+								"assets"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "https://acplt.org/Test_Asset"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT /assets",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n      \"idShort\": \"Test_Asset\",\n      \"description\": [\n        {\n          \"language\": \"en-us\",\n          \"text\": \"An example asset for the test application\"\n        },\n        {\n          \"language\": \"de\",\n          \"text\": \"Ein Beispiel-Asset f\\u00fcr eine Test-Anwendung\"\n        }\n      ],\n      \"modelType\": {\n        \"name\": \"Asset\"\n      },\n      \"identification\": {\n        \"id\": \"https://acplt.org/Test_Asset\",\n        \"idType\": \"IRI\"\n      },\n      \"administration\": {\n        \"version\": \"0.9\",\n        \"revision\": \"0\"\n      },\n      \"kind\": \"Instance\",\n      \"assetIdentificationModel\": {\n        \"keys\": [\n          {\n            \"type\": \"Submodel\",\n            \"idType\": \"IRDI\",\n            \"value\": \"http://acplt.org/Submodels/Assets/TestAsset/Identification\",\n            \"local\": false\n          }\n        ]\n      },\n      \"billOfMaterial\": {\n        \"keys\": [\n          {\n            \"type\": \"Submodel\",\n            \"idType\": \"IRDI\",\n            \"value\": \"http://acplt.org/Submodels/Assets/TestAsset/BillOfMaterial\",\n            \"local\": false\n          }\n        ]\n      }\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2001/assets?id=https://acplt.org/Test_Asset",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2001",
+							"path": [
+								"assets"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "https://acplt.org/Test_Asset"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "conceptDescription",
+			"item": [
+				{
+					"name": "GET /shells",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "dMAdminPwd",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "dmAdmin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:2001/shells?id=https://acplt.org/Test_ConceptDescription",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2001",
+							"path": [
+								"shells"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "https://acplt.org/Test_ConceptDescription"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /conceptDescriptions",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "dMAdminPwd",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "dmAdmin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:2001/conceptDescriptions?id=https://acplt.org/Test_ConceptDescription",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2001",
+							"path": [
+								"conceptDescriptions"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "https://acplt.org/Test_ConceptDescription"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH /conceptDescriptions",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "dMAdminPwd",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "dmAdmin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n      \"idShort\": \"TestConceptDescription\",\n      \"description\": [\n        {\n          \"language\": \"en-us\",\n          \"text\": \"An example concept description  for the test application\"\n        },\n        {\n          \"language\": \"de\",\n          \"text\": \"Ein Beispiel-ConceptDescription f\\u00fcr eine Test-Anwendung\"\n        }\n      ],\n      \"modelType\": {\n        \"name\": \"ConceptDescription\"\n      },\n      \"identification\": {\n        \"id\": \"https://acplt.org/Test_ConceptDescription\",\n        \"idType\": \"IRI\"\n      },\n      \"administration\": {\n        \"version\": \"0.9\",\n        \"revision\": \"0\"\n      },\n      \"isCaseOf\": [\n        {\n          \"keys\": [\n            {\n              \"type\": \"GlobalReference\",\n              \"idType\": \"IRDI\",\n              \"value\": \"http://acplt.org/DataSpecifications/ConceptDescriptions/TestConceptDescription\",\n              \"local\": false\n            }\n          ]\n        }\n      ]\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2001/conceptDescriptions?id=https://acplt.org/Test_ConceptDescription",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2001",
+							"path": [
+								"conceptDescriptions"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "https://acplt.org/Test_ConceptDescription"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT /conceptDescriptions",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n      \"idShort\": \"TestConceptDescription\",\n      \"description\": [\n        {\n          \"language\": \"en-us\",\n          \"text\": \"An example concept description  for the test application\"\n        },\n        {\n          \"language\": \"de\",\n          \"text\": \"Ein Beispiel-ConceptDescription f\\u00fcr eine Test-Anwendung\"\n        }\n      ],\n      \"modelType\": {\n        \"name\": \"ConceptDescription\"\n      },\n      \"identification\": {\n        \"id\": \"https://acplt.org/Test_ConceptDescription\",\n        \"idType\": \"IRI\"\n      },\n      \"administration\": {\n        \"version\": \"0.9\",\n        \"revision\": \"0\"\n      },\n      \"isCaseOf\": [\n        {\n          \"keys\": [\n            {\n              \"type\": \"GlobalReference\",\n              \"idType\": \"IRDI\",\n              \"value\": \"http://acplt.org/DataSpecifications/ConceptDescriptions/TestConceptDescription\",\n              \"local\": false\n            }\n          ]\n        }\n      ]\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2001/conceptDescriptions?id=https://acplt.org/Test_ConceptDescription",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2001",
+							"path": [
+								"conceptDescriptions"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "https://acplt.org/Test_ConceptDescription"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "POST Env",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "dMAdminPwd",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "dmAdmin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"assetAdministrationShells\": [\n    {\n      \"idShort\": \"TestAssetAdministrationShell\",\n      \"description\": [\n        {\n          \"language\": \"en-us\",\n          \"text\": \"An Example Asset Administration Shell for the test application\"\n        },\n        {\n          \"language\": \"de\",\n          \"text\": \"Ein Beispiel-Verwaltungsschale f\\u00fcr eine Test-Anwendung\"\n        }\n      ],\n      \"modelType\": {\n        \"name\": \"AssetAdministrationShell\"\n      },\n      \"identification\": {\n        \"id\": \"https://acplt.org/Test_AssetAdministrationShell\",\n        \"idType\": \"IRI\"\n      },\n      \"administration\": {\n        \"version\": \"0.9\",\n        \"revision\": \"0\"\n      },\n      \"derivedFrom\": {\n        \"keys\": [\n          {\n            \"type\": \"AssetAdministrationShell\",\n            \"idType\": \"IRDI\",\n            \"value\": \"https://acplt.org/TestAssetAdministrationShell2\",\n            \"local\": false\n          }\n        ]\n      },\n      \"asset\": {\n        \"keys\": [\n          {\n            \"type\": \"Asset\",\n            \"idType\": \"IRDI\",\n            \"value\": \"https://acplt.org/Test_Asset\",\n            \"local\": false\n          }\n        ]\n      },\n      \"submodels\": [\n        {\n          \"keys\": [\n            {\n              \"type\": \"Submodel\",\n              \"idType\": \"IRDI\",\n              \"value\": \"https://acplt.org/Test_Submodel\",\n              \"local\": false\n            }\n          ]\n        }\n      ],\n      \"conceptDictionaries\": [\n        {\n          \"idShort\": \"TestConceptDictionary\",\n          \"description\": [\n            {\n              \"language\": \"en-us\",\n              \"text\": \"An example concept dictionary for the test application\"\n            },\n            {\n              \"language\": \"de\",\n              \"text\": \"Ein Beispiel-ConceptDictionary f\\u00fcr eine Test-Anwendung\"\n            }\n          ],\n          \"modelType\": {\n            \"name\": \"ConceptDictionary\"\n          },\n          \"conceptDescriptions\": [\n            {\n              \"keys\": [\n                {\n                  \"type\": \"ConceptDescription\",\n                  \"idType\": \"IRDI\",\n                  \"value\": \"https://acplt.org/Test_ConceptDescription\",\n                  \"local\": false\n                }\n              ]\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"idShort\": \"\",\n      \"modelType\": {\n        \"name\": \"AssetAdministrationShell\"\n      },\n      \"identification\": {\n        \"id\": \"https://acplt.org/Test_AssetAdministrationShell_Mandatory\",\n        \"idType\": \"IRI\"\n      },\n      \"asset\": {\n        \"keys\": [\n          {\n            \"type\": \"Asset\",\n            \"idType\": \"IRDI\",\n            \"value\": \"https://acplt.org/Test_Asset_Mandatory\",\n            \"local\": false\n          }\n        ]\n      },\n      \"submodels\": [\n        {\n          \"keys\": [\n            {\n              \"type\": \"Submodel\",\n              \"idType\": \"IRDI\",\n              \"value\": \"https://acplt.org/Test_Submodel_Mandatory\",\n              \"local\": false\n            }\n          ]\n        },\n        {\n          \"keys\": [\n            {\n              \"type\": \"Submodel\",\n              \"idType\": \"IRDI\",\n              \"value\": \"https://acplt.org/Test_Submodel2_Mandatory\",\n              \"local\": false\n            }\n          ]\n        }\n      ],\n      \"conceptDictionaries\": [\n        {\n          \"idShort\": \"TestConceptDictionary\",\n          \"modelType\": {\n            \"name\": \"ConceptDictionary\"\n          }\n        }\n      ]\n    }\n  ],\n  \"submodels\": [\n    {\n      \"idShort\": \"Identification\",\n      \"description\": [\n        {\n          \"language\": \"en-us\",\n          \"text\": \"An example asset identification submodel for the test application\"\n        },\n        {\n          \"language\": \"de\",\n          \"text\": \"Ein Beispiel-Identifikations-Submodel f\\u00fcr eine Test-Anwendung\"\n        }\n      ],\n      \"modelType\": {\n        \"name\": \"Submodel\"\n      },\n      \"identification\": {\n        \"id\": \"http://acplt.org/Submodels/Assets/TestAsset/Identification\",\n        \"idType\": \"IRI\"\n      },\n      \"administration\": {\n        \"version\": \"0.9\",\n        \"revision\": \"0\"\n      },\n      \"semanticId\": {\n        \"keys\": [\n          {\n            \"type\": \"Submodel\",\n            \"idType\": \"IRDI\",\n            \"value\": \"http://acplt.org/SubmodelTemplates/AssetIdentification\",\n            \"local\": false\n          }\n        ]\n      },\n      \"submodelElements\": [\n        {\n          \"idShort\": \"ManufacturerName\",\n          \"description\": [\n            {\n              \"language\": \"en-us\",\n              \"text\": \"Legally valid designation of the natural or judicial person which is directly responsible for the design, production, packaging and labeling of a product in respect to its being brought into circulation.\"\n            },\n            {\n              \"language\": \"de\",\n              \"text\": \"Bezeichnung f\\u00fcr eine nat\\u00fcrliche oder juristische Person, die f\\u00fcr die Auslegung, Herstellung und Verpackung sowie die Etikettierung eines Produkts im Hinblick auf das 'Inverkehrbringen' im eigenen Namen verantwortlich ist\"\n            }\n          ],\n          \"modelType\": {\n            \"name\": \"Property\"\n          },\n          \"semanticId\": {\n            \"keys\": [\n              {\n                \"type\": \"GlobalReference\",\n                \"idType\": \"IRDI\",\n                \"value\": \"0173-1#02-AAO677#002\",\n                \"local\": false\n              }\n            ]\n          },\n          \"qualifiers\": [\n            {\n              \"modelType\": {\n                \"name\": \"Qualifier\"\n              },\n              \"value\": \"100\",\n              \"valueId\": {\n                \"keys\": [\n                  {\n                    \"type\": \"GlobalReference\",\n                    \"idType\": \"IRDI\",\n                    \"value\": \"http://acplt.org/ValueId/ExampleValueId\",\n                    \"local\": false\n                  }\n                ]\n              },\n              \"valueType\": \"string\",\n              \"type\": \"http://acplt.org/Qualifier/ExampleQualifier\"\n            },\n            {\n              \"modelType\": {\n                \"name\": \"Qualifier\"\n              },\n              \"value\": \"50\",\n              \"valueId\": {\n                \"keys\": [\n                  {\n                    \"type\": \"GlobalReference\",\n                    \"idType\": \"IRDI\",\n                    \"value\": \"http://acplt.org/ValueId/ExampleValueId\",\n                    \"local\": false\n                  }\n                ]\n              },\n              \"valueType\": \"string\",\n              \"type\": \"http://acplt.org/Qualifier/ExampleQualifier2\"\n            }\n          ],\n          \"value\": \"ACPLT\",\n          \"valueId\": {\n            \"keys\": [\n              {\n                \"type\": \"GlobalReference\",\n                \"idType\": \"IRDI\",\n                \"value\": \"http://acplt.org/ValueId/ExampleValueId\",\n                \"local\": false\n              }\n            ]\n          },\n          \"valueType\": \"string\"\n        },\n        {\n          \"idShort\": \"InstanceId\",\n          \"description\": [\n            {\n              \"language\": \"en-us\",\n              \"text\": \"Legally valid designation of the natural or judicial person which is directly responsible for the design, production, packaging and labeling of a product in respect to its being brought into circulation.\"\n            },\n            {\n              \"language\": \"de\",\n              \"text\": \"Bezeichnung f\\u00fcr eine nat\\u00fcrliche oder juristische Person, die f\\u00fcr die Auslegung, Herstellung und Verpackung sowie die Etikettierung eines Produkts im Hinblick auf das 'Inverkehrbringen' im eigenen Namen verantwortlich ist\"\n            }\n          ],\n          \"modelType\": {\n            \"name\": \"Property\"\n          },\n          \"semanticId\": {\n            \"keys\": [\n              {\n                \"type\": \"GlobalReference\",\n                \"idType\": \"IRI\",\n                \"value\": \"http://opcfoundation.org/UA/DI/1.1/DeviceType/Serialnumber\",\n                \"local\": false\n              }\n            ]\n          },\n          \"qualifiers\": [\n            {\n              \"modelType\": {\n                \"name\": \"Formula\"\n              },\n              \"dependsOn\": [\n                {\n                  \"keys\": [\n                    {\n                      \"type\": \"GlobalReference\",\n                      \"idType\": \"IRDI\",\n                      \"value\": \"http://acplt.org/Formula/ExampleFormula\",\n                      \"local\": false\n                    }\n                  ]\n                }\n              ]\n            }\n          ],\n          \"value\": \"978-8234-234-342\",\n          \"valueId\": {\n            \"keys\": [\n              {\n                \"type\": \"GlobalReference\",\n                \"idType\": \"IRDI\",\n                \"value\": \"http://acplt.org/ValueId/ExampleValueId\",\n                \"local\": false\n              }\n            ]\n          },\n          \"valueType\": \"string\"\n        }\n      ]\n    },\n    {\n      \"idShort\": \"BillOfMaterial\",\n      \"description\": [\n        {\n          \"language\": \"en-us\",\n          \"text\": \"An example bill of material submodel for the test application\"\n        },\n        {\n          \"language\": \"de\",\n          \"text\": \"Ein Beispiel-BillofMaterial-Submodel f\\u00fcr eine Test-Anwendung\"\n        }\n      ],\n      \"modelType\": {\n        \"name\": \"Submodel\"\n      },\n      \"identification\": {\n        \"id\": \"http://acplt.org/Submodels/Assets/TestAsset/BillOfMaterial\",\n        \"idType\": \"IRI\"\n      },\n      \"administration\": {\n        \"version\": \"0.9\"\n      },\n      \"semanticId\": {\n        \"keys\": [\n          {\n            \"type\": \"Submodel\",\n            \"idType\": \"IRDI\",\n            \"value\": \"http://acplt.org/SubmodelTemplates/BillOfMaterial\",\n            \"local\": false\n          }\n        ]\n      },\n      \"submodelElements\": [\n        {\n          \"idShort\": \"ExampleEntity\",\n          \"description\": [\n            {\n              \"language\": \"en-us\",\n              \"text\": \"Legally valid designation of the natural or judicial person which is directly responsible for the design, production, packaging and labeling of a product in respect to its being brought into circulation.\"\n            },\n            {\n              \"language\": \"de\",\n              \"text\": \"Bezeichnung f\\u00fcr eine nat\\u00fcrliche oder juristische Person, die f\\u00fcr die Auslegung, Herstellung und Verpackung sowie die Etikettierung eines Produkts im Hinblick auf das 'Inverkehrbringen' im eigenen Namen verantwortlich ist\"\n            }\n          ],\n          \"modelType\": {\n            \"name\": \"Entity\"\n          },\n          \"semanticId\": {\n            \"keys\": [\n              {\n                \"type\": \"GlobalReference\",\n                \"idType\": \"IRI\",\n                \"value\": \"http://opcfoundation.org/UA/DI/1.1/DeviceType/Serialnumber\",\n                \"local\": false\n              }\n            ]\n          },\n          \"statements\": [\n            {\n              \"idShort\": \"ExampleProperty\",\n              \"category\": \"CONSTANT\",\n              \"description\": [\n                {\n                  \"language\": \"en-us\",\n                  \"text\": \"Example Property object\"\n                },\n                {\n                  \"language\": \"de\",\n                  \"text\": \"Beispiel Property Element\"\n                }\n              ],\n              \"modelType\": {\n                \"name\": \"Property\"\n              },\n              \"semanticId\": {\n                \"keys\": [\n                  {\n                    \"type\": \"GlobalReference\",\n                    \"idType\": \"IRDI\",\n                    \"value\": \"http://acplt.org/Properties/ExampleProperty\",\n                    \"local\": false\n                  }\n                ]\n              },\n              \"value\": \"exampleValue\",\n              \"valueId\": {\n                \"keys\": [\n                  {\n                    \"type\": \"GlobalReference\",\n                    \"idType\": \"IRDI\",\n                    \"value\": \"http://acplt.org/ValueId/ExampleValueId\",\n                    \"local\": false\n                  }\n                ]\n              },\n              \"valueType\": \"string\"\n            },\n            {\n              \"idShort\": \"ExampleProperty2\",\n              \"category\": \"CONSTANT\",\n              \"description\": [\n                {\n                  \"language\": \"en-us\",\n                  \"text\": \"Example Property object\"\n                },\n                {\n                  \"language\": \"de\",\n                  \"text\": \"Beispiel Property Element\"\n                }\n              ],\n              \"modelType\": {\n                \"name\": \"Property\"\n              },\n              \"semanticId\": {\n                \"keys\": [\n                  {\n                    \"type\": \"GlobalReference\",\n                    \"idType\": \"IRDI\",\n                    \"value\": \"http://acplt.org/Properties/ExampleProperty\",\n                    \"local\": false\n                  }\n                ]\n              },\n              \"value\": \"exampleValue2\",\n              \"valueId\": {\n                \"keys\": [\n                  {\n                    \"type\": \"GlobalReference\",\n                    \"idType\": \"IRDI\",\n                    \"value\": \"http://acplt.org/ValueId/ExampleValueId\",\n                    \"local\": false\n                  }\n                ]\n              },\n              \"valueType\": \"string\"\n            }\n          ],\n          \"entityType\": \"CoManagedEntity\"\n        },\n        {\n          \"idShort\": \"ExampleEntity2\",\n          \"description\": [\n            {\n              \"language\": \"en-us\",\n              \"text\": \"Legally valid designation of the natural or judicial person which is directly responsible for the design, production, packaging and labeling of a product in respect to its being brought into circulation.\"\n            },\n            {\n              \"language\": \"de\",\n              \"text\": \"Bezeichnung f\\u00fcr eine nat\\u00fcrliche oder juristische Person, die f\\u00fcr die Auslegung, Herstellung und Verpackung sowie die Etikettierung eines Produkts im Hinblick auf das 'Inverkehrbringen' im eigenen Namen verantwortlich ist\"\n            }\n          ],\n          \"modelType\": {\n            \"name\": \"Entity\"\n          },\n          \"semanticId\": {\n            \"keys\": [\n              {\n                \"type\": \"GlobalReference\",\n                \"idType\": \"IRI\",\n                \"value\": \"http://opcfoundation.org/UA/DI/1.1/DeviceType/Serialnumber\",\n                \"local\": false\n              }\n            ]\n          },\n          \"entityType\": \"SelfManagedEntity\",\n          \"asset\": {\n            \"keys\": [\n              {\n                \"type\": \"Asset\",\n                \"idType\": \"IRDI\",\n                \"value\": \"https://acplt.org/Test_Asset2\",\n                \"local\": false\n              }\n            ]\n          }\n        }\n      ]\n    }\n  ],\n  \"assets\": [\n    {\n      \"idShort\": \"Test_Asset\",\n      \"description\": [\n        {\n          \"language\": \"en-us\",\n          \"text\": \"An example asset for the test application\"\n        },\n        {\n          \"language\": \"de\",\n          \"text\": \"Ein Beispiel-Asset f\\u00fcr eine Test-Anwendung\"\n        }\n      ],\n      \"modelType\": {\n        \"name\": \"Asset\"\n      },\n      \"identification\": {\n        \"id\": \"https://acplt.org/Test_Asset\",\n        \"idType\": \"IRI\"\n      },\n      \"administration\": {\n        \"version\": \"0.9\",\n        \"revision\": \"0\"\n      },\n      \"kind\": \"Instance\",\n      \"assetIdentificationModel\": {\n        \"keys\": [\n          {\n            \"type\": \"Submodel\",\n            \"idType\": \"IRDI\",\n            \"value\": \"http://acplt.org/Submodels/Assets/TestAsset/Identification\",\n            \"local\": false\n          }\n        ]\n      },\n      \"billOfMaterial\": {\n        \"keys\": [\n          {\n            \"type\": \"Submodel\",\n            \"idType\": \"IRDI\",\n            \"value\": \"http://acplt.org/Submodels/Assets/TestAsset/BillOfMaterial\",\n            \"local\": false\n          }\n        ]\n      }\n    },\n    {\n      \"idShort\": \"\",\n      \"modelType\": {\n        \"name\": \"Asset\"\n      },\n      \"identification\": {\n        \"id\": \"https://acplt.org/Test_Asset_Mandatory\",\n        \"idType\": \"IRI\"\n      },\n      \"kind\": \"Instance\",\n      \"idShort\": \"Test_Asset\",\n      \"description\": [\n        {\n          \"language\": \"en-us\",\n          \"text\": \"An example asset for the test application\"\n        },\n        {\n          \"language\": \"de\",\n          \"text\": \"Ein Beispiel-Asset f\\u00fcr eine Test-Anwendung\"\n        }\n      ],\n      \"modelType\": {\n        \"name\": \"Asset\"\n      },\n      \"identification\": {\n        \"id\": \"https://acplt.org/Test_Asset_Missing\",\n        \"idType\": \"IRI\"\n      },\n      \"administration\": {},\n      \"kind\": \"Instance\"\n    }\n  ],\n  \"conceptDescriptions\": [\n    {\n      \"idShort\": \"TestConceptDescription\",\n      \"description\": [\n        {\n          \"language\": \"en-us\",\n          \"text\": \"An example concept description  for the test application\"\n        },\n        {\n          \"language\": \"de\",\n          \"text\": \"Ein Beispiel-ConceptDescription f\\u00fcr eine Test-Anwendung\"\n        }\n      ],\n      \"modelType\": {\n        \"name\": \"ConceptDescription\"\n      },\n      \"identification\": {\n        \"id\": \"https://acplt.org/Test_ConceptDescription\",\n        \"idType\": \"IRI\"\n      },\n      \"administration\": {\n        \"version\": \"0.9\",\n        \"revision\": \"0\"\n      },\n      \"isCaseOf\": [\n        {\n          \"keys\": [\n            {\n              \"type\": \"GlobalReference\",\n              \"idType\": \"IRDI\",\n              \"value\": \"http://acplt.org/DataSpecifications/ConceptDescriptions/TestConceptDescription\",\n              \"local\": false\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"idShort\": \"\",\n      \"modelType\": {\n        \"name\": \"ConceptDescription\"\n      },\n      \"identification\": {\n        \"id\": \"https://acplt.org/Test_ConceptDescription_Mandatory\",\n        \"idType\": \"IRI\"\n      }\n    }\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:2001/env",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2001",
+					"path": [
+						"env"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "https://acplt.org/Test_AssetAdministrationShell",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

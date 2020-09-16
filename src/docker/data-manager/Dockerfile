@@ -11,9 +11,12 @@ COPY cmd/data-manager/.project /cmd/data-manager
 
 COPY cmd/data-manager/src/main/resources/ /cmd/data-manager/src/main/resources/
 
-RUN mvn dependency:copy-dependencies
+# RUN mvn dependency:copy-dependencies
 
 COPY cmd/data-manager/src/main/java/ /cmd/data-manager/src/main/java/
+
+RUN mvn install:install-file -Dfile=src/main/resources/i40-aas-objects-kotlin-jvm-1.0-SNAPSHOT.jar -DgroupId=i40.aas -DartifactId=objects-jvm -Dversion=0.0.1-master-SNAPSHOT -Dpackaging=jar
+
 
 RUN mvn install -DskipTests
 

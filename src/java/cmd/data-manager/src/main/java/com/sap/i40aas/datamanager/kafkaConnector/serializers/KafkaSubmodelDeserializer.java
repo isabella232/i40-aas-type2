@@ -1,7 +1,6 @@
 package com.sap.i40aas.datamanager.kafkaConnector.serializers;
 
 import identifiables.Submodel;
-import kotlinx.serialization.SerializationException;
 import org.apache.kafka.common.serialization.Deserializer;
 import utils.AASObjectsDeserializer;
 
@@ -23,14 +22,7 @@ public class KafkaSubmodelDeserializer implements Deserializer<Submodel> {
       return null;
     }
 
-    try {
-      //(deserialize value into Submodel object)
-
-      return AASObjectsDeserializer.Companion.deserializeSubmodel(new String(value, StandardCharsets.UTF_8));
-
-    } catch (Exception e) {
-      throw new SerializationException("Error deserializing value", e);
-    }
+    return AASObjectsDeserializer.Companion.deserializeSubmodel(new String(value, StandardCharsets.UTF_8));
   }
 
   @Override

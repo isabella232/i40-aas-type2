@@ -16,7 +16,7 @@ public class KafkaSubmodelSerializer<T> implements Serializer<Submodel> {
 
   @Override
   public byte[] serialize(String s, Submodel data) {
-    String stingified = AASObjectsDeserializer.Companion.getJson().stringify(Submodel.Companion.serializer(), data);
+    String stingified = AASObjectsDeserializer.Companion.serializeSubmodel(data);
     return stingified.getBytes(StandardCharsets.UTF_8);
   }
 
