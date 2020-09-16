@@ -7,7 +7,7 @@ COPY cmd/data-manager/mvnw /cmd/data-manager
 COPY cmd/data-manager/.mvn/ /cmd/data-manager/.mvn/
 COPY cmd/data-manager/pom.xml /cmd/data-manager
 #COPY cmd/data-manager/mvnw.cmd /cmd/data-manager
-COPY cmd/data-manager/.classpath /cmd/data-manager
+#COPY cmd/data-manager/.classpath /cmd/data-manager
 #COPY cmd/data-manager/.factorypath /cmd/data-manager
 #COPY cmd/data-manager/.project /cmd/data-manager
 
