@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "SUBMODEL")
@@ -18,8 +19,11 @@ public class SubmodelEntity {
   private long sessionId;
 
   @Lob
-  @NotBlank(message = "Name is mandatory")
+  @NotBlank(message = "SubmodelObj is mandatory")
   String submodelObj;
+
+
+  private List<AssetAdministrationShellEntity> aasList;
 
   public void setId(String id) {
     this.id = id;
@@ -39,6 +43,22 @@ public class SubmodelEntity {
     this.submodelObj = submodelObj;
   }
 
+  public long getSessionId() {
+    return sessionId;
+  }
+
+  public void setSessionId(long sessionId) {
+    this.sessionId = sessionId;
+  }
+
+  public void setAasList(List<AssetAdministrationShellEntity> aasList) {
+    this.aasList = aasList;
+  }
+
+  @ManyToMany
+  public List<AssetAdministrationShellEntity> getAasList() {
+    return aasList;
+  }
 
   public SubmodelEntity(String id, String sb) {
     this.id = id;
