@@ -5,7 +5,7 @@ An implementation of the data-manager based on spring
 The data manager acts as a forwards requests to the responsible application connector services.
 
 After running the service the API-Docs can be found at:
-`http://localhost:2001/swagger-ui.html#/`
+`http://localhost:2001/swagger-ui.html`
 
 Prerequisite: [Install Maven](https://maven.apache.org/install.html)
 

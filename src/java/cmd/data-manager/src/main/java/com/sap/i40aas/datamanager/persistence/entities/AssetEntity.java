@@ -20,6 +20,7 @@ public class AssetEntity {
   @Lob
   @NotBlank(message = "Name is mandatory")
   String assetObj;
+//  private AssetAdministrationShellEntity aas;
 
   public void setId(String id) {
     this.id = id;
@@ -39,6 +40,14 @@ public class AssetEntity {
     this.assetObj = assetObj;
   }
 
+//  public void setAas(AssetAdministrationShellEntity aas) {
+//    this.aas = aas;
+//  }
+//
+//  @ManyToOne
+//  public AssetAdministrationShellEntity getAas() {
+//    return aas;
+//  }
 
   public AssetEntity(String id, String asset) {
     this.id = id;
