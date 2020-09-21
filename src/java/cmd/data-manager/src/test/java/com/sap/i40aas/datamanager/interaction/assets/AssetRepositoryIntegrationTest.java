@@ -50,11 +50,11 @@ public class AssetRepositoryIntegrationTest {
     // given
     //read an Submodel.json
     File resource = new ClassPathResource(
-      "/submodel-sample.json").getFile();
+      "/asset-sample.json").getFile();
     String sampleAsset = new String(
       Files.readAllBytes(resource.toPath()));
 
-    String id = "http://acplt.org/Submodels/Assets/TestAsset/Identification";
+    String id = "https://acplt.org/Test_Asset";
 
     AssetEntity sampleAssetEntity = new AssetEntity(id, sampleAsset);
 
@@ -65,7 +65,7 @@ public class AssetRepositoryIntegrationTest {
     // when
     Optional<AssetEntity> found = assetRepository.findById(id);
 
-//    log.info("Id " + found.get().getId());
+    log.info("Id " + found.get().getId());
     // then
     assertThat(found.get().getId()).isEqualTo(sampleAssetEntity.getId());
   }
@@ -79,7 +79,7 @@ public class AssetRepositoryIntegrationTest {
     String sampleAsset = new String(
       Files.readAllBytes(resource.toPath()));
 
-    String id = "http://acplt.org/Submodels/Assets/TestAsset/Identification";
+    String id = "https://acplt.org/Test_Asset";
     AssetEntity sampleAssetEntity = new AssetEntity(id, sampleAsset);
 
     //depends on the DB integration, will fail if DB not connected
@@ -90,7 +90,7 @@ public class AssetRepositoryIntegrationTest {
     Optional<AssetEntity> found = assetRepository.findById(id);
     assertThat(found.get().getId()).isEqualTo(sampleAssetEntity.getId());
 
-//    log.info("Id " + found.get().getId());
+    log.info("Id " + found.get().getId());
     // then
 
     entityManager.remove(sampleAssetEntity);
@@ -105,11 +105,11 @@ public class AssetRepositoryIntegrationTest {
     // given
     //read an Submodel.json
     File resource = new ClassPathResource(
-      "/submodel-sample.json").getFile();
+      "/asset-sample.json").getFile();
     String sampleAsset = new String(
       Files.readAllBytes(resource.toPath()));
 
-    String id = "http://acplt.org/Submodels/Assets/TestAsset/Identification";
+    String id = "https://acplt.org/Test_Asset";
     AssetEntity entity = new AssetEntity(id, sampleAsset);
 
     //depends on the DB integration, will fail if DB not connected
@@ -119,7 +119,7 @@ public class AssetRepositoryIntegrationTest {
     Optional<AssetEntity> found = assetRepository.findById(id);
     assertThat(found.get().getId()).isEqualTo(entity.getId());
 
-//    log.info("Id " + found.get().getId());
+    log.info("Id " + found.get().getId());
 
     Asset asset = AASObjectsDeserializer.Companion.deserializeAsset(found.get().getAssetObj());
     asset.setIdShort("updatedIdShort");
