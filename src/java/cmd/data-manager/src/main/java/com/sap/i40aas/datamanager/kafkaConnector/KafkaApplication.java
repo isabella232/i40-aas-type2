@@ -102,13 +102,13 @@ public class KafkaApplication {
     private String topicName;
 
     @Value(value = "${asset.topic.name}")
-    private String partionedTopicName;
+    private String assetTopicName;
 
     @Value(value = "${assetadminshell.topic.name}")
-    private String filteredTopicName;
+    private String assetAdminShellTopicName;
 
     @Value(value = "${conceptdescription.topic.name}")
-    private String greetingTopicName;
+    private String conceptDescriptionTopicName;
 
     @Value(value = "${submodel.topic.name}")
     private String submodelTopicName;
@@ -132,15 +132,15 @@ public class KafkaApplication {
     }
 
     public void sendMessageToPartion(String message, int partition) {
-      kafkaTemplate.send(partionedTopicName, partition, null, message);
+      kafkaTemplate.send(assetTopicName, partition, null, message);
     }
 
     public void sendMessageToFiltered(String message) {
-      kafkaTemplate.send(filteredTopicName, message);
+      kafkaTemplate.send(assetAdminShellTopicName, message);
     }
 
     public void sendGreetingMessage(com.sap.i40aas.datamanager.kafkaConnector.Greeting greeting) {
-      greetingKafkaTemplate.send(greetingTopicName, greeting);
+      greetingKafkaTemplate.send(conceptDescriptionTopicName, greeting);
     }
 
     public void sendSubmodelMessage(Submodel submodel) {
