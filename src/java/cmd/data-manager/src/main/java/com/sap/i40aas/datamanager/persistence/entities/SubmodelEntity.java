@@ -55,7 +55,7 @@ public class SubmodelEntity {
     this.aasList = aasList;
   }
 
-  @ManyToMany
+  @ManyToMany(mappedBy = "submodels")
   public List<AssetAdministrationShellEntity> getAasList() {
     return aasList;
   }

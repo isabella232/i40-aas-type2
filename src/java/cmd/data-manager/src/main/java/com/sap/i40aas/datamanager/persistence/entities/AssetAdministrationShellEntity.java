@@ -38,6 +38,20 @@ public class AssetAdministrationShellEntity {
   }
 
 
+  @ManyToMany
+  @JoinTable(
+    name = "aasToSubmodels",
+    joinColumns = @JoinColumn(name = "aas_id"),
+    inverseJoinColumns = @JoinColumn(name = "submodel_id"))
+  public List<SubmodelEntity> getSubmodels() {
+    return submodels;
+  }
+
+  public void setSubmodels(List<SubmodelEntity> submodels) {
+    this.submodels = submodels;
+  }
+
+
   public void setId(String id) {
     this.id = id;
   }

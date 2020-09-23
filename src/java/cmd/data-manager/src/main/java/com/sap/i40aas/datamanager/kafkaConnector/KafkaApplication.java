@@ -98,16 +98,16 @@ public class KafkaApplication {
     @Autowired
     private KafkaTemplate<String, Submodel> submodelKafkaTemplate;
 
-    @Value(value = "${message.topic.name}")
+    @Value(value = "${aasenv.topic.name}")
     private String topicName;
 
-    @Value(value = "${partitioned.topic.name}")
+    @Value(value = "${asset.topic.name}")
     private String partionedTopicName;
 
-    @Value(value = "${filtered.topic.name}")
+    @Value(value = "${assetadminshell.topic.name}")
     private String filteredTopicName;
 
-    @Value(value = "${greeting.topic.name}")
+    @Value(value = "${conceptdescription.topic.name}")
     private String greetingTopicName;
 
     @Value(value = "${submodel.topic.name}")

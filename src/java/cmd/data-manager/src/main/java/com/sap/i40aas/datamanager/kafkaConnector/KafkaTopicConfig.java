@@ -13,53 +13,53 @@ import java.util.Map;
 @Configuration
 public class KafkaTopicConfig {
 
-    @Value(value = "${kafka.bootstrapAddress}")
-    private String bootstrapAddress;
+  @Value(value = "${kafka.bootstrapAddress}")
+  private String bootstrapAddress;
 
-    @Value(value = "${message.topic.name}")
-    private String topicName;
+  @Value(value = "${aasenv.topic.name}")
+  private String aasEnvTopicName;
 
-    @Value(value = "${partitioned.topic.name}")
-    private String partionedTopicName;
+  @Value(value = "${asset.topic.name}")
+  private String assetTopicName;
 
-    @Value(value = "${filtered.topic.name}")
-    private String filteredTopicName;
+  @Value(value = "${assetadminshell.topic.name}")
+  private String assetAdminShellTopicName;
 
-    @Value(value = "${greeting.topic.name}")
-    private String greetingTopicName;
+  @Value(value = "${conceptdescription.topic.name}")
+  private String conceptDescriptionTopicName;
 
-    @Value(value = "${submodel.topic.name}")
-    private String submodelTopicName;
+  @Value(value = "${submodel.topic.name}")
+  private String submodelTopicName;
 
-    @Bean
-    public KafkaAdmin kafkaAdmin() {
-        Map<String, Object> configs = new HashMap<>();
-        configs.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
-        return new KafkaAdmin(configs);
-    }
+  @Bean
+  public KafkaAdmin kafkaAdmin() {
+    Map<String, Object> configs = new HashMap<>();
+    configs.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
+    return new KafkaAdmin(configs);
+  }
 
-    @Bean
-    public NewTopic topic1() {
-        return new NewTopic(topicName, 1, (short) 1);
-    }
+  @Bean
+  public NewTopic createAASEnvTopic() {
+    return new NewTopic(aasEnvTopicName, 1, (short) 1);
+  }
 
-    @Bean
-    public NewTopic topic2() {
-        return new NewTopic(partionedTopicName, 6, (short) 1);
-    }
+  @Bean
+  public NewTopic createAssetTopic() {
+    return new NewTopic(assetTopicName, 6, (short) 1);
+  }
 
-    @Bean
-    public NewTopic topic3() {
-        return new NewTopic(filteredTopicName, 1, (short) 1);
-    }
+  @Bean
+  public NewTopic createAssetAdminShellTopic() {
+    return new NewTopic(assetAdminShellTopicName, 1, (short) 1);
+  }
 
-    @Bean
-    public NewTopic topic4() {
-        return new NewTopic(greetingTopicName, 1, (short) 1);
-    }
+  @Bean
+  public NewTopic createConceptDescriptionTopic() {
+    return new NewTopic(conceptDescriptionTopicName, 1, (short) 1);
+  }
 
-    @Bean
-    public NewTopic sbTopic() {
-        return new NewTopic(submodelTopicName, 1, (short) 1);
-    }
+  @Bean
+  public NewTopic createSubmodelTopic() {
+    return new NewTopic(submodelTopicName, 1, (short) 1);
+  }
 }
