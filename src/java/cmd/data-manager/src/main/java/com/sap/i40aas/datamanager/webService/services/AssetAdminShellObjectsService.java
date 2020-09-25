@@ -4,6 +4,7 @@ import com.sap.i40aas.datamanager.errorHandling.DuplicateResourceException;
 import com.sap.i40aas.datamanager.persistence.entities.AssetAdministrationShellEntity;
 import com.sap.i40aas.datamanager.persistence.repositories.AssetAdministrationShellRepository;
 import identifiables.AssetAdministrationShell;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import utils.AASObjectsDeserializer;
@@ -11,6 +12,7 @@ import utils.AASObjectsDeserializer;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 
 @Service
 public class AssetAdminShellObjectsService {
@@ -18,12 +20,11 @@ public class AssetAdminShellObjectsService {
   private AssetAdminShellObjectsService assetAdminShellObjectsService;
 
   @Autowired
-  private AssetAdministrationShellRepository aasRepo;
-
+  private AssetAdministrationShellRepository assetAdministrationShellRepository;
 
   public AssetAdministrationShell getAssetAdministrationShell(String id) {
 
-    AssetAdministrationShellEntity aasEntityFound = aasRepo.findById(id).get();
+    AssetAdministrationShellEntity aasEntityFound = assetAdministrationShellRepository.findById(id).get();
     AssetAdministrationShell aasFound = AASObjectsDeserializer.Companion.deserializeAAS(aasEntityFound.getAasObj());
     return aasFound;
   }
@@ -31,7 +32,7 @@ public class AssetAdminShellObjectsService {
 
   public List<AssetAdministrationShell> getAllAssetAdministrationShells() {
     List<AssetAdministrationShell> aasList = new ArrayList<>();
-    aasRepo.findAll().forEach(assetAdministrationShellEntity -> {
+    assetAdministrationShellRepository.findAll().forEach(assetAdministrationShellEntity -> {
       aasList.add(AASObjectsDeserializer.Companion.deserializeAAS(assetAdministrationShellEntity.getAasObj()));
     });
     return aasList;
@@ -39,30 +40,31 @@ public class AssetAdminShellObjectsService {
 
   public AssetAdministrationShell updateAssetAdministrationShell(String id, AssetAdministrationShell aas) {
 
-    if (aasRepo.findById(id).isPresent()) {
+    if (assetAdministrationShellRepository.findById(id).isPresent()) {
       AssetAdministrationShellEntity sbE = new AssetAdministrationShellEntity(id, AASObjectsDeserializer.Companion.serializeAAS(aas));
-      aasRepo.save(sbE);
+      assetAdministrationShellRepository.save(sbE);
       return aas;
     } else
       throw new java.util.NoSuchElementException();
   }
 
   public AssetAdministrationShell addAssetAdministrationShell(AssetAdministrationShell aas) {
+    log.debug("Upserting aas with id: " + aas.getIdentification().getId());
 
     AssetAdministrationShellEntity sbE = new AssetAdministrationShellEntity(aas.getIdentification().getId(), AASObjectsDeserializer.Companion.serializeAAS(aas));
-    aasRepo.save(sbE);
+    assetAdministrationShellRepository.save(sbE);
     return aas;
 
   }
 
   public AssetAdministrationShell createAssetAdministrationShell(String id, AssetAdministrationShell aas) throws DuplicateResourceException {
 // if Id not present create else if already there throw error
-    if (aasRepo.findById(id).isPresent() == false) {
+    if (assetAdministrationShellRepository.findById(id).isPresent() == false) {
 
       String aasSer = AASObjectsDeserializer.Companion.serializeAAS(aas);
 
       AssetAdministrationShellEntity sbE = new AssetAdministrationShellEntity(id, aasSer);
-      aasRepo.save(sbE);
+      assetAdministrationShellRepository.save(sbE);
       return aas;
     } else
       throw new DuplicateResourceException();
@@ -70,12 +72,12 @@ public class AssetAdminShellObjectsService {
   }
 
   public AssetAdministrationShell deleteAssetAdministrationShell(String id) {
-    if (aasRepo.findById(id).isPresent()) {
+    if (assetAdministrationShellRepository.findById(id).isPresent()) {
       //find the Submodel so that it gets returned
-      AssetAdministrationShellEntity aasEntityFound = aasRepo.findById(id).get();
+      AssetAdministrationShellEntity aasEntityFound = assetAdministrationShellRepository.findById(id).get();
       AssetAdministrationShell aasFound = AASObjectsDeserializer.Companion.deserializeAAS(aasEntityFound.getAasObj());
 
-      aasRepo.deleteById(id);
+      assetAdministrationShellRepository.deleteById(id);
       return aasFound;
     } else
       throw new java.util.NoSuchElementException();

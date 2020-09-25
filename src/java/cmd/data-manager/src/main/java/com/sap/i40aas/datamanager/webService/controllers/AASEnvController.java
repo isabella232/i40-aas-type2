@@ -32,7 +32,7 @@ public class AASEnvController {
     AssetAdministrationShellEnv env = AASObjectsDeserializer.Companion.deserializeAASEnv(body);
     aasEnvService.addAASEnv(env);
 
-    //log.debug("AASEnv   received");
+    log.info("AASEnv received");
 
     return env;
   }
