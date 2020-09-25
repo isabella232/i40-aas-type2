@@ -24,19 +24,6 @@ public class AssetAdministrationShellEntity {
 
   private List<SubmodelEntity> submodels;
 
-  private List<AssetEntity> assets;
-
-
-  @OneToMany(targetEntity = AssetEntity.class, fetch = FetchType.EAGER)
-  @JoinColumn(name = "aas_id")
-  public List<AssetEntity> getAssets() {
-    return assets;
-  }
-
-  public void setAssets(List<AssetEntity> assets) {
-    this.assets = assets;
-  }
-
 
   @ManyToMany
   @JoinTable(

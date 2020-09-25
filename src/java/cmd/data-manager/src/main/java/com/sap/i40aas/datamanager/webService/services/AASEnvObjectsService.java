@@ -39,7 +39,6 @@ public class AASEnvObjectsService {
   }
 
   public void createAssets(List<Asset> assetList) {
-
     assetList.forEach(asset -> assetsObjectsServiceService.addAsset(asset));
   }
 
