@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Access(AccessType.FIELD)
 @Table(name = "SUBMODEL")
 public class SubmodelEntity {
 
@@ -23,6 +24,7 @@ public class SubmodelEntity {
   String submodelObj;
 
 
+  @ManyToMany(mappedBy = "submodels")
   private List<AssetAdministrationShellEntity> aasList;
 
   public void setId(String id) {
@@ -55,7 +57,6 @@ public class SubmodelEntity {
     this.aasList = aasList;
   }
 
-  @ManyToMany(mappedBy = "submodels")
   public List<AssetAdministrationShellEntity> getAasList() {
     return aasList;
   }

@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Access(AccessType.FIELD)
 @Table(name = "ASSETADMINISTRATIONSHELL")
 public class AssetAdministrationShellEntity {
 
@@ -22,14 +23,27 @@ public class AssetAdministrationShellEntity {
   @NotBlank(message = "AASObject is mandatory")
   String aasObj;
 
-  private List<SubmodelEntity> submodels;
-
-
   @ManyToMany
   @JoinTable(
     name = "aasToSubmodels",
     joinColumns = @JoinColumn(name = "aas_id"),
     inverseJoinColumns = @JoinColumn(name = "submodel_id"))
+  private List<SubmodelEntity> submodels;
+
+
+  @ManyToOne()
+  @JoinColumn(name = "asset_id")
+  private AssetEntity asset;
+
+
+  public AssetEntity getAsset() {
+    return asset;
+  }
+
+  public void setAsset(AssetEntity asset) {
+    this.asset = asset;
+  }
+
   public List<SubmodelEntity> getSubmodels() {
     return submodels;
   }

@@ -53,12 +53,6 @@ services:
     ports:
       - "${ZOOKEEPER_PORT}:${ZOOKEEPER_PORT}"
   ##########################################
-  ##########################################
-  dbMonnitor:
-    image: hyunjongcho/tadpoledbhub
-    ports:
-      - 32768:8080
-  ##########################################
   kafka:
     image: wurstmeister/kafka
     ports:

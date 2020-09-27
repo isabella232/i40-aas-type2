@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Access(AccessType.FIELD)
 @Table(name = "ASSET")
 public class AssetEntity {
 
@@ -21,6 +22,8 @@ public class AssetEntity {
   @Lob
   @NotBlank(message = "Name is mandatory")
   String assetObj;
+
+  @OneToMany(targetEntity = AssetAdministrationShellEntity.class, mappedBy = "asset", fetch = FetchType.EAGER)
   private List<AssetAdministrationShellEntity> aasList;
 
   public void setId(String id) {
@@ -45,8 +48,6 @@ public class AssetEntity {
     this.aasList = aasList;
   }
 
-  @OneToMany(targetEntity = AssetAdministrationShellEntity.class, fetch = FetchType.EAGER)
-  @JoinColumn(name = "asset_id")
   public List<AssetAdministrationShellEntity> getAasList() {
     return aasList;
   }

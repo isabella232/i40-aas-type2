@@ -39,7 +39,16 @@ public class AASEnvObjectsService {
   }
 
   public void createAssets(List<Asset> assetList) {
-    assetList.forEach(asset -> assetsObjectsServiceService.addAsset(asset));
+    assetList.forEach(asset -> assetsObjectsServiceService.addAsset(asset, null));
+  }
+
+  private void assignAssetAdminShellToAsset(String aasId, String assetId) {
+//    AssetAdministrationShellEntity sbE = new AssetAdministrationShellEntity(aas.getIdentification().getId(), AASObjectsDeserializer.Companion.serializeAAS(aas));
+//    if (aas.getSubmodels() != null) {
+////      sbE.setSubmodels();
+//
+//    }
+//    assetAdministrationShellRepository.save(sbE);
   }
 
   public void createConceptDescriptions(List<ConceptDescription> conceptDescriptionList) {

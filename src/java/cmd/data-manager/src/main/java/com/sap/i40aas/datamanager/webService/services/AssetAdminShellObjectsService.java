@@ -52,6 +52,19 @@ public class AssetAdminShellObjectsService {
     log.debug("Upserting aas with id: " + aas.getIdentification().getId());
 
     AssetAdministrationShellEntity sbE = new AssetAdministrationShellEntity(aas.getIdentification().getId(), AASObjectsDeserializer.Companion.serializeAAS(aas));
+    if (aas.getSubmodels() != null) {
+//      sbE.setSubmodels();
+
+    }
+    assetAdministrationShellRepository.save(sbE);
+    return aas;
+
+  }
+
+  public AssetAdministrationShell addAssetAdministrationShellWithRelation(AssetAdministrationShell aas) {
+    log.debug("Upserting aas with id: " + aas.getIdentification().getId());
+
+    AssetAdministrationShellEntity sbE = new AssetAdministrationShellEntity(aas.getIdentification().getId(), AASObjectsDeserializer.Companion.serializeAAS(aas));
     assetAdministrationShellRepository.save(sbE);
     return aas;
 
