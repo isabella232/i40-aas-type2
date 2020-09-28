@@ -1,12 +1,11 @@
 package com.sap.i40aas.datamanager.webService.controllers;
 
+import com.sap.i40aas.datamanager.validation.IdURLConstraint;
 import com.sap.i40aas.datamanager.webService.services.AASEnvObjectsService;
 import identifiables.AssetAdministrationShellEnv;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import utils.AASObjectsDeserializer;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -35,6 +34,13 @@ public class AASEnvController {
     log.info("AASEnv received");
 
     return env;
+  }
+
+  //use the params to filter by HTTP parameters
+  @GetMapping(value = "/env", params = "aasId")
+  public AssetAdministrationShellEnv getAssetAdministrationShellEnv(@RequestParam(name = "aasId", required = true) @IdURLConstraint String aasId) {
+
+    return aasEnvService.getAASEnv(aasId);
   }
 
 

@@ -66,6 +66,30 @@ public class AASEnvObjectsService {
 
   }
 
+  public AssetAdministrationShellEnv getAASEnv(String aasId) {
+
+    AssetAdministrationShellEnv aasEnv = new AssetAdministrationShellEnv();
+    AssetAdministrationShellEntity aasEntityFound = assetAdministrationShellRepository.findById(aasId).get();
+    AssetEntity assetEntityFound = aasEntityFound.getAsset();
+
+    AssetAdministrationShell aasfound = AASObjectsDeserializer.Companion.deserializeAAS(aasEntityFound.getAasObj());
+    Asset assetFound = AASObjectsDeserializer.Companion.deserializeAsset(assetEntityFound.getAssetObj());
+
+    aasEnv.setAssetAdministrationShells(new ArrayList<AssetAdministrationShell>() {
+      {
+        add(aasfound);
+      }
+    });
+    aasEnv.setAssets(new ArrayList<Asset>() {
+      {
+        add(assetFound);
+      }
+    });
+
+    return aasEnv;
+  }
+
+
   public void createSubmodels(List<Submodel> submodelList) {
     submodelList.forEach(submodel -> submodelService.addSubmodel(submodel));
   }
@@ -90,5 +114,6 @@ public class AASEnvObjectsService {
   public void createAASs(List<AssetAdministrationShell> assetAdministrationShellList) {
     assetAdministrationShellList.forEach(assetAdministrationShell -> assetAdminShellObjectsService.addAssetAdministrationShell(assetAdministrationShell));
   }
+
 
 }
