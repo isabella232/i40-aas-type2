@@ -24,7 +24,10 @@ public class AssetAdministrationShellEntity {
   @NotBlank(message = "AASObject is mandatory")
   String aasObj;
 
-  @ManyToMany
+  @ManyToMany(cascade = {
+    CascadeType.PERSIST,
+    CascadeType.MERGE
+  })
   @JoinTable(
     name = "aasToSubmodels",
     joinColumns = @JoinColumn(name = "aas_id"),
@@ -51,6 +54,16 @@ public class AssetAdministrationShellEntity {
 
   public void setSubmodels(List<SubmodelEntity> submodels) {
     this.submodels = submodels;
+  }
+
+  public void addSubmodel(SubmodelEntity submodelEntity) {
+    submodels.add(submodelEntity);
+    submodelEntity.getAasList().add(this);
+  }
+
+  public void removeSubmodel(SubmodelEntity submodelEntity) {
+    submodels.remove(submodelEntity);
+    submodelEntity.getAasList().remove(this);
   }
 
 

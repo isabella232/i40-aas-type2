@@ -2,8 +2,10 @@ package com.sap.i40aas.datamanager.webService.services;
 
 import com.sap.i40aas.datamanager.persistence.entities.AssetAdministrationShellEntity;
 import com.sap.i40aas.datamanager.persistence.entities.AssetEntity;
+import com.sap.i40aas.datamanager.persistence.entities.SubmodelEntity;
 import com.sap.i40aas.datamanager.persistence.repositories.AssetAdministrationShellRepository;
 import com.sap.i40aas.datamanager.persistence.repositories.AssetRepository;
+import com.sap.i40aas.datamanager.persistence.repositories.SubmodelRepository;
 import identifiables.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,8 @@ public class AASEnvObjectsService {
   @Autowired
   private AssetRepository assetRepo;
   @Autowired
+  private SubmodelRepository submodelRepo;
+  @Autowired
   private AssetAdministrationShellRepository assetAdministrationShellRepository;
 
 
@@ -39,30 +43,23 @@ public class AASEnvObjectsService {
 
     this.createAASs(env.getAssetAdministrationShells());
     this.createAssets(env.getAssets());
+    createSubmodels(env.getSubmodels());
+    createConceptDescriptions(env.getConceptDescriptions());
+
 
     //get the list of assets
     ArrayList<Asset> assetsList = env.getAssets();
 
-//    for every AssetAdminShell in the Env find its associated asset
+//    for every AssetAdminShell in the Env
     env.getAssetAdministrationShells().forEach(AssetAdministrationShell -> {
-      AssetAdministrationShellEntity aasEntityFound = assetAdministrationShellRepository.findById(AssetAdministrationShell.getIdentification().getId()).get();
 
-//      get the AssetId from the Reference Object in the AssetAdminShell
-      String assetId = AssetAdministrationShell.getAsset().getKeys().stream()
-        .filter(key -> key.getType().equals(KeyElementsEnum.Asset)).findFirst().get().getValue();
-
-      //read the asset with this Id from the DB
-      AssetEntity assetEntityFound = assetRepo.findById(assetId).get();
-      //assign this AAS to the asset
-      assetEntityFound.addAssetAdminShell(aasEntityFound);
-
-      assetRepo.save(assetEntityFound);
+      assignAssetAdminShellToAsset(AssetAdministrationShell);
+      //TODO: better define submodels as empty list to avoid nulls
+      if (AssetAdministrationShell.getSubmodels() != null)
+        this.assignAssetAdminShellToSubmodel(AssetAdministrationShell);
 
     });
-    createSubmodels(env.getSubmodels());
 
-
-    createConceptDescriptions(env.getConceptDescriptions());
 
   }
 
@@ -98,13 +95,38 @@ public class AASEnvObjectsService {
     assetList.forEach(asset -> assetsObjectsServiceService.addAsset(asset, null));
   }
 
-  private void assignAssetAdminShellToAsset(Asset asset, AssetAdministrationShell aas) {
-    AssetEntity asE = new AssetEntity(asset.getIdentification().getId(), AASObjectsDeserializer.Companion.serializeAsset(asset));
+  private void assignAssetAdminShellToAsset(AssetAdministrationShell aas) {
+    AssetAdministrationShellEntity aasEntityFound = assetAdministrationShellRepository.findById(aas.getIdentification().getId()).get();
+//      get the AssetId from the Reference Object in the AssetAdminShell
+    String assetId = aas.getAsset().getKeys().stream()
+      .filter(key -> key.getType().equals(KeyElementsEnum.Asset)).findFirst().get().getValue();
+
+    //read the asset with this Id from the DB
+    AssetEntity assetEntityFound = assetRepo.findById(assetId).get();
+    //assign this AAS to the asset
+    assetEntityFound.addAssetAdminShell(aasEntityFound);
+    assetRepo.save(assetEntityFound);
+  }
+
+  private void assignAssetAdminShellToSubmodel(AssetAdministrationShell aas) {
     AssetAdministrationShellEntity aasEntityFound = assetAdministrationShellRepository.findById(aas.getIdentification().getId()).get();
 
-    asE.addAssetAdminShell(aasEntityFound);
+    //add a relation for each submodel referenced by the AssetAdministrationShell
+    aas.getSubmodels().forEach(reference -> {
+      //read the submodel Id from the reference
+      String submodelId = reference.getKeys().stream()
+        .filter(key -> key.getType().equals(KeyElementsEnum.Submodel)).findFirst().get().getValue();
+      //read the submodel with this Id from the DB
+      SubmodelEntity submodelEntityFound = submodelRepo.findById(submodelId).get();
+      //assign this submodel to the AAS
 
-    assetRepo.save(asE);
+      //TODO: this can be optimized so that the whole list of submodels is added with one call (setSubmodels=
+      aasEntityFound.addSubmodel(submodelEntityFound);
+
+    });
+    assetAdministrationShellRepository.save(aasEntityFound);
+
+
   }
 
   public void createConceptDescriptions(List<ConceptDescription> conceptDescriptionList) {

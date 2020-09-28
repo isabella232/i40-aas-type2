@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,7 +26,7 @@ public class SubmodelEntity {
 
 
   @ManyToMany(mappedBy = "submodels")
-  private List<AssetAdministrationShellEntity> aasList;
+  private List<AssetAdministrationShellEntity> aasList = new ArrayList<>();
 
   public void setId(String id) {
     this.id = id;
