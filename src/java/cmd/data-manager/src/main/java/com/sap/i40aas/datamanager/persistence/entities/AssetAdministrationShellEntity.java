@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,8 +17,8 @@ public class AssetAdministrationShellEntity {
   @URL
   private String id;
 
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private long sessionId;
+  //@GeneratedValue(strategy = GenerationType.AUTO)
+  //private long sessionId;
 
   @Lob
   @NotBlank(message = "AASObject is mandatory")
@@ -28,7 +29,7 @@ public class AssetAdministrationShellEntity {
     name = "aasToSubmodels",
     joinColumns = @JoinColumn(name = "aas_id"),
     inverseJoinColumns = @JoinColumn(name = "submodel_id"))
-  private List<SubmodelEntity> submodels;
+  private List<SubmodelEntity> submodels = new ArrayList<>();
 
 
   @ManyToOne()
