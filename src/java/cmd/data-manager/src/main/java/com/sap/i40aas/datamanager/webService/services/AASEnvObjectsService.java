@@ -67,9 +67,7 @@ public class AASEnvObjectsService {
   }
 
   public void createSubmodels(List<Submodel> submodelList) {
-
     submodelList.forEach(submodel -> submodelService.addSubmodel(submodel));
-
   }
 
   public void createAssets(List<Asset> assetList) {
