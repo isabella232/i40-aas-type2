@@ -24,7 +24,7 @@ public class AASEnvObjectsService {
   @Autowired
   private SubmodelObjectsService submodelService;
   @Autowired
-  private AssetsObjectsService assetsObjectsServiceService;
+  private AssetsObjectsService assetsObjectsService;
   @Autowired
   private ConceptDescriptionObjectsService conceptDescriptionObjectsService;
   @Autowired
@@ -101,7 +101,7 @@ public class AASEnvObjectsService {
   }
 
   public void createAssets(List<Asset> assetList) {
-    assetList.forEach(asset -> assetsObjectsServiceService.addAsset(asset, null));
+    assetList.forEach(asset -> assetsObjectsService.addAsset(asset, null));
   }
 
   private void assignAssetAdminShellToAsset(AssetAdministrationShell aas) {

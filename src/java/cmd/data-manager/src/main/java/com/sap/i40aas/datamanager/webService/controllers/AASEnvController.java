@@ -5,12 +5,14 @@ import com.sap.i40aas.datamanager.webService.services.AASEnvObjectsService;
 import identifiables.AssetAdministrationShellEnv;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import utils.AASObjectsDeserializer;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
+@Validated
 @Slf4j
 public class AASEnvController {
 
