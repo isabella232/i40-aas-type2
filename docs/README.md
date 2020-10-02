@@ -19,8 +19,7 @@
 
 Each service on this full list of services included in the repository has a designated _README.md_ with more information about its purpose:
 
-- [data-manager](markdown/data-manager.md)
-- [storage-adapter-mongodb](markdown/storage-adapter-mongodb.md)
+- [data-manager](markdown/data-manager.md)´
 
 ### Architecture
 
