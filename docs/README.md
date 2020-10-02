@@ -24,7 +24,7 @@ Each service on this full list of services included in the repository has a desi
 
 ### Architecture
 
-The following shows the services in a [TAM](http://www.fmc-modeling.org/fmc-and-tam) block diagram.
+The following shows the services in a [TAM](http://www.fmc-modeling.org/fmc-and-tam) block diagram. This repository refers only to the "AAS-Service Type2" part of the diagramm. The diagram shows also the relationship between the AAS-Service Type3 and Type2
 
 ![The big picture](images/AAS_SERVICE_Type2.png).
 
