@@ -22,29 +22,17 @@
 
   <repositories>
 
-    <!--AAS-Objects Library-->
-
-    <!--    <repository>-->
-    <!--      <id>nexus</id>-->
-    <!--      <url>http://nexus.wdf.sap.corp:8081/nexus/content/repositories/deploy.snapshots/</url>-->
-    <!--    </repository>-->
   </repositories>
 
 
   <dependencies>
-    <!--    <dependency>-->
-    <!--      <groupId>i40.aas</groupId>-->
-    <!--      <artifactId>objects-jvm</artifactId>-->
-    <!--      <version>0.0.1-master-SNAPSHOT</version>-->
-    <!--    </dependency>-->
+
 
     <!--    NOTE> this is a workaround until lib released in maven central-->
     <dependency>
       <groupId>i40.aas</groupId>
       <artifactId>objects-jvm</artifactId>
       <version>0.0.1-master-SNAPSHOT</version>
-      <!--          <scope>system</scope>-->
-      <!--          <systemPath>${project.basedir}/src/main/resources/i40-aas-objects-kotlin-jvm-1.0-SNAPSHOT.jar</systemPath>-->
     </dependency>
 
     <!--  ==============-->
@@ -189,7 +177,7 @@
     <dependency>
       <groupId>org.hibernate.validator</groupId>
       <artifactId>hibernate-validator</artifactId>
-      <version>6.0.14.Final</version>
+      <version>6.1.0.Final</version>
     </dependency>
     <dependency>
       <groupId>commons-validator</groupId>
