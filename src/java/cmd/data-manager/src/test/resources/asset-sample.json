@@ -1,0 +1,48 @@
+{
+  "kind": "Instance",
+  "assetIdentificationModel": {
+    "keys": [
+      {
+        "idType": "IRDI",
+        "local": false,
+        "type": "Submodel",
+        "value": "http://acplt.org/Submodels/Assets/TestAsset/Identification"
+      }
+    ]
+  },
+  "billOfMaterial": {
+    "keys": [
+      {
+        "idType": "IRDI",
+        "local": false,
+        "type": "Submodel",
+        "value": "http://acplt.org/Submodels/Assets/TestAsset/BillOfMaterial"
+      }
+    ]
+  },
+  "identification": {
+    "id": "https://acplt.org/Test_Asset",
+    "idType": "IRI"
+  },
+  "administration": {
+    "version": "0.9",
+    "revision": "0"
+  },
+  "idShort": "Test_Asset",
+  "parent": null,
+  "category": null,
+  "description": [
+    {
+      "language": "en-us",
+      "text": "An example asset for the test application"
+    },
+    {
+      "language": "de",
+      "text": "Ein Beispiel-Asset für eine Test-Anwendung"
+    }
+  ],
+  "modelType": {
+    "name": "Asset"
+  },
+  "embeddedDataSpecifications": []
+}

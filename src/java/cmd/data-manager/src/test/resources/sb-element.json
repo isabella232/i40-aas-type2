@@ -1,0 +1,37 @@
+{
+  "embeddedDataSpecifications": [],
+  "semanticId": {
+    "keys": [
+      {
+        "idType": "IRI",
+        "type": "GlobalReference",
+        "value": "opcfoundation.org/specifications-unified-architecture/part-100-device-information-model/deviceHealth",
+        "local": false
+      }
+    ]
+  },
+  "kind": "Instance",
+  "descriptions": [
+    {
+      "language": "EN",
+      "text": "NORMAL_0 ;FAILURE_1 ;CHECK_FUNCTION_2 ;OFF_SPEC_3 ;MAINTENANCE_REQUIRED_4 "
+    }
+  ],
+  "idShort": "devicehealth",
+  "parent": {
+    "keys": [
+      {
+        "idType": "IRI",
+        "type": "Submodel",
+        "value": "sap.com/aas/submodels/part-100-device-information-model/10JF-1234-Jf14-PP22",
+        "local": false
+      }
+    ]
+  },
+  "modelType": {
+    "name": "Property"
+  },
+  "value": "NORMAL_0",
+  "valueType": "string",
+  "category": "sampleCat"
+}

@@ -2,7 +2,7 @@
 An implementation of the data-manager based on spring
 # data-manager
 
-The data manager offers an REST API for handling AAS-Objects, persists them into a Postgres DB and forwards requests to the responsible application connector services.
+The data manager acts as a forwards requests to the responsible application connector services.
 
 After running the service the API-Docs can be found at:
 `http://localhost:2001/swagger-ui.html`
