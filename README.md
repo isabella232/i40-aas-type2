@@ -69,6 +69,23 @@ Optionally, you can download and install [Postman](https://www.getpostman.com) t
 
 Service interactions can be deployed, tested and developed locally using Docker Compose as described below. For further instructions & information about **i40-aas-type2** check [the documentation](docs/README.md)
 
+#### Run **i40-aas-type2** locally
+
+Build the *data-manager* image from source first, then pull external dependencies and continue to run everything.
+
+```bash
+## build i40-aas images
+$ make
+
+## 'up' (start) the composed setup
+$ make install
+```
+
+Once done, one can stop & clean up (also removes all images related to *i40-aas-type2*!) locally by executing:
+
+```bash
+$ make clean
+```
 
 ## Configuration
 
