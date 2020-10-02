@@ -1,13 +1,18 @@
 package com.sap.i40aas.datamanager.persistence.entities;
 
 
+import identifiables.Submodel;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
+import utils.AASObjectsDeserializer;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Access(AccessType.FIELD)
 @Table(name = "SUBMODEL")
 public class SubmodelEntity {
 
@@ -23,7 +28,8 @@ public class SubmodelEntity {
   String submodelObj;
 
 
-  private List<AssetAdministrationShellEntity> aasList;
+  @ManyToMany(mappedBy = "submodels", fetch = FetchType.EAGER)
+  private List<AssetAdministrationShellEntity> aasList = new ArrayList<>();
 
   public void setId(String id) {
     this.id = id;
@@ -55,9 +61,13 @@ public class SubmodelEntity {
     this.aasList = aasList;
   }
 
-  @ManyToMany
   public List<AssetAdministrationShellEntity> getAasList() {
     return aasList;
+  }
+
+  @Transactional
+  public Submodel getSubmodelDeserialised() {
+    return AASObjectsDeserializer.Companion.deserializeSubmodel(this.submodelObj);
   }
 
   public SubmodelEntity(String id, String sb) {

@@ -4,13 +4,16 @@ import com.sap.i40aas.datamanager.errorHandling.DuplicateResourceException;
 import com.sap.i40aas.datamanager.persistence.entities.AssetEntity;
 import com.sap.i40aas.datamanager.persistence.repositories.AssetRepository;
 import identifiables.Asset;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import utils.AASObjectsDeserializer;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 
 @Service
 public class AssetsObjectsService {
@@ -46,7 +49,9 @@ public class AssetsObjectsService {
       throw new java.util.NoSuchElementException();
   }
 
-  public Asset addAsset(Asset asset) {
+  public Asset addAsset(Asset asset, @Nullable List<String> aasIdsList) {
+    log.debug("Upserting asset with id: " + asset.getIdentification().getId());
+
     AssetEntity asE = new AssetEntity(asset.getIdentification().getId(), AASObjectsDeserializer.Companion.serializeAsset(asset));
     assetRepo.save(asE);
     return asset;
@@ -60,6 +65,11 @@ public class AssetsObjectsService {
       return asset;
     } else
       throw new DuplicateResourceException();
+  }
+
+
+  public void assignToAAS(Asset asset, String aasId) {
+
 
   }
 

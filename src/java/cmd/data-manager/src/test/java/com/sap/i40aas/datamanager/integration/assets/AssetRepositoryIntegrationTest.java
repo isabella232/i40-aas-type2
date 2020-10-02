@@ -1,4 +1,4 @@
-package com.sap.i40aas.datamanager.interaction.assets;
+package com.sap.i40aas.datamanager.integration.assets;
 
 import com.sap.i40aas.datamanager.persistence.entities.AssetEntity;
 import com.sap.i40aas.datamanager.persistence.repositories.AssetRepository;
@@ -44,7 +44,6 @@ public class AssetRepositoryIntegrationTest {
   @Autowired
   private AssetRepository assetRepository;
 
-  // write test cases here
   @Test
   public void whenFindById_thenReturnAsset() throws IOException {
     // given

@@ -4,6 +4,7 @@ import com.sap.i40aas.datamanager.errorHandling.DuplicateResourceException;
 import com.sap.i40aas.datamanager.persistence.entities.SubmodelEntity;
 import com.sap.i40aas.datamanager.persistence.repositories.SubmodelRepository;
 import identifiables.Submodel;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import utils.AASObjectsDeserializer;
@@ -11,7 +12,7 @@ import utils.AASObjectsDeserializer;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Slf4j
 @Service
 public class SubmodelObjectsService {
 
@@ -51,6 +52,7 @@ public class SubmodelObjectsService {
 
   public Submodel addSubmodel(Submodel submodel) {
 
+    log.debug("Upserting submodel with id: " + submodel.getIdentification().getId());
     SubmodelEntity sbE = new SubmodelEntity(submodel.getIdentification().getId(), AASObjectsDeserializer.Companion.serializeSubmodel(submodel));
     submodelRepo.save(sbE);
     return submodel;

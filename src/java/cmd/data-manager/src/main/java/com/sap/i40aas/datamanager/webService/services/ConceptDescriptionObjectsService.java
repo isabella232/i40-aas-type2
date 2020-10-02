@@ -4,6 +4,7 @@ import com.sap.i40aas.datamanager.errorHandling.DuplicateResourceException;
 import com.sap.i40aas.datamanager.persistence.entities.ConceptDescriptionEntity;
 import com.sap.i40aas.datamanager.persistence.repositories.ConceptDescriptionRepository;
 import identifiables.ConceptDescription;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import utils.AASObjectsDeserializer;
@@ -11,6 +12,7 @@ import utils.AASObjectsDeserializer;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 
 @Service
 public class ConceptDescriptionObjectsService {
@@ -48,6 +50,7 @@ public class ConceptDescriptionObjectsService {
   }
 
   public ConceptDescription addConceptDescription(ConceptDescription cd) {
+    log.debug("Upserting conceptDescription with id: " + cd.getIdentification().getId());
 
     ConceptDescriptionEntity sbE = new ConceptDescriptionEntity(cd.getIdentification().getId(), AASObjectsDeserializer.Companion.serializeConceptDescription(cd));
     conceptDescriptionRepository.save(sbE);

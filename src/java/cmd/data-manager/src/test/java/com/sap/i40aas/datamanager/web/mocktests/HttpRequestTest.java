@@ -1,4 +1,4 @@
-package com.sap.i40aas.datamanager.web.submodel;
+package com.sap.i40aas.datamanager.web.mocktests;
 
 import com.sap.i40aas.datamanager.DataManagerApplication;
 import identifiables.Submodel;

@@ -5,9 +5,11 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Access(AccessType.FIELD)
 @Table(name = "ASSETADMINISTRATIONSHELL")
 public class AssetAdministrationShellEntity {
 
@@ -15,26 +17,57 @@ public class AssetAdministrationShellEntity {
   @URL
   private String id;
 
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private long sessionId;
+  //@GeneratedValue(strategy = GenerationType.AUTO)
+  //private long sessionId;
 
   @Lob
   @NotBlank(message = "AASObject is mandatory")
   String aasObj;
 
-  private List<SubmodelEntity> submodels;
 
-  private List<AssetEntity> assets;
+  @ManyToMany(fetch = FetchType.EAGER,
+    cascade = {
+      CascadeType.PERSIST,
+      CascadeType.MERGE
+    })
+  @JoinTable(
+    name = "aasToSubmodels",
+    joinColumns = @JoinColumn(name = "aas_id"),
+    inverseJoinColumns = @JoinColumn(name = "submodel_id"))
+  public List<SubmodelEntity> submodels = new ArrayList<>();
 
 
-  @OneToMany(targetEntity = AssetEntity.class, fetch = FetchType.EAGER)
-  @JoinColumn(name = "aas_id")
-  public List<AssetEntity> getAssets() {
-    return assets;
+  @ManyToOne()
+  @JoinColumn(name = "asset_id")
+  private AssetEntity asset;
+
+
+  public AssetEntity getAsset() {
+    return asset;
   }
 
-  public void setAssets(List<AssetEntity> assets) {
-    this.assets = assets;
+  public void setAsset(AssetEntity asset) {
+    this.asset = asset;
+  }
+
+
+  public void setSubmodels(List<SubmodelEntity> submodels) {
+    this.submodels = submodels;
+  }
+
+  public List<SubmodelEntity> getSubmodels() {
+    return this.submodels;
+  }
+
+
+  public void addSubmodel(SubmodelEntity submodelEntity) {
+    submodels.add(submodelEntity);
+    submodelEntity.getAasList().add(this);
+  }
+
+  public void removeSubmodel(SubmodelEntity submodelEntity) {
+    submodels.remove(submodelEntity);
+    submodelEntity.getAasList().remove(this);
   }
 
 

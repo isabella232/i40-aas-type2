@@ -1,4 +1,4 @@
-package com.sap.i40aas.datamanager.web.submodel;
+package com.sap.i40aas.datamanager.web.mocktests;
 
 import com.sap.i40aas.datamanager.errorHandling.RestResponseEntityExceptionHandler;
 import com.sap.i40aas.datamanager.webService.controllers.SubmodelController;
@@ -13,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -35,13 +36,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 //using @WebMvcTest will tell Spring Boot to instantiate only the web layer and not the entire context.
-@WebMvcTest(SubmodelController.class)
-public class WebMockTest {
+@WebMvcTest(controllers = SubmodelController.class)
+@ActiveProfiles("localtest")
+
+public
+class SubmodelControllerMockTest {
   public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(MediaType.APPLICATION_JSON.getType(), MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
 
   @Autowired
   private MockMvc mockMvc;
-
 
   // mock the Service layer code for our unit tests
   @MockBean
