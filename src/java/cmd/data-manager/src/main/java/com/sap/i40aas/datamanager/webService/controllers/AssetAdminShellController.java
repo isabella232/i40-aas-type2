@@ -1,5 +1,6 @@
 package com.sap.i40aas.datamanager.webService.controllers;
 
+import baseClasses.Identifier;
 import com.sap.i40aas.datamanager.errorHandling.AASObjectValidationException;
 import com.sap.i40aas.datamanager.errorHandling.DuplicateResourceException;
 import com.sap.i40aas.datamanager.validation.IdURLConstraint;
@@ -38,6 +39,13 @@ public class AssetAdminShellController {
 
     log.info("List AAS request");
     return assetAdminShellObjectsService.getAllAssetAdministrationShells();
+  }
+
+  //use the params to filter by HTTP parameters
+  @GetMapping(value = "/listaas")
+  public List<Identifier> getAssetAdministrationShellIdList() {
+
+    return assetAdminShellObjectsService.getAASIdList();
   }
 
   //use the params to filter by HTTP parameters

@@ -1,5 +1,6 @@
 package com.sap.i40aas.datamanager.webService.services;
 
+import baseClasses.Identifier;
 import com.sap.i40aas.datamanager.errorHandling.DuplicateResourceException;
 import com.sap.i40aas.datamanager.persistence.entities.AssetAdministrationShellEntity;
 import com.sap.i40aas.datamanager.persistence.repositories.AssetAdministrationShellRepository;
@@ -92,4 +93,16 @@ public class AssetAdminShellObjectsService {
       throw new java.util.NoSuchElementException();
   }
 
+  public List<Identifier> getAASIdList() {
+
+    List<Identifier> aasIdList = new ArrayList<Identifier>();
+
+    List<AssetAdministrationShell> aasList = new ArrayList<>();
+    assetAdministrationShellRepository.findAll().forEach(assetAdministrationShellEntity -> {
+      aasIdList.add(AASObjectsDeserializer.Companion.deserializeAAS(assetAdministrationShellEntity.getAasObj()).getIdentification());
+    });
+    return aasIdList;
+
+
+  }
 }
