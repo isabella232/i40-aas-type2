@@ -2,13 +2,10 @@ package com.sap.i40aas.datamanager.webService.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.annotation.Order;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -64,19 +61,6 @@ public class JWTSecurity extends WebSecurityConfigurerAdapter {
     return jwtAuthenticationConverter;
   }
 
-  @Override
-  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    auth.inMemoryAuthentication()
-      .withUser("foo@bar.com").password(encoder().encode("user1Pass"))
-      .authorities("USER")
-      .and().withUser("aorzelski@phoenixcontact.com").password(encoder().encode("adminPass"))
-      .authorities("ADMIN");
-  }
-
-  @Bean
-  public PasswordEncoder encoder() {
-    return new BCryptPasswordEncoder();
-  }
 
 //  @Component
 //  public class FailureEvents {
