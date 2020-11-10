@@ -1,5 +1,6 @@
 package com.sap.i40aas.datamanager.webService.security;
 
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -13,12 +14,22 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @EnableWebSecurity
+@Order(100)
 public class JWTSecurity extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http
-      .authorizeRequests(authorize -> authorize
-        .anyRequest().authenticated()
+      .authorizeRequests(authorize -> {
+          try {
+            authorize
+              .anyRequest().authenticated()
+              .and()
+              .exceptionHandling()
+              .authenticationEntryPoint(authenticationEntryPoint());
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+        }
       )
       .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
   }
@@ -29,10 +40,20 @@ public class JWTSecurity extends WebSecurityConfigurerAdapter {
       @Override
       public void commence(HttpServletRequest aRequest, HttpServletResponse aResponse,
                            AuthenticationException aAuthException) throws IOException, ServletException {
-        aResponse.sendRedirect("https://admin-shell-io.com:50001/connect/authorize");
+        aResponse.setStatus(307);
       }
     };
   }
+
+//  @Component
+//  public class FailureEvents {
+//    @EventListener
+//    public void onFailure(AuthenticationFailureEvent failure) {
+//      if (badCredentials.getAuthentication() instanceof BearerTokenAuthenticationToken) {
+//        // ... handle
+//      }
+//    }
+//  }
 
 
 //  @Bean
