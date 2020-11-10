@@ -1,11 +1,16 @@
 package com.sap.i40aas.datamanager.webService.security;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
 import javax.servlet.ServletException;
@@ -22,6 +27,7 @@ public class JWTSecurity extends WebSecurityConfigurerAdapter {
       .authorizeRequests(authorize -> {
           try {
             authorize
+              .mvcMatchers("/listaas").hasAuthority("userName_aorzelski@phoenixcontact.com")
               .anyRequest().authenticated()
               .and()
               .exceptionHandling()
@@ -31,7 +37,8 @@ public class JWTSecurity extends WebSecurityConfigurerAdapter {
           }
         }
       )
-      .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
+      .oauth2ResourceServer().jwt()
+      .jwtAuthenticationConverter(jwtAuthenticationConverter());
   }
 
   private AuthenticationEntryPoint authenticationEntryPoint() {
@@ -43,6 +50,32 @@ public class JWTSecurity extends WebSecurityConfigurerAdapter {
         aResponse.setStatus(307);
       }
     };
+  }
+
+  //The jwt uses a custom claim (userName) that needs to be validated to check if the user is known
+  @Bean
+  public JwtAuthenticationConverter jwtAuthenticationConverter() {
+    JwtGrantedAuthoritiesConverter grantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
+    grantedAuthoritiesConverter.setAuthoritiesClaimName("userName");
+    grantedAuthoritiesConverter.setAuthorityPrefix("userName_");
+
+    JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
+    jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(grantedAuthoritiesConverter);
+    return jwtAuthenticationConverter;
+  }
+
+  @Override
+  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    auth.inMemoryAuthentication()
+      .withUser("foo@bar.com").password(encoder().encode("user1Pass"))
+      .authorities("USER")
+      .and().withUser("aorzelski@phoenixcontact.com").password(encoder().encode("adminPass"))
+      .authorities("ADMIN");
+  }
+
+  @Bean
+  public PasswordEncoder encoder() {
+    return new BCryptPasswordEncoder();
   }
 
 //  @Component
