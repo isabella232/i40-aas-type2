@@ -5,9 +5,12 @@ import com.sap.i40aas.datamanager.webService.services.AASEnvObjectsService;
 import identifiables.AssetAdministrationShellEnv;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import utils.AASObjectsDeserializer;
+
+import java.io.IOException;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -43,6 +46,17 @@ public class AASEnvController {
   public AssetAdministrationShellEnv getAssetAdministrationShellEnv(@RequestParam(name = "aasId", required = true) @IdURLConstraint String aasId) {
 
     return aasEnvService.getAASEnv(aasId);
+  }
+
+  //use the params to filter by HTTP parameters
+  @GetMapping(
+    value = "/aasx",
+    produces = MediaType.APPLICATION_OCTET_STREAM_VALUE
+  )
+  public @ResponseBody
+  byte[] getFile() throws IOException {
+    //no parameter since we return a predefined file
+    return aasEnvService.getAASx();
   }
 
 

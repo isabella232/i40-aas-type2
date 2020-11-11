@@ -8,11 +8,15 @@ import com.sap.i40aas.datamanager.persistence.repositories.AssetRepository;
 import com.sap.i40aas.datamanager.persistence.repositories.SubmodelRepository;
 import identifiables.*;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import types.KeyElementsEnum;
 import utils.AASObjectsDeserializer;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -147,4 +151,11 @@ public class AASEnvObjectsService {
   }
 
 
+  public byte[] getAASx() throws IOException {
+    InputStream file = new ClassPathResource(
+      "aasx/01_Festo.aasx").getInputStream();
+
+    return IOUtils.toByteArray(file);
+
+  }
 }

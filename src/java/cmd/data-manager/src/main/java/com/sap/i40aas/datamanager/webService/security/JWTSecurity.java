@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @EnableWebSecurity
+//lower order takes predecence when multiple auth mechanisms are used. In this case basic auth comes after
 @Order(100)
 public class JWTSecurity extends WebSecurityConfigurerAdapter {
   @Override
@@ -25,7 +26,8 @@ public class JWTSecurity extends WebSecurityConfigurerAdapter {
           try {
             authorize
               .mvcMatchers("/listaas").hasAuthority("userName_aorzelski@phoenixcontact.com")
-              .anyRequest().authenticated()
+              .mvcMatchers("/aasx").hasAuthority("userName_aorzelski@phoenixcontact.com")
+              .anyRequest().permitAll()
               .and()
               .exceptionHandling()
               .authenticationEntryPoint(authenticationEntryPoint());
