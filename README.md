@@ -119,6 +119,6 @@ This project follows the specification ["Details of the AssetAdministrationShell
 
 ## License
 
-Copyright (c) 2020 SAP SE or an SAP affiliate company and *i40-aas-type2* contributors. All rights reserved. This repository is licensed as noted in [LICENSES](LICENSES).
+Copyright (c) 2020-2021 SAP SE or an SAP affiliate company and *i40-aas-type2* contributors. All rights reserved. This repository is licensed as noted in [LICENSE](LICENSE). Detailed information including third-party components and their licensing/copyright information is available [via the REUSE tool](https://api.reuse.software/info/github.com/SAP/i40-aas-type2)
 
 Please note that Docker images can contain other software which may be licensed under different licenses. This License file is also included in the Docker image. For any usage of built Docker images please make sure to check the licenses of the artifacts contained in the images.
